@@ -1,0 +1,171 @@
+.profile-page-footer{
+    top:400px;
+    position: relative;
+}
+
+
+.account-header{
+    background-color: #ff0000;
+
+    align-items: center;
+    justify-content: flex-start;
+
+}
+.container-fluid{
+    position: relative;
+    margin-top: 10px;
+    margin-left: 100px;
+    width: 80%;
+    height: 800px;
+}
+.search-toolbar{
+
+    position: relative;
+
+    width: 100%;
+    height:50px;
+
+}
+
+.search-tool-left{
+    display: inline-flex;
+    align-items: stretch;
+    margin: 5px;
+    border: 2px solid #222;
+    border-radius: 4px;
+    padding: 3px;
+    outline: none;
+    color: #222;
+    background: white;
+
+
+}
+
+.search-results-time{
+
+    padding: 2px;
+
+}
+
+.page-change{
+    display: inline-flex;
+    align-items: center;
+    margin-left: 600px;
+
+}
+
+.leftArrowButton::before {
+    content: '\2190'; /* Unicode character for left arrow */
+    margin-right: 5px;
+
+}
+
+.rightArrowButton::after {
+    content: '\2192'; /* Unicode character for right arrow */
+    margin-left: 5px;
+}
+
+.ol{
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+
+}
+
+.box-search-result, .ol, .card-gallery1{
+    height: 200px;
+    list-style-type: none;
+    display: inline-block;
+    height: 316px;
+    width: 319px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 28px;
+    margin-left: 0px;
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0;
+    box-shadow: 0 0 7px 0 #ddd;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+
+}
+
+.gallery-inner, .main, .image{
+    width: 316px;
+    height: 237px;
+
+    position: relative;
+    background-image: url(https://media.wired.com/photos/593242b626780e6c04d2a936/master/w_1280%2Cc_limit/P90135132_highRes.jpg);
+    background-size: cover;
+
+}
+
+
+
+
+.a{
+    text-decoration:none;
+
+
+}
+
+
+
+.card-label{
+    position:relative;
+
+    display: flex;
+    left: 120px;
+
+}
+
+
+.dot-container{
+    position:relative;
+    text-align: center;
+    width: 100%;
+    top: 235px;
+}
+
+.lower-icon-container{
+    position: relative;
+    top: 260px;
+}
+
+.page-number{
+    margin:5px;
+    display: flex;
+
+
+}
+
+
+.profile-stuff{
+    position:relative;
+    height: 60px;
+
+}
+
+.logout-container{
+
+    float:right;
+
+    margin:5px;
+
+}
+
+.streamlined{
+
+    margin-top:100px;
+    margin-left:2px;
+
+
+}
+

@@ -1,0 +1,31 @@
+.dropzone.dz-started .dz-message{
+    display:block !important; 
+  }
+  .container {
+    position:relative;
+    height: 75%;
+    width: 80%;
+  }
+  
+  .container input {
+    width: 50%;
+    font-size: medium;
+  }
+  .container span {
+    font-size: large;
+  }
+  .container h1 {
+    font-size: xx-large;
+  }
+  .container textarea {
+    resize: none;
+    font-size: large;
+    height: 20vh;
+    width: 50%;
+  }
+  .container button {
+    width: 10%;
+  }
+  .post button {
+    height: 10vh;
+  }

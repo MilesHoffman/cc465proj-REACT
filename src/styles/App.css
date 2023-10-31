@@ -1,0 +1,159 @@
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Set a background color and font for the whole page */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: snow;
+    color: #333;
+  }
+  
+  /* Apply a subtle box shadow and padding to elements */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  
+  /* Create a header style with a background color and text color */
+  .header {
+    background-color: #007acc;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Style for buttons */
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007acc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #0055a4;
+  }
+  
+  /* Apply a responsive layout for smaller screens */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  
+    .header {
+      padding: 10px;
+    }
+  }
+  
+
+  .mainHeader {
+    top:0px;
+    position:fixed;
+    z-index: 10;
+    height: 130px;
+    width: 100%;
+    background-color: var(--BackgroundColor);
+    color: var(--PrimaryColor);
+    text-align: left;
+    border-bottom: 2px solid var(--ThirdColor);
+}
+
+.topSectionHeader{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-top: 0px;
+    max-height: 75px;
+}
+    .topSectionHeaderLogo{
+        display: inline;
+        font-family: var(--LogoFont);
+    }
+    .topsectionHeaderSearch {
+        display: flex;
+        align-items: center;
+        padding: 0px 30px;
+    }
+        .searchBarTextBox{
+            border-radius: 30px;
+            padding: 10px;
+            width: 200px;
+            height: 30px;
+            border: 2px solid var(--SecondaryColor);
+        }
+        
+    .topSectionHeaderRight {
+        display: flex;
+        flex-flow: row-reverse;
+        align-items: center;
+        margin-left: 600px;
+    }
+        .topSectionHeaderRight button {
+            margin-right: 20px;
+            padding: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+
+            font-size: 15px;
+            background-color: transparent;
+            border: transparent;
+        }
+.bottomSectionHeader{
+    position: relative;
+    display: flex;
+    flex-flow: row;
+
+    margin-left: 10px;
+    margin-top: 15px;
+}
+    .bottomSectionHeaderCategories{
+        position: relative;
+        width: 95%;
+        display: flex;
+        justify-content: center;
+    }
+        .bottomSectionHeaderCategories button{
+            border-radius: 20px;
+            padding: 5px 10px 5px 10px;
+            margin: 0 50px;
+            cursor: pointer;
+
+            font-size: 15px;
+
+            background-color: transparent;
+            border: transparent;
+        }
+    .bottomSectionHeaderRightSide{
+        width: auto;
+        position: relative;
+    }
+        .bottomSectionHeaderRightSide button{
+            margin-right: 30px;
+            padding: 5px 10px 5px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+
+            background-color: transparent;
+            border: solid firebrick 2px;
+        }
+
+
+        a{
+          color:black;
+          text-decoration: none;
+      }
+
+
+      

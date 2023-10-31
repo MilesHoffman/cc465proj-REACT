@@ -1,0 +1,38 @@
+.marketplace {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust the column width as needed */
+    grid-gap: 20px; /* Adjust the gap between cards as needed */
+    margin-top: 140px;
+    width: 80%;
+    max-width: 1200px; /* Limit the maximum width of the grid */
+    padding: 20px;
+  }
+  
+  .card {
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card img {
+    width: 100%; /* Make the image responsive within its container */
+  }
+  
+  .card .description {
+    text-align: center;
+  }
+  
+  .card:hover {
+    transition: 0.3s ease-in;
+    cursor: pointer;
+  }
+
+
+  

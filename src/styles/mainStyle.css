@@ -1,0 +1,26 @@
+:root {
+
+    /* COLOR SECTION -------------------------------------------> */
+
+    --BackgroundColor: #F6F6F6;
+
+    --HeaderColor: #F6F6F6;
+
+    --PrimaryColor: #ff7700;
+    --SecondaryColor: #FF9233;
+    --ThirdColor: #A04908;
+
+
+    /* FONT SECTION ---------------------------------------------> */
+
+    --LogoFont: "Cooper Black";
+
+
+    /* CONTROL'S CSS --------------------------------------------> */
+}
+
+
+input[type="text"]:focus {
+    border: solid var(--ThirdColor) 2px;
+    outline: none;
+}
