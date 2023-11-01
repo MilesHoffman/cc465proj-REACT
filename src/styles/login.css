@@ -1,20 +1,19 @@
 .container {
+    width: 40%;
+    height: 50%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.row1 {
-    text-align: right;
-}
-.inline-block {
-    display: inline-block;
-}
-.button2 {
-    padding-left: 100px
-}
-
 .form-check-input[type=checkbox] {
     border-radius: .25em;
     width: 2.1%;
 }
+/*
+.inputField {
+    width: 50ch;
+    max-width: 100%;
+    margin-bottom: 50px;
+}
+ */
