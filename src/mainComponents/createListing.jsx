@@ -1,6 +1,5 @@
 import React from "react"
-import './../styles/createListing.css'
-import Header from '../components/header'
+import '../styles/createListing.css'
 
 
 

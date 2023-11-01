@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from './header'
 import Sidefilter from '../components/sidefilter'
 import Card from '../components/card'
 import './../styles/card.css'

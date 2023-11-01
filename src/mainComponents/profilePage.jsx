@@ -1,6 +1,5 @@
 import React from 'react'
 import '../components/cardProfile'
-import Header from '../components/header'
 import '../styles/profilePage.css'
 import SearchToolbar from '../components/searchtoolbar'
 import CardProfile from '../components/cardProfile'
