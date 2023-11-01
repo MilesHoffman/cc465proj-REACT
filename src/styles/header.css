@@ -1,3 +1,14 @@
+@import "mainStyle.css";
+
+body{
+    margin: 0;
+    padding: 0;
+    padding-bottom: 180px;
+
+    max-width: 99%;
+    background-color: var(--BackgroundColor);
+}
+
 .mainHeader {
     top:0px;
     position:fixed;
@@ -10,35 +21,39 @@
     border-bottom: 2px solid var(--ThirdColor);
 }
 
-.topSectionHeader{
-    display: flex;
-    flex-direction: row;
-    margin-left: 10px;
-    margin-top: 0px;
-    max-height: 75px;
-}
-    .topSectionHeaderLogo{
-        display: inline;
-        font-family: var(--LogoFont);
-    }
-    .topsectionHeaderSearch {
+    .topSectionHeader{
         display: flex;
+        flex-direction: row;
+        margin-left: 10px;
+        margin-top: 15px;
         align-items: center;
-        padding: 0px 30px;
     }
+        .topSectionHeaderLogo{
+            display: inline;
+            font-family: var(--LogoFont);
+        }
+            .topSectionHeaderLogo h1{
+                font-size: 33px;
+            }
+        .topSectionHeaderSearch {
+            display: flex;
+            align-items: center;
+            padding: 0px 30px;
+        }
         .searchBarTextBox{
             border-radius: 30px;
-            padding: 10px;
-            width: 200px;
-            height: 30px;
+            margin-left: 20px;
+            padding: 15px;
+            width: 250px;
+            height: 50px;
             border: 2px solid var(--SecondaryColor);
         }
-        
+
     .topSectionHeaderRight {
         display: flex;
         flex-flow: row-reverse;
         align-items: center;
-        margin-left: 600px;
+        margin-left: auto;
     }
         .topSectionHeaderRight button {
             margin-right: 20px;
@@ -50,41 +65,50 @@
             background-color: transparent;
             border: transparent;
         }
-.bottomSectionHeader{
-    position: relative;
-    display: flex;
-    flex-flow: row;
-
-    margin-left: 10px;
-    margin-top: 15px;
-}
-    .bottomSectionHeaderCategories{
+    .bottomSectionHeader{
         position: relative;
-        width: 95%;
         display: flex;
-        justify-content: center;
+        flex-flow: row;
+
+        margin-left: 10px;
+        margin-top: 15px;
     }
-        .bottomSectionHeaderCategories button{
-            border-radius: 20px;
-            padding: 5px 10px 5px 10px;
-            margin: 0 50px;
-            cursor: pointer;
-
-            font-size: 15px;
-
-            background-color: transparent;
-            border: transparent;
+        .bottomSectionHeaderCategories{
+            position: relative;
+            width: 95%;
+            display: flex;
+            justify-content: center;
         }
-    .bottomSectionHeaderRightSide{
-        width: auto;
-        position: relative;
-    }
-        .bottomSectionHeaderRightSide button{
-            margin-right: 30px;
-            padding: 5px 10px 5px 10px;
-            border-radius: 20px;
-            cursor: pointer;
+            .bottomSectionHeaderCategories button{
+                border-radius: 20px;
+                padding: 5px 10px 5px 10px;
+                margin: 0 50px;
+                cursor: pointer;
 
-            background-color: transparent;
-            border: solid firebrick 2px;
+                font-size: 15px;
+
+                background-color: transparent;
+                border: transparent;
+            }
+        .bottomSectionHeaderRightSide{
+            width: auto;
+            position: relative;
         }
+            .bottomSectionHeaderRightSide button{
+                margin-right: 30px;
+                padding: 5px 10px 5px 10px;
+                border-radius: 20px;
+                cursor: pointer;
+
+                background-color: transparent;
+                border: solid firebrick 2px;
+            }
+.login {
+    position: relative;
+    visibility: hidden;
+}
+.createUser {
+    position: relative;
+    visibility: hidden;
+}
+

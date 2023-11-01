@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './components/header.jsx'
 import Card from './components/card'
 import Marketplace from './mainComponents/marketplace'
-import './styles/App.css'
+import './styles/mainStyle.css'
 import ProfilePage from './mainComponents/profilePage.jsx'
 import CreateListing from './mainComponents/createListing.jsx'
 import CreateUser from './mainComponents/createUser.jsx'
@@ -39,57 +39,16 @@ const router = createBrowserRouter([
 
 const App = () => {
   
-  const navigate = useNavigate()
+
 
   return (
   
     <div>
       <nav>
-        <form class="mainHeader">
-        <div class="topSectionHeader">
-
-            <div class="topSectionHeaderLogo">
-                <h1>Community Comrades</h1>
-            </div>
-
-            <div class="topsectionHeaderSearch">
-                <input type="text" class="searchBarTextBox" placeholder="Search..."/>
-            </div>
-
-            
-                <div class="topSectionHeaderRight">
-                    
-                <a class="badge badge-primary">
-                
-                <button  onClick={() => navigate('/profile')} class="btn btn-primary btn-sm"to="/profile" id="dropBtn">Profile</button>
-                   
-                <button  onClick={() => navigate('/createListing')}class="btn btn-primary btn-sm"type="button" id="dropBtn">Post</button>
-                </a>
-                
-                </div>
-                
-            
-
-        </div>
-
-        <div class="bottomSectionHeader">
-
-            <div class="bottomSectionHeaderCategories">
-                <button type="button">Technology</button>
-                <button type="button">Homer</button>
-                <button type="button">Apparel</button>
-                <button type="button">Automobiles</button>
-                <button type="button">Games</button>
-            </div>
-
-            <div class="bottomSectionHeaderRightSide">
-
-            </div>
-
-        </div>
-
-    </form>
-    </nav>
+          <div className={Header}>
+              <Header></Header>
+          </div>
+      </nav>
         <main>
         
           <Routes>

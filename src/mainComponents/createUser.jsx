@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import Header from '../components/header'
 import '../styles/createUser.css'
 
 function InputField({labelName, textType, change, changeHandler}) {
