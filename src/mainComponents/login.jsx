@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import './../styles/login.css'
+import '../styles/inputPages.css';
+
+import CreateUserContainer from "./createUser.jsx";
 
 //text fields
 function InputField({labelName, textType, change, changeHandler}) {
@@ -12,7 +14,7 @@ function InputField({labelName, textType, change, changeHandler}) {
         </label>
         <br></br>
         <input
-            style={{maxWidth: '50ch'}}
+            style={{width: '40ch'}}
             className="inputField"
             type={(!textType && labelName==="Password") ? "password" : "text"}
             value={change}
@@ -38,10 +40,17 @@ function PasswordCheckbox({change, changeHandler}) {
 }
 
 //submit button
-function SubmitButton() {
+function SubmitButton({buttonName, buttonType, change, changeHandler}) {
   return (
-      <form>
-        <button type="submit" className="btn btn-primary">Submit</button>
+      <form className="submitButtons">
+        <button
+            type={buttonType}
+            className="btn btn-primary"
+            value={change}
+            onClick={changeHandler}
+        >
+            {buttonName}
+        </button>
       </form>
   );
 }
@@ -51,9 +60,18 @@ function LoginContainer() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passCheckbox, setPassCheckbox] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+      setShowPopup(!showPopup);
+  }
 
   return (
-    <div className="container">
+    <div className="container popup">
+        <h1 style={{textAlign: 'center'}}>
+            Login
+        </h1>
+
       <InputField
           labelName="Username"
           textType={passCheckbox}
@@ -66,74 +84,29 @@ function LoginContainer() {
           change={password}
           changeHandler={setPassword} />
 
+      <br />
+
       <PasswordCheckbox
           change={passCheckbox}
           changeHandler={setPassCheckbox} />
 
-      <SubmitButton />
+      <br />
+
+      <SubmitButton
+          buttonName="CREATE USER"
+          buttonType="button"
+          change={showPopup}
+          changeHandler={togglePopup} />
+
+      <SubmitButton
+          buttonName="LOGIN"
+          buttonType="submit" />
+
+        <div>
+            { showPopup && <CreateUserContainer showPopup={showPopup} togglePopup={togglePopup}/> }
+        </div>
     </div>
   );
 }
 
 export default LoginContainer
-
-/*function Login(){
-
-  //state variables and handlers
-  const [userEm, setUserEm] = useState('');
-  const [userPass, setUserPass] = useState('');
-
-  //log in console through inspect element
-  console.log(userEm)
-  console.log(userPass)
-
-  //handlers
-  const handleEmailChange = (e) => {
-    setUserEm(e.target.value);
-  }
-  const handlePassChange = (e) => {
-    setUserPass(e.target.value);
-  }
-
-  return (
-    <div className="container">
-      <form>
-        <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-          <input
-            value={userEm}
-            onChange={handleEmailChange}
-            type="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            required
-          />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-          <input
-            value={userPass}
-            onChange={handlePassChange}
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            required
-          />
-        </div>
-        <div className="mb-3 form-check">
-          <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-          <label className="form-check-label" htmlFor="exampleCheck1">Check</label>
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
-
-      <div className="row2">
-      </div>
-    </div>
-  )
-}*/

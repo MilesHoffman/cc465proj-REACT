@@ -1,0 +1,38 @@
+@import "mainStyle.css";
+
+.container {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.popup {
+    z-index: 9999;
+}
+
+.container textarea {
+    resize: none;
+}
+
+.container button {
+    width: fit-content;
+}
+
+.btn-primary {
+    --bs-btn-color: black;
+    background: var(--PrimaryColor);
+    border: 2px solid var(--SecondaryColor);
+}
+
+.submitButtons {
+    width: 50%;
+    display: inline-block;
+}
+
+.form-check-input[type=checkbox] {
+    border-radius: .25em;
+    width: 20px;
+}

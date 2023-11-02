@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
-import './../styles/createListing.css'
-import Header from '../components/header'
+import React, {useState} from 'react';
+import '../styles/inputPages.css';
 
 function InputField({labelName, change, changeHandler}) {
     return(
@@ -10,7 +9,7 @@ function InputField({labelName, change, changeHandler}) {
             </label>
             <br></br>
             <input
-                style={{maxWidth: '50ch'}}
+                style={{width: '50ch'}}
                 className="inputField"
                 type="text"
                 value={change}
@@ -29,7 +28,7 @@ function DescriptionBox({labelName, change, changeHandler}) {
             <p>
                 <textarea
                     rows="4"
-                    cols="50"
+                    style={{width: '50ch'}}
                     value={change}
                     onChange={(e) => changeHandler(e.target.value)}
                 ></textarea>
@@ -44,11 +43,10 @@ function AddPicture({change, changeHandler}) {
                 type="file"
                 accept="image/*"
                 onChange={(e) => {  const file = e.target.files[0];
-                                                                        changeHandler(file);            }}/>
+                                                                        changeHandler(file);            }} />
             <br />
             {change && <img src={URL.createObjectURL(change)} alt="Uploaded" style={{maxWidth: '300px', maxHeight: '200px'}} />}
         </form>
-
     );
 }
 function SubmitButton() {
@@ -87,9 +85,13 @@ function CreateListingContainer() {
                 change={desc}
                 changeHandler={setDesc} />
 
+            <br />
+
             <AddPicture
                 change={image}
                 changeHandler={setImage} />
+
+            <br />
 
             <SubmitButton />
         </div>
@@ -97,100 +99,4 @@ function CreateListingContainer() {
 }
 
 export default CreateListingContainer
-
-/*function CreateListing(){
-
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
-  const [price, setPrice] = useState('');
-  const [desc, setDesc] = useState('');
-
-  console.log(name);
-  console.log(location);
-  console.log(price);
-  console.log(desc);
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  }
-  const handleLocationChange = (e) => {
-    setLocation(e.target.value);
-  }
-  const handlePriceChange = (e) => {
-    setPrice(e.target.value);
-  }
-  const handleDescChange = (e) => {
-    setDesc(e.target.value);
-  }
-
-    return(
-      <div className="container">
-        <h1>
-          Create a Listing
-        </h1>
-
-        <span>Listing Name</span>
-        <form>
-          <div className="form-group">
-            <p>
-              <label>
-                <input type="text"
-                       value={name}
-                       onChange={handleNameChange}
-                />
-              </label>
-            </p>
-          </div>
-        </form>
-
-        <span>Location</span>
-        <form>
-          <p>
-            <label>
-              <input type="text"
-                     value={location}
-                     onChange={handleLocationChange}
-              />
-            </label>
-          </p>
-        </form>
-
-        <span>Price</span>
-        <form>
-          <p>
-            <label>
-              <input type="text"
-                     value={price}
-                     onChange={handlePriceChange}
-              />
-            </label>
-          </p>
-        </form>
-
-        <span>Product Description</span>
-        <form>
-          <p>
-            <textarea rows="4"
-                      cols="50"
-                      value={desc}
-                      onChange={handleDescChange}
-            ></textarea>
-          </p>
-        </form>
-
-        <div  id="dropZone">
-          <p>
-            <button  className="btn btn-primary btn-sm"type="button" id="dropBtn">Add Picture</button>
-          </p>
-        </div>
-
-        <form className="post">
-          <p>
-            <button className="btn btn-primary btn-sm" type="submit">Post</button>
-          </p>
-        </form>
-
-      </div>
-    )
-}*/
 

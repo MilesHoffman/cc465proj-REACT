@@ -103,12 +103,5 @@ body{
                 background-color: transparent;
                 border: solid firebrick 2px;
             }
-.login {
-    position: relative;
-    visibility: hidden;
-}
-.createUser {
-    position: relative;
-    visibility: hidden;
-}
+
 

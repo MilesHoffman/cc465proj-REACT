@@ -1,16 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../styles/header.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {useNavigate} from "react-router-dom";
 
+import LoginContainer from '../mainComponents/login.jsx';
 
-function Header() {
 
-    const navigate = useNavigate()
+function Header({loggedIn}) {
+    const navigate = useNavigate();
+
+    const [showPopup, setShowPopup] = useState(false);
+
+    const togglePopup = () => {
+        setShowPopup(!showPopup);
+    }
 
     return(
-
         <body>
             <form className={"mainHeader"}>
                 <div className={"topSectionHeader"}>
@@ -25,8 +31,18 @@ function Header() {
 
                     <div className={"topSectionHeaderRight"}>
                         <a className={"badge badge-primary"}>
-                            <button  onClick={() => navigate('/createListing')} className={"btn btn-primary btn-sm"} type="button" id="dropBtn">Post</button>
-                            <button  onClick={() => navigate('/profile')} className={"btn btn-primary btn-sm"} to={"/profile"} id="dropBtn">Profile</button>
+                            <button  onClick={() => navigate('/createListing')}
+                                     className={"btn btn-primary btn-sm"}
+                                     type="button"
+                                     id="dropBtn">
+                                Post
+                            </button>
+                            <button  onClick={() => {loggedIn ? navigate('/profile') : togglePopup()}}
+                                     className={"btn btn-primary btn-sm"}
+                                     type="button"
+                                     id="dropBtn">
+                                Profile
+                            </button>
                         </a>
                     </div>
                 </div>
@@ -47,10 +63,10 @@ function Header() {
 
                 </div>
 
-                <div id="login-container" className="login"></div>
-                <div id="createUser-container" className="createUser"></div>
-
             </form>
+            <div>
+                { showPopup && <LoginContainer /> }
+            </div>
         </body>
 
     )

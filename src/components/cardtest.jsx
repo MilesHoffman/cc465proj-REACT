@@ -4,7 +4,7 @@ import './../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './../styles/card.css'
 
 
-const Cardtest = (props) => {
+const CardTest = (props) => {
   
     const {id, productName, price, location, productImage} = props.data
   
@@ -12,7 +12,7 @@ const Cardtest = (props) => {
         <>
         <div className='card'>
         <div className="product">
-      <img src={productImage} style={{ backgroundImage: `url(${productImage})` ,width: '100%', height: 'auto' }}/>
+      <img src={productImage} alt="Uploaded" style={{ backgroundImage: `url(${productImage})` ,width: '100%', height: 'auto' }}/>
       <div className="description">
         <p>
           <b>{productName}</b>
@@ -31,4 +31,4 @@ const Cardtest = (props) => {
   )
 }
 
-export default Cardtest
+export default CardTest
