@@ -62,7 +62,7 @@ async function doValidateLogin(username, password ){
         }
 
         // Searching for the user in the database
-        const valid = await col.findOne(userQuery);
+        const valid = col.findOne(userQuery);
 
         // Outputs if the user was found
         if( valid ) {

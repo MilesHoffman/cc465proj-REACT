@@ -10,8 +10,10 @@ import LoginContainer from '../mainComponents/login.jsx';
 function Header({loggedIn}) {
     const navigate = useNavigate();
 
+    //use state value to open the login popup
     const [showPopup, setShowPopup] = useState(false);
 
+    //function to trigger the state value, makes it simpler to use
     const togglePopup = () => {
         setShowPopup(!showPopup);
     }
@@ -22,7 +24,10 @@ function Header({loggedIn}) {
                 <div className={"topSectionHeader"}>
 
                     <div className={"topSectionHeaderLogo"}>
-                        <h1>Community Comrades</h1>
+                        <button onClick={() => navigate('/')}
+                                type="button">
+                            Community Comrades
+                        </button>
                     </div>
 
                     <div className={"topsectionHeaderSearch"}>

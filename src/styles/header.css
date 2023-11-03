@@ -32,8 +32,11 @@ body{
             display: inline;
             font-family: var(--LogoFont);
         }
-            .topSectionHeaderLogo h1{
+            .topSectionHeaderLogo button{
+                color: var(--PrimaryColor);
                 font-size: 33px;
+                background-color: transparent;
+                border: transparent;
             }
         .topSectionHeaderSearch {
             display: flex;
