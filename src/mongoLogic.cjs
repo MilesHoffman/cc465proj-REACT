@@ -19,9 +19,24 @@ async function connectUsers(){
     }
 }
 
+// Calls validateLogin implementation
+export function ValidateLogin(username, password){
+
+    const call = async () => {
+
+        try {
+            // Call validateLogin and await its result
+            await validateLoginImplementation(username, password);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+}
+
 
 // Checks the database to see if it is a valid login.
-async function validateLogin(username, password ){
+async function validateLoginImplementation(username, password ){
 
     try{
 
@@ -37,7 +52,10 @@ async function validateLogin(username, password ){
         const valid = col.findOne(userQuery);
 
         // Outputs if the user was found
-        if( valid ) console.log("User login successful: " + valid);
+        if( valid ) {
+            console.log("User login successful: " + valid);
+
+        }
         else console.log("User login failed: " + valid);
     }
     catch( err ){
@@ -71,6 +89,4 @@ async function createUser( email, username, password ) {
         await client.close()
     }
 }
-
-
 
