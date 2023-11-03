@@ -1,5 +1,5 @@
 // Initializing the variables to connect to the database.
-import {MongoClient} from "mongodb";
+const {MongoClient} = require("mongodb");
 const url = "mongodb+srv://cc465proj:cc465proj@cluster0.3wpv56y.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(url);
 const dbName = "CommunityComrades";
@@ -20,23 +20,25 @@ async function connectUsers(){
 }
 
 // Calls validateLogin implementation
-export function ValidateLogin(username, password){
+function validateLogin(username, password){
 
     const call = async () => {
 
         try {
             // Call validateLogin and await its result
-            await validateLoginImplementation(username, password);
+            await doValidateLogin(username, password);
         }
         catch (error) {
             console.error(error);
         }
     };
+
+    const result = call();
 }
 
 
 // Checks the database to see if it is a valid login.
-async function validateLoginImplementation(username, password ){
+async function doValidateLogin(username, password ){
 
     try{
 
@@ -49,7 +51,7 @@ async function validateLoginImplementation(username, password ){
         }
 
         // Searching for the user in the database
-        const valid = col.findOne(userQuery);
+        const valid = await col.findOne(userQuery);
 
         // Outputs if the user was found
         if( valid ) {
@@ -66,9 +68,24 @@ async function validateLoginImplementation(username, password ){
     }
 }
 
+function createUser( email, username, password ){
+
+    const call = async () => {
+
+        try {
+            // Call validateLogin and await its result
+            await doCreateUser(email, username, password);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
+    const result = call();
+}
 
 // Creates a new user
-async function createUser( email, username, password ) {
+async function doCreateUser( email, username, password ) {
 
     try {
         await connectUsers(); // Connects to user collection
@@ -88,5 +105,12 @@ async function createUser( email, username, password ) {
     finally {
         await client.close()
     }
+
+
+
 }
 
+module.exports = {
+    validateLogin,
+    createUser
+}
