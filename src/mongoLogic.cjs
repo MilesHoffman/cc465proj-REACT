@@ -5,11 +5,10 @@ const client = new MongoClient(url);
 const dbName = "CommunityComrades";
 let col = '';
 
-// Starts the connection to the Users collection
+// Starts the connection to the Users collection. Does not close it.
 async function connectUsers(){
 
     try {
-        // Connecting to the Users collection.
         await client.connect();
         const db = client.db(dbName);
         col = db.collection("Users");
@@ -19,25 +18,37 @@ async function connectUsers(){
     }
 }
 
-// Calls validateLogin implementation
+// Starts connection to the Listings collection. Does not close connection.
+async function connectListings() {
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        col = db.collection("Listings");
+    }
+    catch (err){
+        console.log(err)
+    }
+}
+
+// Calls validateLogin implementation. Returns a bool based on the credentials entered.
 function validateLogin(username, password){
 
     const call = async () => {
 
         try {
-            // Call validateLogin and await its result
-            await doValidateLogin(username, password);
+            return await doValidateLogin(username, password);
         }
         catch (error) {
             console.error(error);
         }
     };
 
-    const result = call();
+    return call();
 }
 
 
-// Checks the database to see if it is a valid login.
+// Checks the database to see if it is a valid login. Returns a bool based on credentials entered.
 async function doValidateLogin(username, password ){
 
     try{
@@ -46,8 +57,8 @@ async function doValidateLogin(username, password ){
 
         // Creating the user query
         let userQuery = {
-            "username" : username,
-            "password" : password
+            "Username" : username,
+            "Password" : password
         }
 
         // Searching for the user in the database
@@ -56,9 +67,12 @@ async function doValidateLogin(username, password ){
         // Outputs if the user was found
         if( valid ) {
             console.log("User login successful: " + valid);
-
+            return true;
         }
-        else console.log("User login failed: " + valid);
+        else {
+            console.log("User login failed: " + valid);
+            return false;
+        }
     }
     catch( err ){
         console.log(err)
@@ -68,12 +82,13 @@ async function doValidateLogin(username, password ){
     }
 }
 
+
+// Calls createUser implementation. Creates a new user.
 function createUser( email, username, password ){
 
     const call = async () => {
 
         try {
-            // Call validateLogin and await its result
             await doCreateUser(email, username, password);
         }
         catch (error) {
@@ -92,12 +107,19 @@ async function doCreateUser( email, username, password ) {
 
         // Initializes the user
         let user = {
-            "email" : email,
-            "username" : username,
-            "password" : password
+            "Email" : email,
+            "Username" : username,
+            "Password" : password
         }
 
         const product = await col.insertOne(user); // Inserts the user
+
+        if( await col.findOne(user) ) {
+            console.log("User found in database. ~Probably created");
+        }
+        else {
+            console.log("User not found in database. ~Probably not created")
+        }
     }
     catch (err){
         console.log(err);
@@ -105,12 +127,62 @@ async function doCreateUser( email, username, password ) {
     finally {
         await client.close()
     }
-
-
-
 }
+
+
+// Calls implementation for createListing. Creates a new listing.
+function createListing( name, location, price, desc, pictures ){
+
+    const call = async () => {
+
+        try {
+            await doCreateListing(name, location, price, desc, pictures);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
+    const result = call();
+}
+
+
+// Implementation to create a listing.
+async function doCreateListing( name, location, price, desc, pictures ){
+
+    try {
+        await connectListings(); // Connects to user collection
+
+        // Initializes the user
+        let listing = {
+            "Name" : name,
+            "Location" : location,
+            "Price" : price,
+            "Description" : desc,
+            "Pictures" : pictures
+        }
+
+        const product = await col.insertOne(listing); // Inserts the user
+
+        if( await col.findOne(listing) ) {
+            console.log("Listing found in database. ~Probably created");
+        }
+        else {
+            console.log("Listing not found in database. ~Probably not created")
+        }
+    }
+    catch (err){
+        console.log(err);
+    }
+    finally {
+        await client.close()
+    }
+}
+
+
 
 module.exports = {
     validateLogin,
-    createUser
+    createUser,
+    createListing
 }

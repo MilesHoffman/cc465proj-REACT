@@ -1,11 +1,10 @@
 @import "mainStyle.css";
 
 .container {
-    top: 150px;
     width: fit-content;
     height: fit-content;
     position: absolute;
-    top: 50%;
+    top: 380px;
     left: 50%;
     transform: translate(-50%, -50%);
 }
