@@ -13,7 +13,7 @@ async function connectUsers(){
     try {
         await client.connect();
         const db = client.db(dbName);
-        col = await db.collection("Users");
+        col = db.collection("Users");
     }
     catch (err){
         console.log(err)
@@ -25,8 +25,8 @@ async function connectListings() {
 
     try {
         await client.connect();
-        const db = await client.db(dbName);
-        col = await db.collection("Listings");
+        const db = client.db(dbName);
+        col = db.collection("Listings");
     }
     catch (err){
         console.log(err)
@@ -39,7 +39,7 @@ function validateLogin(username, password){
     const call = async () => {
 
         try {
-            return await doValidateLogin(username, password);
+            return doValidateLogin(username, password);
         }
         catch (error) {
             console.error(error);
@@ -53,6 +53,8 @@ function validateLogin(username, password){
 // Checks the database to see if it is a valid login. Returns a bool based on credentials entered.
 async function doValidateLogin(username, password ){
 
+    let valid;
+
     try{
 
         await connectUsers();
@@ -64,24 +66,24 @@ async function doValidateLogin(username, password ){
         }
 
         // Searching for the user in the database
-        const valid =  col.findOne(userQuery);
+        valid =  await col.findOne(userQuery);
 
         // Outputs if the user was found
         if( valid ) {
             console.log("User login successful: " + valid);
-            return true;
         }
         else {
             console.log("User login failed: " + valid);
-            return false;
         }
     }
     catch( err ){
         console.log(err)
     }
-    finally{
-        await client.close()
-    }
+
+    setTimeout(() => {client.close()}, 1500)
+
+    if( valid ) return true;
+    else return false;
 }
 
 
