@@ -27,10 +27,10 @@ app.post('/api/login', (req, res) => {
     const isValid = validateLogin(username, password);
 
     if (isValid) {
-        res.json({message: 'Login successful'}); // Example response
+        res.json({message: 'Login successful' + isValid}); // Example response
     }
     else {
-        res.json({message: 'Login failed'});
+        res.json({message: 'Login failed' + isValid});
     }
 });
 
