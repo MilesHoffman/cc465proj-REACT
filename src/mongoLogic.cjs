@@ -5,13 +5,15 @@ const client = new MongoClient(url);
 const dbName = "CommunityComrades";
 let col = '';
 
+
+
 // Starts the connection to the Users collection. Does not close it.
 async function connectUsers(){
 
     try {
         await client.connect();
         const db = client.db(dbName);
-        col = db.collection("Users");
+        col = await db.collection("Users");
     }
     catch (err){
         console.log(err)
@@ -23,8 +25,8 @@ async function connectListings() {
 
     try {
         await client.connect();
-        const db = client.db(dbName);
-        col = db.collection("Listings");
+        const db = await client.db(dbName);
+        col = await db.collection("Listings");
     }
     catch (err){
         console.log(err)
@@ -62,7 +64,7 @@ async function doValidateLogin(username, password ){
         }
 
         // Searching for the user in the database
-        const valid = col.findOne(userQuery);
+        const valid =  col.findOne(userQuery);
 
         // Outputs if the user was found
         if( valid ) {
@@ -180,7 +182,7 @@ async function doCreateListing( name, location, price, desc, pictures ){
 }
 
 
-
+// USE THE WRAPPER CLASS NOT THE IMPLEMENTATION CLASS. Unless you don't want to.
 module.exports = {
     validateLogin,
     createUser,
