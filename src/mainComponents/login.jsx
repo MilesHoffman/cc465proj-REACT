@@ -39,7 +39,7 @@ function PasswordCheckbox({change, changeHandler}) {
   );
 }
 
-//submit button
+// Creates a submit type button using the arguments.
 function SubmitButton({buttonName, buttonType, change, changeHandler}) {
   return (
       <form className="submitButtons">
@@ -100,7 +100,8 @@ function LoginContainer() {
 
       <SubmitButton
           buttonName="LOGIN"
-          buttonType="submit" />
+          buttonType="submit"
+      />
 
         <div>
             { showPopup && <CreateUserContainer showPopup={showPopup} togglePopup={togglePopup}/> }
