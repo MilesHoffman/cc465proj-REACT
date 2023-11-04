@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import LoginContainer from '../mainComponents/login.jsx';
 
 
-function Header({loggedIn}) {
+function Header({loggedInStatus, loggedInStatusHandler}) {
     const navigate = useNavigate();
 
     //use state value to open the login popup
@@ -42,7 +42,7 @@ function Header({loggedIn}) {
                                      id="dropBtn">
                                 Post
                             </button>
-                            <button  onClick={() => {loggedIn ? navigate('/profile') : togglePopup()}}
+                            <button  onClick={() => {loggedInStatus ? navigate('/profile') : togglePopup()}}
                                      className={"btn btn-primary btn-sm"}
                                      type="button"
                                      id="dropBtn">
@@ -70,7 +70,7 @@ function Header({loggedIn}) {
 
             </form>
             <div>
-                { showPopup && <LoginContainer /> }
+                { showPopup && <LoginContainer loggedInStatus={loggedInStatus} loggedInStatusHandler={loggedInStatusHandler}/> }
             </div>
         </body>
 

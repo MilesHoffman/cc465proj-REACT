@@ -56,7 +56,7 @@ function SubmitButton({buttonName, buttonType, change, changeHandler}) {
 }
 
 //container for elements
-function LoginContainer() {
+function LoginContainer({loggedInStatusHandler}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passCheckbox, setPassCheckbox] = useState(false);
@@ -72,7 +72,6 @@ function LoginContainer() {
           method: "POST", // *GET, POST, PUT, DELETE, etc.
           mode: "cors", // no-cors, *cors, same-origin
           cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "same-origin", // include, *same-origin, omit
           headers: {
               "Content-Type": "application/json",
               // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -83,7 +82,8 @@ function LoginContainer() {
       })
         .then(response => response.json())
         .then(data => console.log(data))
-        .catch(error => console.error('Error fetching data:', error));
+        .catch(error => console.error('Error fetching data:', error))
+
   }
 
   const togglePopup = () => {

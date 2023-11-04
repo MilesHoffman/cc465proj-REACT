@@ -35,16 +35,18 @@ const router = createBrowserRouter([
 ])
 
 
-const App = () => {
 
-    //bool value to track whether user is logged in or not
-    const [loggedIn, setLoggedIn] = useState(false);
+const App = () => {
+    const [loggedInStatus, setLoggedInStatus] = useState(false);
+    function toggleLoggedInStatus(){
+        setLoggedInStatus(!loggedInStatus);
+    }
 
   return (
     <div>
       <nav>
           <div className={Header}>
-              <Header loggedIn={loggedIn}/>
+              <Header loggedIn={loggedInStatus}/>
           </div>
       </nav>
         <main>
