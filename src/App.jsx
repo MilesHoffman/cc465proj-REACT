@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Header from './components/header.jsx'
 import Card from './components/card'
 import Marketplace from './mainComponents/marketplace'
@@ -37,15 +37,26 @@ const router = createBrowserRouter([
 
 const App = () => {
     let [loggedInStatus, setLoggedInStatus] = useState(false);
-    function toggleLoggedInStatus(){
-        setLoggedInStatus(!loggedInStatus);
+    const toggleLoggedInStatus = (state) => {
+        setLoggedInStatus(state);
+        sessionStorage.setItem('loggedInStatus', state);
     }
+    console.log("LOGGED IN STATUS: ", loggedInStatus);
+
+
+    useEffect(() => {
+        // Check if there's a stored login status in sessionStorage
+        const storedLoggedInStatus = sessionStorage.getItem('loggedInStatus');
+        if (storedLoggedInStatus === 'true') {
+            setLoggedInStatus(true);
+        }
+    }, []);
 
   return (
     <div>
       <nav>
           <div className={Header}>
-              <Header loggedIn={loggedInStatus}/>
+              <Header loggedInStatus={loggedInStatus} loggedInStatusHandler={toggleLoggedInStatus}/>
           </div>
       </nav>
         <main>

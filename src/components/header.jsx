@@ -18,6 +18,8 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
         setShowPopup(!showPopup);
     }
 
+    console.log("HEADER LOGGED IN STATUS: ", loggedInStatus);
+
     return(
         <body>
             <form className={"mainHeader"}>

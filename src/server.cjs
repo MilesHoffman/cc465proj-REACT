@@ -35,9 +35,10 @@ app.post('/api/login',  async (req, res) => {
     const isValid = await validateLogin(username, password);
 
     if (isValid) {
-        res.json({message: 'Login is successful ' + isValid}); // Example response
-    } else {
-        res.json({message: 'Login failed ' + isValid});
+        res.json({message: 'Login successful' + isValid}); // Example response
+    }
+    else {
+        res.status(401).json({message: 'Invalid Credentials'});
     }
 });
 
