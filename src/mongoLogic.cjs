@@ -39,10 +39,12 @@ function validateLogin(username, password){
     const call = async () => {
 
         try {
-            return doValidateLogin(username, password);
+            const valid = await doValidateLogin(username, password);
+            return valid;
         }
         catch (error) {
             console.error(error);
+            return false;
         }
     };
 
@@ -79,11 +81,13 @@ async function doValidateLogin(username, password ){
     catch( err ){
         console.log(err)
     }
+    finally{
 
-    setTimeout(() => {client.close()}, 1500)
+        await client.close();
 
-    if( valid ) return true;
-    else return false;
+        if( valid ) return true;
+        else return false;
+    }
 }
 
 
@@ -135,12 +139,12 @@ async function doCreateUser( email, username, password ) {
 
 
 // Calls implementation for createListing. Creates a new listing.
-function createListing( name, location, price, desc, pictures ){
+function createListing( name, location, price, desc, pictures, username ){
 
     const call = async () => {
 
         try {
-            await doCreateListing(name, location, price, desc, pictures);
+            await doCreateListing(name, location, price, desc, pictures, username );
         }
         catch (error) {
             console.error(error);
@@ -152,7 +156,7 @@ function createListing( name, location, price, desc, pictures ){
 
 
 // Implementation to create a listing.
-async function doCreateListing( name, location, price, desc, pictures ){
+async function doCreateListing( name, location, price, desc, pictures, username ){
 
     try {
         await connectListings(); // Connects to user collection
@@ -163,7 +167,8 @@ async function doCreateListing( name, location, price, desc, pictures ){
             "Location" : location,
             "Price" : price,
             "Description" : desc,
-            "Pictures" : pictures
+            "Pictures" : pictures,
+            "Username" : username
         }
 
         const product = await col.insertOne(listing); // Inserts the user
@@ -182,6 +187,9 @@ async function doCreateListing( name, location, price, desc, pictures ){
         await client.close()
     }
 }
+
+
+
 
 
 // USE THE WRAPPER CLASS NOT THE IMPLEMENTATION CLASS. Unless you don't want to.

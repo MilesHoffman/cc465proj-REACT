@@ -35,9 +35,8 @@ const router = createBrowserRouter([
 ])
 
 
-
 const App = () => {
-    const [loggedInStatus, setLoggedInStatus] = useState(false);
+    let [loggedInStatus, setLoggedInStatus] = useState(false);
     function toggleLoggedInStatus(){
         setLoggedInStatus(!loggedInStatus);
     }
