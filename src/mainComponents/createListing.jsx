@@ -67,6 +67,8 @@ function CreateListingContainer() {
 
     async function sendData() {
 
+        console.log("Sending Data...")
+
         const data = { name, location, price, desc, image };
 
         // Default options are marked with *
@@ -84,8 +86,7 @@ function CreateListingContainer() {
         })
             .then(response => response.json())
             .then(data => console.log(data))
-            .catch(error => console.error('Error fetching data:', error))
-
+            .catch(error => console.error('Error fetching data:', error));
     }
 
     return (

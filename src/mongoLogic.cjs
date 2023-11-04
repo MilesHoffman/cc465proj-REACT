@@ -72,10 +72,10 @@ async function doValidateLogin(username, password ){
 
         // Outputs if the user was found
         if( valid ) {
-            console.log("User login successful: " + valid);
+            console.log("User login was successful: " + valid);
         }
         else {
-            console.log("User login failed: " + valid);
+            console.log("User login FAILED: " + valid);
         }
     }
     catch( err ){
