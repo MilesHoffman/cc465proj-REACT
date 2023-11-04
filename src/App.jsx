@@ -53,7 +53,7 @@ const App = () => {
     }, []);
 
   return (
-    <div>
+    <body>
       <nav>
           <div className={Header}>
               <Header loggedInStatus={loggedInStatus} loggedInStatusHandler={toggleLoggedInStatus}/>
@@ -71,7 +71,7 @@ const App = () => {
           </Routes>
         
         </main>
-     </div>
+     </body>
   );
 }
 
