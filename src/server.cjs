@@ -45,6 +45,8 @@ app.post('/api/login',  async (req, res) => {
 // This will get the request to create a new listing.
 app.post('/api/createListing', (req, res) => {
 
+    console.log("POST CreateListing");
+
     const { name, location, price, desc, image, username } = req.body;
     const {createListing} = mongoLogic;
 

@@ -2,7 +2,7 @@
 
     /* COLOR SECTION -------------------------------------------> */
 
-    --BackgroundColor: #F6F6F6;
+    --BackgroundColor: #fff2f2;
     --HeaderColor: #F6F6F6;
 
     --PrimaryColor: #ff7700;
@@ -35,8 +35,9 @@ input[type="text"]:focus {
 
 /* Set a background color and font for the whole page */
 body {
+    margin-top: 100px;
     font-family: Arial, sans-serif;
-    background-color: snow;
+    background-color: var(--BackgroundColor);
     color: #333;
 }
 

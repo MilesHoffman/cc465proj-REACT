@@ -1,21 +1,12 @@
 @import "mainStyle.css";
 
-body{
-    margin: 0;
-    padding: 0;
-    padding-bottom: 180px;
-
-    max-width: 99%;
-    background-color: var(--BackgroundColor);
-}
-
 .mainHeader {
     top:0px;
     position:fixed;
     z-index: 10;
     height: 130px;
     width: 100%;
-    background-color: var(--BackgroundColor);
+    background-color: var(--HeaderColor);
     color: var(--PrimaryColor);
     text-align: left;
     border-bottom: 2px solid var(--ThirdColor);
