@@ -49,10 +49,10 @@ function AddPicture({change, changeHandler}) {
         </form>
     );
 }
-function SubmitButton( handler ) {
+function SubmitButton( {handler} ) {
     return (
         <form>
-            <button type="submit" className="btn btn-primary" onClick={handler}>Submit</button>
+            <button type="button" className="btn btn-primary" onClick={handler}>Submit</button>
         </form>
     );
 }
@@ -63,7 +63,7 @@ function CreateListingContainer() {
     const [desc, setDesc] = useState('');
     const [image, setImage] = useState(null);
 
-    const apiUrl = 'http://localhost:5000/api/login';
+    const apiUrl = 'http://localhost:5000/api/createListing';
 
     async function sendData() {
 
@@ -71,22 +71,25 @@ function CreateListingContainer() {
 
         const data = { name, location, price, desc, image };
 
-        // Default options are marked with *
-        const response = await fetch(apiUrl, {
-            method: "POST", // *GET, POST, PUT, DELETE, etc.
-            mode: "cors", // no-cors, *cors, same-origin
-            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-            headers: {
-                "Content-Type": "application/json",
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            redirect: "follow", // manual, *follow, error
-            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-            body: JSON.stringify(data), // body data type must match "Content-Type" header
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error fetching data:', error));
+        try {
+            // Default options are marked with *
+            const response = await fetch(apiUrl, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                redirect: "follow", // manual, *follow, error
+                referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify(data), // body data type must match "Content-Type" header
+            })
+
+        } catch (error) {
+            console.error('Posting failed');
+        }
+
     }
 
     return (

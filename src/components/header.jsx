@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import '../styles/header.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -13,12 +13,18 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
     //use state value to open the login popup
     const [showPopup, setShowPopup] = useState(false);
 
+    //closing login popup
+    const buttonRef = useRef(null);
+
     //function to trigger the state value, makes it simpler to use
-    const togglePopup = () => {
-        setShowPopup(!showPopup);
+    const togglePopup = (state) => {
+        setTimeout(() => {
+            setShowPopup(state);
+        }, 0);
     }
 
     console.log("HEADER LOGGED IN STATUS: ", loggedInStatus);
+    console.log("POPUP LOGIN STATUS: ", showPopup);
 
     return(
         <body>
@@ -44,10 +50,11 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
                                      id="dropBtn">
                                 Post
                             </button>
-                            <button  onClick={() => {loggedInStatus ? navigate('/profile') : togglePopup()}}
+                            <button  onClick={() => {loggedInStatus ? navigate('/profile') : togglePopup(!showPopup)}}
                                      className={"btn btn-primary btn-sm"}
                                      type="button"
-                                     id="dropBtn">
+                                     id="dropBtn"
+                                     ref={buttonRef}>
                                 Profile
                             </button>
                         </a>
@@ -72,7 +79,12 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
 
             </form>
             <div>
-                { showPopup && <LoginContainer loggedInStatus={loggedInStatus} loggedInStatusHandler={loggedInStatusHandler}/> }
+                { showPopup && <LoginContainer
+                                               loggedInStatusHandler={loggedInStatusHandler}
+                                               loginPopup={showPopup}
+                                               loginPopupHandler={togglePopup}
+                                               buttonRef={buttonRef} />
+                }
             </div>
         </body>
 

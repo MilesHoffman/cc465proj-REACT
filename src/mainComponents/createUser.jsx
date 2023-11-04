@@ -51,6 +51,32 @@ function CreateUserContainer({showPopup, togglePopup}) {
     const [password, setPassword] = useState('');
     const [passCheckbox, setPassCheckbox] = useState(false);
 
+    const apiUrl = 'http://localhost:5000/api/createUser';
+
+    async function sendData() {
+
+        console.log("Sending Data...")
+
+        const data = { email, username, password };
+
+        // Default options are marked with *
+        const response = await fetch(apiUrl, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(data), // body data type must match "Content-Type" header
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
     return (
         <div className="container">
             <h1 style={{textAlign: 'center'}}>
@@ -87,11 +113,13 @@ function CreateUserContainer({showPopup, togglePopup}) {
                 buttonName="RETURN TO LOGIN"
                 buttonType="button"
                 change={showPopup}
-                changeHandler={togglePopup} />
+                changeHandler={togglePopup}
+                 />
 
             <SubmitButton
                 buttonName="CREATE USER"
-                buttonType="submit" />
+                buttonType="button"
+                changeHandler={sendData} />
         </div>
     );
 }

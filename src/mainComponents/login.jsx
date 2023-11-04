@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../styles/inputPages.css';
@@ -56,14 +56,31 @@ function SubmitButton({buttonName, buttonType, change, changeHandler}) {
 }
 
 //container for elements
-function LoginContainer({loggedInStatusHandler}) {
+function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, buttonRef}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passCheckbox, setPassCheckbox] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  const apiUrl = 'http://localhost:5000/api/login';
+  const popupRef = useRef(null);
 
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (popupRef.current && !popupRef.current.contains(e.target) && buttonRef !== e.current) {
+                loginPopupHandler(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+
+    }, [loginPopup]);
+
+
+  const apiUrl = 'http://localhost:5000/api/login';
 
   async function sendData() {
       const data = {username, password}
@@ -103,7 +120,7 @@ function LoginContainer({loggedInStatusHandler}) {
   }
 
   return (
-    <div className="container popup">
+    <div className="container popup" ref={popupRef}>
         <h1 style={{textAlign: 'center'}}>
             Login
         </h1>
@@ -141,7 +158,9 @@ function LoginContainer({loggedInStatusHandler}) {
       />
 
         <div>
-            { showPopup && <CreateUserContainer showPopup={showPopup} togglePopup={togglePopup}/> }
+            { showPopup && <CreateUserContainer showPopup={showPopup}
+                                                togglePopup={togglePopup}
+                                                /> }
         </div>
     </div>
   );

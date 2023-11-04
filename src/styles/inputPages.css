@@ -4,7 +4,7 @@
     width: fit-content;
     height: fit-content;
     position: absolute;
-    top: 380px;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

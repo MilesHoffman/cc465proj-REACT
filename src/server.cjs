@@ -53,6 +53,15 @@ app.post('/api/createListing', (req, res) => {
     res.json( {message: "Created listing for: " + username} )
 });
 
+app.post('/api/createUser', (req, res) => {
+    const { email, username, password } = req.body;
+    const { createUser } = mongoLogic;
+
+    createUser( email, username, password );
+
+    res.json( {message: "Created user for: " + username} )
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
