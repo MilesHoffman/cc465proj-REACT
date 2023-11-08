@@ -1,7 +1,35 @@
 import React from "react";
 import './../styles/card.css'
 
+function CardPicture({productImage}) {
+    return (
+        <img
+            src=""
+            alt="Uploaded"
+            className="card-img-top"
+            style={{ backgroundImage: `url(${productImage})` ,width: '100%', height: 'auto' }} />
+    );
+}
+function CardInformation({productName, location, price}) {
+    return (
+        <div className="card-info">
+            <span className="card-label">{productName}</span>
+            <span className="card-location">Location: {location}</span>
+            <span className="card-price">Price: ${price}</span>
+        </div>
+    );
+}
+function CardContainer({productName, price, location, productImage}) {
+    return (
+      <div className="card-container">
+          <CardPicture productImage={productImage} />
 
+          <CardInformation productName={productName}
+                           price={price}
+                           location={location} />
+      </div>
+    );
+}
 
 const Card = (props) => {
     
@@ -43,5 +71,5 @@ const Card = (props) => {
 }
 
 
-export default Card
+export default CardContainer
 

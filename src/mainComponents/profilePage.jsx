@@ -4,6 +4,7 @@ import '../styles/profilePage.css'
 import SearchToolbar from '../components/searchtoolbar'
 import CardProfile from '../components/cardProfile'
 import Footer from '../components/footer'
+import Card from '../components/card.jsx'
 
 
 function ProfilePage() {

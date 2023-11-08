@@ -55,7 +55,7 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
                                      type="button"
                                      id="dropBtn"
                                      ref={buttonRef}>
-                                Profile
+                                {loggedInStatus ? "Profile" : "Login"}
                             </button>
                         </a>
                     </div>
