@@ -7,7 +7,8 @@
 
     --PrimaryColor: #ff7700;
     --SecondaryColor: #FF9233;
-    --ThirdColor: #A04908;
+    --ThirdColor: #ffd9b8;
+    --FourthColor: #F17000;
 
 
     /* FONT SECTION ---------------------------------------------> */
@@ -20,7 +21,7 @@
 
 
 input[type="text"]:focus {
-    border: solid var(--ThirdColor) 2px;
+    border: solid  2px var(--FourthColor);
     outline: none;
 }
 

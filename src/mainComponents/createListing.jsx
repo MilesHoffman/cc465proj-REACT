@@ -96,7 +96,7 @@ function CreateListingContainer() {
     }
 
     return (
-        <div className="container">
+        <div className="container" style={ {top: "370px"} }>
             <InputField
                 labelName="Name"
                 change={name}

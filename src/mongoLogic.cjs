@@ -1,3 +1,6 @@
+// Handles the connection to the database, and all functionality related to it.
+
+
 // Initializing the variables to connect to the database.
 const {MongoClient} = require("mongodb");
 const url = "mongodb+srv://cc465proj:cc465proj@cluster0.3wpv56y.mongodb.net/?retryWrites=true&w=majority";
@@ -81,13 +84,11 @@ async function doValidateLogin(username, password ){
     catch( err ){
         console.log(err)
     }
-    finally{
 
-        await client.close();
+    await client.close();
 
-        if( valid ) return true;
-        else return false;
-    }
+    if( valid ) return true;
+    else return false;
 }
 
 
@@ -132,9 +133,8 @@ async function doCreateUser( email, username, password ) {
     catch (err){
         console.log(err);
     }
-    finally {
-        await client.close()
-    }
+    await client.close()
+
 }
 
 
@@ -183,9 +183,7 @@ async function doCreateListing( name, location, price, desc, pictures, username 
     catch (err){
         console.log(err);
     }
-    finally {
-        await client.close()
-    }
+    await client.close()
 }
 
 
