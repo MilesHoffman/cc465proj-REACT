@@ -101,7 +101,7 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
           if (response.ok) {
               const valid = await response.json();
               loggedInStatusHandler(true);
-              window.location.reload();
+              window.Location.reload();
               console.log(valid.message);
           }
           else {

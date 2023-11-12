@@ -9,61 +9,61 @@ export const PRODUCTS = [
 
     {
         id:1,
-        productName:"Bmw Bike MotorSport",
-        price: 10372,
-        productImage: product1,
-        location: "allentown",
         condition: "New/Good Condition",
-        category: "Automobiles"
+        category: "Automobiles",
+        Name:"Bmw Bike MotorSport",
+        Price: 10372,
+        Pictures: product1,
+        Location: "allentown"
 
     },
 
     {
         id:2,
-        productName:"Bmw Bike Classic",
-        price: 23341,
-        productImage: product2,
-        location: "pittsburgh",
+        Name:"Bmw Bike Classic",
+        Price: 23341,
+        Pictures: product2,
+        Location: "pittsburgh",
         condition: "Used",
         category: "Automobiles"
 
     },
     {
         id:3,
-        productName:"Shoes",
-        price: 21,
-        productImage: product3,
-        location: "quakertown",
+        Name:"Shoes",
+        Price: 21,
+        Pictures: product3,
+        Location: "quakertown",
         condition: "Refurbished",
         category: "Apparel"
 
     },
     {
         id:4,
-        productName:"Alibasta Rolex",
-        price: 228931,
-        productImage: product4,
-        location: "erie",
+        Name:"Alibasta Rolex",
+        Price: 228931,
+        Pictures: product4,
+        Location: "erie",
         condition: "New/Good Condition",
         category: "Apparel"
 
     },
     {
         id:5,
-        productName:"toolset",
-        price: 439,
-        productImage: product5,
-        location: "hazelton",
+        Name:"toolset",
+        Price: 439,
+        Pictures: product5,
+        Location: "hazelton",
         condition: "Used/Pre-owned",
         category: "Home"
 
     },
     {
         id:6,
-        productName:"Chair",
-        price: 52,
-        productImage: product6,
-        location: "wilkes-barre",
+        Name:"Chair",
+        Price: 52,
+        Pictures: product6,
+        Location: "wilkes-barre",
         condition: "New/Good Condition",
         category: "Home"
 

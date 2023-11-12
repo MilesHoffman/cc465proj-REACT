@@ -188,6 +188,42 @@ async function doCreateListing( name, location, price, desc, pictures, username 
 }
 
 
+// Calls implementation for getListings.
+function getListings(){
+
+    const call = async () => {
+
+        let listings;
+
+        try {
+            listings = await doGetListings();
+        }
+        catch (error) {
+            console.error(error);
+        }
+
+        return listings;
+    };
+
+    return call();
+}
+
+async function doGetListings(){
+
+    let listings;
+    try {
+        await connectListings(); // Connects to listing collection
+
+        listings = await col.find({}).toArray();
+    }
+    catch (err){
+        console.log(err);
+    }
+    await client.close()
+
+
+    return listings;
+}
 
 
 
@@ -201,5 +237,6 @@ async function doCreateListing( name, location, price, desc, pictures, username 
 module.exports = {
     validateLogin,
     createUser,
-    createListing
+    createListing,
+    getListings
 }
