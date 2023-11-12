@@ -39,7 +39,7 @@ function Marketplace(){
     const handleApplyFilter = (filterData) => {
         // Update the selectedFilters state with the filter data
         setSelectedFilters({
-            location: filterData.zipcode,
+            location: filterData.city,
             minimumPrice: filterData.minPrice,
             maximumPrice: filterData.maxPrice,
             condition: getSelectedConditions(filterData),

@@ -7,7 +7,7 @@ import app from "../App.jsx";
 function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
     //states to filter items on sidebar
     const [city, setcity] = useState('');
-    const [miles, setMiles] = useState('');
+    const [zipcode, setzipcode] = useState('');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [Condition1, setCondition1] = useState(false);
@@ -22,7 +22,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
     useEffect(() => {
         const filterData = {
             city,
-            miles,
+            zipcode,
             minPrice,
             maxPrice,
             Condition1,
@@ -32,7 +32,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
             selectedSide,
         };
         console.log('filtered data', filterData);
-    }, [city, miles, minPrice, maxPrice, Condition1, Condition2, Condition3, Condition4, selectedSide]);
+    }, [city, zipcode, minPrice, maxPrice, Condition1, Condition2, Condition3, Condition4, selectedSide]);
 
 
     //whenever apply button mounts we will send api fetch call to get listings from express api
@@ -50,8 +50,8 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
 
         setcity(event.target.value);
     }
-    const handleMilesChange = (event) => {
-        setMiles(event.target.value);
+    const handlezipcodeChange = (event) => {
+        setzipcode(event.target.value);
     };
 
     const handleMinPriceChange = (event) => {
@@ -98,7 +98,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
 
         const filterData = {
             city,
-            miles,
+            zipcode,
             minPrice,
             maxPrice,
             Condition1,
@@ -144,7 +144,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
 
     // Reset all state variables to their initial values
     const cityRef = useRef()
-    const milesRef = useRef()
+    const zipcodeRef = useRef()
     const minPriceRef = useRef()
     const maxPriceRef = useRef()
     const condition1Ref = useRef(null);
@@ -155,7 +155,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
 
     const handleResetFilter = () => {
         cityRef.current.value = '';
-        milesRef.current.value = '';
+        zipcodeRef.current.value = '';
         minPriceRef.current.value = '';
         maxPriceRef.current.value = '';
         // ... reset other input fields using their refs
@@ -181,7 +181,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
                     <div className="search-location-label">Location</div>
                     <div className="search-location-input">
                         <input  ref={cityRef} onChange={handlecityChange} className="small" type="tel" placeholder="city"/>
-                        <input  ref={milesRef} onChange={handleMilesChange} className="small" type="tel" placeholder="miles"/>
+                        <input  ref={zipcodeRef} onChange={handlezipcodeChange} className="small" type="tel" placeholder="zipcode"/>
                     </div>
                 </div>
                 <div className="search-price">
