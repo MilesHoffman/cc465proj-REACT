@@ -42,6 +42,15 @@ app.post('/api/login',  async (req, res) => {
     }
 });
 
+//method to send the filtered data to mongodb so that we can filter for the user
+app.post('/api/sendListing', async (req, res) =>{
+
+    const filterData = req.body
+
+    console.log('received filters', filterData)
+
+})
+
 // This will get the request to create a new listing.
 app.post('/api/createListing', (req, res) => {
 

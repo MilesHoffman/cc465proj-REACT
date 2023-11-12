@@ -3,6 +3,7 @@
 
 // Initializing the variables to connect to the database.
 const {MongoClient} = require("mongodb");
+//const {PRODUCTS} = require("./products.js");
 const url = "mongodb+srv://cc465proj:cc465proj@cluster0.3wpv56y.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(url);
 const dbName = "CommunityComrades";
@@ -185,6 +186,12 @@ async function doCreateListing( name, location, price, desc, pictures, username 
     }
     await client.close()
 }
+
+
+
+
+
+
 
 
 

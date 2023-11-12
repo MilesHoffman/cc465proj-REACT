@@ -12,7 +12,9 @@ export const PRODUCTS = [
         productName:"Bmw Bike MotorSport",
         price: 10372,
         productImage: product1,
-        location: "allentown"
+        location: "allentown",
+        condition: "New/Good Condition",
+        category: "Automobiles"
 
     },
 
@@ -21,7 +23,9 @@ export const PRODUCTS = [
         productName:"Bmw Bike Classic",
         price: 23341,
         productImage: product2,
-        location: "pittsburgh"
+        location: "pittsburgh",
+        condition: "Used",
+        category: "Automobiles"
 
     },
     {
@@ -29,7 +33,9 @@ export const PRODUCTS = [
         productName:"Shoes",
         price: 21,
         productImage: product3,
-        location: "quakertown"
+        location: "quakertown",
+        condition: "Refurbished",
+        category: "Apparel"
 
     },
     {
@@ -37,7 +43,9 @@ export const PRODUCTS = [
         productName:"Alibasta Rolex",
         price: 228931,
         productImage: product4,
-        location: "erie"
+        location: "erie",
+        condition: "New/Good Condition",
+        category: "Apparel"
 
     },
     {
@@ -45,7 +53,9 @@ export const PRODUCTS = [
         productName:"toolset",
         price: 439,
         productImage: product5,
-        location: "hazelton"
+        location: "hazelton",
+        condition: "Used/Pre-owned",
+        category: "Home"
 
     },
     {
@@ -53,7 +63,9 @@ export const PRODUCTS = [
         productName:"Chair",
         price: 52,
         productImage: product6,
-        location: "wilkes-barre"
+        location: "wilkes-barre",
+        condition: "New/Good Condition",
+        category: "Home"
 
     },
 
