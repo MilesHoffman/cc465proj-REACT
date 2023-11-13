@@ -1,9 +1,9 @@
-        /* Style the search bar */
+@import "mainStyle.css";
+
+/* Style the search bar */
         .search-bar input[type="text"] {
             padding: 5px;
             margin-left: 20px;
-            border: none;
-            border-radius: 4px;
             margin-right: 10px;
         }
 
@@ -38,35 +38,40 @@
         .search-filter {
             width: 200px;
             left: 0px;
-            top: 130px;
+            top: 100px;
             bottom: 0px;
             position: fixed;
             padding: 7.5px;
-            background-color: #ccc;
+            background-color: var(--BackgroundColor);
             overflow-y: scroll;
+            box-shadow: 1px 0px 7px var(--FourthColor);
+        }
+            .search-filter h1{
+                font-size: 15px;
+                font-family: var(--TitleFont);
+                font-weight: bold;
+                padding-top: 5px;
+            }
+            .search-filter text{
 
-        }
-        .search-title-bar h1{
-            margin: 5px;
-            align-items: flex-start;
-            font-family: "Arial",sans-serif;
-            font-size: 20px;
-            font-weight: 400;
-        }
+                font-family: var(--RegularFont);
+                font-size: 12px;
+            }
 
         .search-location, .search-price{
             margin-top: 10px;
-
         }
 
-        .search-location-label, .search-price-label{
-            font-size: 11px;
-            text-transform: uppercase;
+        .search-input{
+            display: grid;
+            grid-row-gap: 5px;
         }
-        .search-location-input .search-price-input{
-            display:flex;
-            align-items: center;
-        }
+            .search-input input {
+                border: 1px solid var(--SecondaryColor);
+                border-radius: 7px;
+                padding: 0 5px;
+                width: 170px;
+            }
         input.small{
             font-size: 13px;
             padding: 3px;
@@ -80,24 +85,50 @@
             margin-top: 10px;
             width:100%;
             position:relative;
+            padding-bottom: 10px;
         }
 
-        .Condition1, .Condition2, .Condition3, .Condition4 {
+        .condition {
             font-size: 13px;
             margin-top: 3px;
             position: relative;
             display:flex;
+            padding-left: 5px;
         }
-        .search-filter-condition{
-            margin-top: 10px;
-            width: 100%;
-            position: relative;
-
-        }
+            .condition text{
+                padding-left: 5px;
+            }
+            .condition [type="checkbox"]{
+                appearance: none;
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                border: 1px solid var(--SecondaryColor);
+                background-color: white;
+                border-radius: 6px;
+                margin-right: 5px;
+            }
+            .condition input[type="checkbox"]:checked{
+                background-color: var(--ThirdColor);
+                border-color: var(--FourthColor);
+            }
+            .condition input[type="checkbox"]:checked::before {
+                content: '\2717';
+                font-size: 13px;
+                color: var(--FourthColor);
+                position: relative;
+                bottom: 3px;
+                left: 2px;
+            }
 
         .search-activity{
             margin-top: 3px;
-
+            background-color: white;
+            border: solid 1px var(--SecondaryColor);
+            border-radius: 7px;
+            padding: 2px 10px;
+            font-family: var(--RegularFont);
+            font-size: 12px;
         }
 
         .search-results{

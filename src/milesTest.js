@@ -12,8 +12,9 @@ const {validateLogin, createUser, createListing, getListings} = mongoLogic;
 //    "This is a person", "Placeholder person picture", "redacted",
 //     "Used/Pre-owned", "Tech" );
 
-// getListings();
+getListings();
 
 // createUser( "test@gmail.com", "TestUser", "1234");
 
 // const p = validateLogin("TestUser", "1234");
+

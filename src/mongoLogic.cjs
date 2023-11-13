@@ -229,13 +229,6 @@ async function doGetListings(){
 }
 
 
-
-
-
-
-
-
-
 // USE THE WRAPPER CLASS NOT THE IMPLEMENTATION CLASS. Unless you don't want to.
 module.exports = {
     validateLogin,

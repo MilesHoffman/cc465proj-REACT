@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "Merriweather";
+    src: url("./Fonts/Merriweather/Merriweather-Regular.ttf") format('truetype');
+}
+
+
 :root {
 
     /* COLOR SECTION -------------------------------------------> */
@@ -8,24 +14,24 @@
     --PrimaryColor: #ff7700;
     --SecondaryColor: #FF9233;
     --ThirdColor: #ffd9b8;
-    --FourthColor: #F17000;
+    --FourthColor: firebrick;
 
 
     /* FONT SECTION ---------------------------------------------> */
 
     --LogoFont: "Cooper Black";
+    --TitleFont: "Merriweather", sans-serif;
+    --RegularFont: "Merriweather", sans-serif;
 
 
     /* CONTROL'S CSS --------------------------------------------> */
 }
 
 
-input[type="text"]:focus {
-    border: solid  2px var(--FourthColor);
+input:focus {
+    border-color: var(--FourthColor);
     outline: none;
 }
-
-
 
 /* Reset default browser styles */
 * {
@@ -36,7 +42,7 @@ input[type="text"]:focus {
 
 /* Set a background color and font for the whole page */
 body {
-    margin-top: 100px;
+    margin-top: 70px;
     font-family: Arial, sans-serif;
     background-color: var(--BackgroundColor);
     color: #333;
@@ -66,8 +72,6 @@ body {
     padding: 10px 20px;
     background-color: #007acc;
     color: #fff;
-    border: none;
-    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
 }

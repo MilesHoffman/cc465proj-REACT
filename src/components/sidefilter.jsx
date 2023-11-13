@@ -184,40 +184,39 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
   return (
     <div>
         <div className="search-filter">
-            <div className="search-title-bar">
-                <h1>Filter</h1>
-            </div>
+            <div className="search-title-bar"></div>
             <div className="search-filter-options">
                 <div className="search-location">
-                    <div className="search-location-label">Location</div>
-                    <div className="search-location-input">
-                        <input  ref={CityRef} onChange={handleCityChange} className="small" type="tel" placeholder="City"/>
-                        <input  ref={ZipcodeRef} onChange={handleZipcodeChange} className="small" type="tel" placeholder="Zipcode"/>
+                    <h1>Location</h1>
+                    <div className="search-input">
+                        <input  ref={CityRef} onChange={handleCityChange} type="tel" placeholder="City"/>
+                        <input  ref={ZipcodeRef} onChange={handleZipcodeChange} type="tel" placeholder="Zipcode"/>
                     </div>
                 </div>
                 <div className="search-price">
-                    <div className="search-price-label">Price</div>
-                    <div className="search-price-input">
-                        <input  ref={minPriceRef} onChange={handleMinPriceChange} className="small" type="tel" placeholder="min. price"/>
-                        <input  ref={maxPriceRef} onChange={handleMaxPriceChange} className="small" type="tel" placeholder="max price"/>
+                    <h1>Price</h1>
+                    <div className="search-input">
+                        <input  ref={minPriceRef} onChange={handleMinPriceChange} type="tel" placeholder="min. price"/>
+                        <input  ref={maxPriceRef} onChange={handleMaxPriceChange} type="tel" placeholder="max price"/>
                     </div>
                 </div>
                 <div className="search-filter-condition">
-                    <label className="Condition1">
+                    <h1>Condition</h1>
+                    <label className="condition">
                         <input  ref={condition1Ref} onChange={handleCondition1Change} type="checkbox" name="srchType" value="T"/>
-                        New/Good Condition
+                          <text> Good Condition</text>
                     </label>
-                    <label className="Condition2">
+                    <label className="condition">
                         <input  ref={condition2Ref} onChange={handleCondition2Change} type="checkbox" name="srchType" value="T"/>
-                        Used/Pre-owned
+                        <text> Used/Pre-owned</text>
                     </label>
-                    <label className="Condition3">
+                    <label className="condition">
                         <input  ref={condition3Ref} onChange={handleCondition3Change} type="checkbox" name="srchType" value="T"/>
-                        Refurbished
+                        <text> Refurbished</text>
                     </label>
-                    <label className="Condition4">
+                    <label className="condition">
                         <input  ref={condition4Ref} onChange={handleCondition4Change} type="checkbox" name="srchType" value="T"/>
-                        Damaged
+                        <text> Damaged</text>
                     </label>
                 </div>
                 <select  className="search-activity" value={selectedSide} onChange={handleActivityChange}>

@@ -6,6 +6,7 @@
   .search-results {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column width as needed */
+    grid-template-rows: 270px;
     grid-gap: 5px; /* Adjust the gap between cards as needed */
     margin-top: 50px;
     width: 90%;
