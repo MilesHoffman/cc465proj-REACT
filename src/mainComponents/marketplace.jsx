@@ -1,16 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import Sidefilter from '../components/sidefilter.jsx'
 import Card from '../components/card'
-import './../styles/card.css'
-import './../styles/marketplace.css'
 import { PRODUCTS } from '../products'
-import Cardtest from '../components/cardtest.jsx'
-import './../styles/profilePage.css'
-
-
-
-
-
+import './../styles/marketplace.css'
 
 
 function Marketplace(){
@@ -83,11 +75,14 @@ function Marketplace(){
         <div className='marketplace'>
 
             <div className="search-results" >
-                {filteredProducts.map((card) => (
+                {PRODUCTS.map((card) => (
                     //prop creation for card data
-                <Cardtest key={card.id} data={card}/>
+                <Card productName={card.productName}
+                      price={card.price}
+                      location={card.location}
+                      productImage={card.productImage}/>
                 ))}
-                </div>
+            </div>
             <Sidefilter onApplyFilter={handleApplyFilter} />
         </div>
     )

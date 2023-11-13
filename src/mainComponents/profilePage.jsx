@@ -6,6 +6,9 @@ import CardProfile from '../components/cardProfile'
 import Footer from '../components/footer'
 import Card from '../components/card.jsx'
 
+import product2 from '../assets/Classic-BMW-Motorcycles.jpg'
+
+
 
 function ProfilePage() {
 
@@ -69,7 +72,7 @@ function ProfilePage() {
             You have 1 listing</div>
             <div class="container-fluid">
                 <SearchToolbar/>
-                <CardProfile/>
+                <Card productName="BMW Bike" price="8600" location="Erie, PA" productImage={product2} />
                 <Footer/>
             </div>
         </div>

@@ -6,36 +6,17 @@ import './styles/mainStyle.css'
 import ProfilePage from './mainComponents/profilePage.jsx'
 import CreateListing from './mainComponents/createListing.jsx'
 import CreateUser from './mainComponents/createUser.jsx'
-import { BrowserRouter , Outlet, Router, Route, Link,Routes, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Outlet, Link, Route, Routes, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ReactDOM } from 'react'
 import CardProfile from './components/cardProfile.jsx'
 import { useNavigate } from '../node_modules/react-router-dom'
 import Login from './mainComponents/login.jsx'
 import CardTest from './components/cardtest.jsx'
 
-
-const router = createBrowserRouter([
-
-
-  {path:"/",
-    element:<CreateUser/>,
-    children:
-    [
-        {
-          path: "/createListing",
-        element:<CreateListing/>,
-        },
-
-        {
-          path: "/profile",
-          element:<ProfilePage/>
-        }
-]
-  }
-])
+import ListingPage from './mainComponents/listingPage.jsx'
 
 
-const App = () => {
+function App() {
     let [loggedInStatus, setLoggedInStatus] = useState(false);
     const toggleLoggedInStatus = (state) => {
         setLoggedInStatus(state);
@@ -59,17 +40,19 @@ const App = () => {
               <Header loggedInStatus={loggedInStatus} loggedInStatusHandler={toggleLoggedInStatus}/>
           </div>
       </nav>
-        <main>
-        
+      <main>
+
           <Routes>
           <Route path="/" element={<Marketplace />} />
           <Route path="/createUser" element={<CreateUser />} />
           <Route path="/createListing" element={<CreateListing />} />
-          <Route path="/profile" element={<ProfilePage/>} />
+          <Route path="/profile" element={<ProfilePage />} />
 
-          <Route path="/card" element={<CardTest/>}/>
+          <Route path="/listingPage/:name" element={<ListingPage />} />
+
           </Routes>
-        
+
+
         </main>
      </body>
   );

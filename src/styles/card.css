@@ -1,101 +1,21 @@
-.box-search-result, .card-gallery1 {
-    height: 200px;
-    list-style-type: none;
-    display: inline-block;
-    height: 216px;
-    width: 219px;
-    margin-top: 0px;
-    margin-right: 0px;
-    margin-bottom: 28px;
-    margin-left: 0px;
-    position: relative;
+.card-container {
+    width: 200px;
+    height: 250px;
+
+    background-color: lightgrey;
+
+    border: 1px solid darkgray;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    padding: 0;
-    box-shadow: 0 0 7px 0 #ddd;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 
-.gallery-inner, .main  {
-    width: 100%;
-    height: 70%;
-    position: relative;
-    background-size: cover;
-
-
-}
-.product-tag{
-    position:relative;
-    right:115px
-
-
-}
-.dot-container {
-    position: relative;
-    text-align: center;
-    width: 100%;
-    top: 135px;
-}
-
-.lower-icon-container {
-    position: relative;
-    top: 145px;
-}
-
-.card-label {
-    position: relative;
-    display: flex;
-    left: 120px;
     cursor: pointer;
 }
 
-.card-location {
-    padding: 4px;
-    float: left;
-    bottom: 10px;
-    position: relative;
-    font-size: 14px;
+.card-info {
+    text-align: left;
 }
 
-.close-x {
-    padding: 4px;
-    float: right;
-    bottom: 29px;
-    position: relative;
-    font-size: 14px;
-}
-
-.save-button {
-    background-color: #55ff7a;
-    color: white;
-    padding: 1px 2px;
-    border: none;
+.card-img {
+    width: 100%;
+    height: 160px;
     border-radius: 5px;
-    cursor: pointer;
-    float: right;
-    position: relative;
-    bottom: 17px;
-    margin-right: 4px;
 }
-
-/* Hover effect for the button */
-.save-button:hover {
-    background-color: #71ff55; /* Darker red on hover (you can adjust it) */
-}
-
-a{
-    color:black;
-    text-decoration: none;
-}
-
-
-.card{
-    width:60%;
-    margin-top: 25px;
-
-}
-
-
-
-
