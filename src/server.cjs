@@ -2,6 +2,7 @@ const mongoLogic = require('./mongoLogic.cjs');
 const { validateLogin } = mongoLogic;
 const express = require('express');
 const cors = require('cors');
+const {getListings} = require("./mongoLogic.cjs");
 const app = express();
 
 app.use(express.json());
@@ -26,12 +27,13 @@ app.get('/api/getListings', async (req, res) => {
 
         const{getListings} = mongoLogic;
         // Call the getListing function
-        const listings = await getListings();
+        const filterData = 0;
+        const listings = await getListings( filterData );
 
         // Send the listings as a response
         res.json(listings);
     } catch (error) {
-        console.error('Error fetching listings:', error);
+        console.error('__________________api/getListings...Error fetching listings:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
@@ -62,7 +64,20 @@ app.post('/api/sendListing', async (req, res) =>{
     const filterData = req.body
 
 
-    console.log('received filters', filterData)
+    console.log('_________________________api/sendListings.....received filters', filterData)
+
+    try {
+        const{getListings} = mongoLogic;
+        // Call the getListing function
+        const listings = await getListings( filterData );
+
+        // Send the listings as a response
+        console.log("\n____________________api/sendListings....\n" & listings);
+        res.json(listings);
+    } catch (error) {
+        console.error('Error fetching listings:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 
 })
 

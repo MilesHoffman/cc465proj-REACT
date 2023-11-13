@@ -191,14 +191,14 @@ async function doCreateListing( name, location, price, desc, pictures, username,
 
 
 // Calls implementation for getListings.
-function getListings(){
+function getListings( filterData ){
 
     const call = async () => {
 
         let listings;
 
         try {
-            listings = await doGetListings();
+            listings = await doGetListings( filterData );
         }
         catch (error) {
             console.error(error);
@@ -210,20 +210,32 @@ function getListings(){
     return call();
 }
 
-async function doGetListings(){
+async function doGetListings( filterData ){
 
     let listings;
     try {
         await connectListings(); // Connects to listing collection
 
-        listings = await col.find({}).toArray();
+        /*
+        const query = {
+            $and: [
+                filterData.City ? { Location: filterData.City } : {},
+                filterData.Zipcode ? { Zipcode: filterData.Zipcode } : {},
+                filterData.minPrice ? { Price: { $gte: filterData.minPrice } } : {},
+                filterData.maxPrice ? { maxPrice: { $lte: filterData.maxPrice } } : {},
+                { Condition: { $in: Object.keys(filterData.conditions).filter(key => filterData.conditions[key]) } },
+                filterData.selectedSide ? { Side: filterData.selectedSide } : {}
+            ]
+        };
+
+         */
+
+        listings = await col.find().toArray();
     }
     catch (err){
         console.log(err);
     }
     await client.close()
-
-    console.log( listings )
 
     return listings;
 }
