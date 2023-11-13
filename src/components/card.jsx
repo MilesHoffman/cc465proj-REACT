@@ -21,11 +21,11 @@ function CardInformation({productName, location, price}) {
         </div>
     );
 }
-function CardContainer({productName, price, location, productImage}) {
+function CardContainer({productName, price, location, productImage, description}) {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/listingPage/${productName}`, {
-            state: { productName, price, location, productImage }
+            state: { productName, price, location, productImage, description }
         });
     };
 

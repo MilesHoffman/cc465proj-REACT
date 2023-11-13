@@ -7,6 +7,10 @@ import './../styles/marketplace.css'
 
 function Marketplace(){
 
+    //array to hold all listings
+    const [listings, setListings] = useState([]);
+
+    //to hold state of filters
     const [selectedFilters, setSelectedFilters] = useState({
         location: '',
         minimumPrice: '',
@@ -16,6 +20,25 @@ function Marketplace(){
     });
 
     const [selectedCategory, setSelectedCategory] = useState('')
+
+    useEffect(() => {
+        // Fetch listings when the component mounts
+        const fetchListings = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/getListings'); // Update the URL with your actual API endpoint
+                if (response.ok) {
+                    const data = await response.json();
+                    setListings(data);
+                } else {
+                    console.error('Failed to fetch listings:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching listings:', error);
+            }
+        };
+
+        fetchListings();
+    }, []); // Empty dependency array ensures this effect runs once when the component mounts
 
     //handles the category
     const [categoryFilteredProducts, setCategoryFilteredProducts] = useState(PRODUCTS);
@@ -75,12 +98,13 @@ function Marketplace(){
         <div className='marketplace'>
 
             <div className="search-results" >
-                {PRODUCTS.map((card) => (
+                {listings.map((card) => (
                     //prop creation for card data
-                <Card productName={card.productName}
-                      price={card.price}
-                      location={card.location}
-                      productImage={card.productImage}/>
+                <Card productName={card.Name}
+                      price={card.Price}
+                      location={card.Location}
+                      productImage={card.Pictures}
+                        description={card.Description}/>
                 ))}
             </div>
             <Sidefilter onApplyFilter={handleApplyFilter} />

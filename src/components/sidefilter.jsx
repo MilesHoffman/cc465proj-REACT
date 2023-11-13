@@ -6,8 +6,8 @@ import app from "../App.jsx";
 
 function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
     //states to filter items on sidebar
-    const [city, setcity] = useState('');
-    const [zipcode, setzipcode] = useState('');
+    const [City, setCity] = useState('');
+    const [Zipcode, setZipcode] = useState('');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [Condition1, setCondition1] = useState(false);
@@ -21,8 +21,8 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
     // Update filterData whenever the state values change
     useEffect(() => {
         const filterData = {
-            city,
-            zipcode,
+            City,
+            Zipcode,
             minPrice,
             maxPrice,
             Condition1,
@@ -32,7 +32,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
             selectedSide,
         };
         console.log('filtered data', filterData);
-    }, [city, zipcode, minPrice, maxPrice, Condition1, Condition2, Condition3, Condition4, selectedSide]);
+    }, [City, Zipcode, minPrice, maxPrice, Condition1, Condition2, Condition3, Condition4, selectedSide]);
 
 
     //whenever apply button mounts we will send api fetch call to get listings from express api
@@ -46,12 +46,12 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
 
 
 
-    const handlecityChange = (event) => {
+    const handleCityChange = (event) => {
 
-        setcity(event.target.value);
+        setCity(event.target.value);
     }
-    const handlezipcodeChange = (event) => {
-        setzipcode(event.target.value);
+    const handleZipcodeChange = (event) => {
+        setZipcode(event.target.value);
     };
 
     const handleMinPriceChange = (event) => {
@@ -97,8 +97,8 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
     const handleApplyFilter = async () => {
 
         const filterData = {
-            city,
-            zipcode,
+            City,
+            Zipcode,
             minPrice,
             maxPrice,
             Condition1,
@@ -143,8 +143,8 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
 
 
     // Reset all state variables to their initial values
-    const cityRef = useRef()
-    const zipcodeRef = useRef()
+    const CityRef = useRef()
+    const ZipcodeRef = useRef()
     const minPriceRef = useRef()
     const maxPriceRef = useRef()
     const condition1Ref = useRef(null);
@@ -154,8 +154,8 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
 
 
     const handleResetFilter = () => {
-        cityRef.current.value = '';
-        zipcodeRef.current.value = '';
+        CityRef.current.value = '';
+        ZipcodeRef.current.value = '';
         minPriceRef.current.value = '';
         maxPriceRef.current.value = '';
         // ... reset other input fields using their refs
@@ -180,8 +180,8 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
                 <div className="search-location">
                     <div className="search-location-label">Location</div>
                     <div className="search-location-input">
-                        <input  ref={cityRef} onChange={handlecityChange} className="small" type="tel" placeholder="city"/>
-                        <input  ref={zipcodeRef} onChange={handlezipcodeChange} className="small" type="tel" placeholder="zipcode"/>
+                        <input  ref={CityRef} onChange={handleCityChange} className="small" type="tel" placeholder="City"/>
+                        <input  ref={ZipcodeRef} onChange={handleZipcodeChange} className="small" type="tel" placeholder="Zipcode"/>
                     </div>
                 </div>
                 <div className="search-price">

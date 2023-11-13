@@ -18,13 +18,13 @@ function PictureContainer({productImage}) {
     );
 }
 
-function DescContainer({productName, price, location}) {
+function DescContainer({productName, price, location, description}) {
     return (
       <div className="desc-container">
           <span>{productName}</span>
           <span>{price}</span>
           <span>{location}</span>
-          <span>DESCRIPTION TEST</span>
+          <span>{description}</span>
       </div>
     );
 }
@@ -39,7 +39,7 @@ function ForumContainer() {
 
 function ListingPage() {
     const location = useLocation();
-    const {productName, price, location: productLocation, productImage} = location.state;
+    const {productName, price, location: productLocation, productImage, description} = location.state;
 
     return (
         <div className="page-container">
@@ -48,7 +48,7 @@ function ListingPage() {
 
                 <DescContainer productName={productName}
                                price={price}
-                               location={productLocation} />
+                               location={productLocation} description={description} />
             </div>
             <div className="row2">
                 <ForumContainer />

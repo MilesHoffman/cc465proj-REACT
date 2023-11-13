@@ -1,6 +1,5 @@
 const mongoLogic = require('./mongoLogic.cjs');
 const { validateLogin } = mongoLogic;
-
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -22,6 +21,20 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.get('/api/getListings', async (req, res) => {
+    try {
+
+        const{getListings} = mongoLogic;
+        // Call the getListing function
+        const listings = await getListings();
+
+        // Send the listings as a response
+        res.json(listings);
+    } catch (error) {
+        console.error('Error fetching listings:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 app.post('/api/login',  async (req, res) => {
     // Handle login logic here
     const {username, password} = req.body;
@@ -43,6 +56,7 @@ app.post('/api/login',  async (req, res) => {
 });
 //hi
 //method to send the filtered data to mongodb so that we can filter for the user
+/*
 app.post('/api/sendListing', async (req, res) =>{
 
     const filterData = req.body
@@ -50,6 +64,68 @@ app.post('/api/sendListing', async (req, res) =>{
     console.log('received filters', filterData)
 
 })
+*/
+
+app.post('/api/sendListing', async (req, res) => {
+    const filterData = req.body;
+
+    console.log('received filters', filterData);
+
+    try {
+        await client.connect(); // Connect to MongoDB
+
+        const listings = await getListings(filterData);
+
+        res.json(listings);
+    } catch (error) {
+        console.error('Error fetching listings:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    } finally {
+        await client.close(); // Close MongoDB connection
+    }
+});
+
+async function getListings(filterData) {
+    const query = constructQuery(filterData);
+
+    let listings;
+    try {
+        await connectListings(); // Connects to the listing collection
+
+        listings = await col.find(query).toArray();
+    } catch (err) {
+        console.error(err);
+    } finally {
+        await client.close(); // Close MongoDB connection
+    }
+
+    return listings;
+}
+
+function constructQuery(filterData) {
+    // Example: Construct a query based on filterData
+    const query = {};
+
+    if (filterData.city) {
+        query.city = filterData.city;
+    }
+
+    // Add other conditions based on your filterData properties
+
+    return query;
+}
+
+async function connectListings() {
+    if (!client.isConnected()) {
+        await client.connect();
+    }
+
+    const database = client.db('your-database-name');
+    const collection = database.collection('your-collection-name');
+    col = collection; // Assign to a global variable or adjust your code structure accordingly
+}
+
+
 
 // This will get the request to create a new listing.
 app.post('/api/createListing', (req, res) => {
