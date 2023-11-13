@@ -18,21 +18,28 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
 
 
 
+
+
     // Update filterData whenever the state values change
     useEffect(() => {
+
+
+
         const filterData = {
             City,
             Zipcode,
             minPrice,
             maxPrice,
-            Condition1,
-            Condition2,
-            Condition3,
-            Condition4,
+            conditions: {
+                'New/Good': Condition1,
+                'Used/Pre-owned':Condition2,
+                'Refurbished':Condition3,
+                'Damaged':Condition4
+            },
             selectedSide,
         };
         console.log('filtered data', filterData);
-    }, [City, Zipcode, minPrice, maxPrice, Condition1, Condition2, Condition3, Condition4, selectedSide]);
+    }, [City, Zipcode, minPrice, maxPrice, selectedSide]);
 
 
     //whenever apply button mounts we will send api fetch call to get listings from express api
@@ -96,15 +103,19 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
     //when we click apply it will capture all the current state and put into filterData
     const handleApplyFilter = async () => {
 
+
+
         const filterData = {
             City,
             Zipcode,
             minPrice,
             maxPrice,
-            Condition1,
-            Condition2,
-            Condition3,
-            Condition4,
+            conditions: {
+                'New/Good': Condition1,
+                'Used/Pre-owned':Condition2,
+                'Refurbished':Condition3,
+                'Damaged':Condition4
+            },
             selectedSide,
         };
 
