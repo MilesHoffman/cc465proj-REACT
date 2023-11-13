@@ -56,10 +56,10 @@ app.post('/api/createListing', (req, res) => {
 
     console.log("POST CreateListing");
 
-    const { name, location, price, desc, image, username } = req.body;
+    const { name, location, price, desc, image, username, condition, category } = req.body;
     const {createListing} = mongoLogic;
 
-    createListing( name, location, price, desc, image, username );
+    createListing( name, location, price, desc, image, username, condition, category );
 
     res.json( {message: "Created listing for: " + username} )
 });

@@ -140,12 +140,12 @@ async function doCreateUser( email, username, password ) {
 
 
 // Calls implementation for createListing. Creates a new listing.
-function createListing( name, location, price, desc, pictures, username ){
+function createListing( name, location, price, desc, pictures, username, condition, category ){
 
     const call = async () => {
 
         try {
-            await doCreateListing(name, location, price, desc, pictures, username );
+            await doCreateListing(name, location, price, desc, pictures, username, condition, category );
         }
         catch (error) {
             console.error(error);
@@ -157,7 +157,7 @@ function createListing( name, location, price, desc, pictures, username ){
 
 
 // Implementation to create a listing.
-async function doCreateListing( name, location, price, desc, pictures, username ){
+async function doCreateListing( name, location, price, desc, pictures, username, condition, category ){
 
     try {
         await connectListings(); // Connects to user collection
@@ -169,7 +169,9 @@ async function doCreateListing( name, location, price, desc, pictures, username 
             "Price" : price,
             "Description" : desc,
             "Pictures" : pictures,
-            "Username" : username
+            "Username" : username,
+            "Condition" : condition,
+            "Category" : category
         }
 
         const product = await col.insertOne(listing); // Inserts the user
@@ -221,6 +223,7 @@ async function doGetListings(){
     }
     await client.close()
 
+    console.log( listings )
 
     return listings;
 }

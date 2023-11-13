@@ -5,7 +5,7 @@ import product4 from './assets/alabastarolly.jpeg'
 import product5 from './assets/toolset.jpeg'
 import product6 from './assets/chair.jpeg'
 
-export const PRODUCTS = [
+export const PRODUCTS =   [
 
     {
         id:1,
