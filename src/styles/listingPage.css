@@ -1,3 +1,185 @@
+@import "mainStyle.css";
+
+/* This is for the different section divs */
+.bodySection {
+    display: grid;
+    grid-template-columns: 1fr  1fr;
+    position: relative;
+    left: 15px;
+    right: 15px;
+    top: 50px;
+
+    height: 65vh;
+    max-height: 79vh;
+    width: 100%;
+    max-width: 100%;
+}
+.bodyLeft {
+    display: grid;
+    grid-template-rows: 1fr 1fr ;
+    align-content: center;
+
+    width: 63vw;
+    height: 65vh;
+    border-radius: 10px;
+    border: solid firebrick;
+    background-color: var(--PrimaryColor);
+}
+.bodyLeftPicture {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    margin: 5px auto;
+    max-width: 60vw;
+    max-height: 56vh;
+
+    background-color: black;
+    border-radius: 20px;
+}
+.bodyLeftPicture img {
+    margin: auto;
+    border-radius: 20px;
+    max-height: 95%;
+    max-width: 95%;
+    object-fit: contain;
+}
+.bodyLeftControl {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 60vw;
+    max-width: 60vw;
+    height: 40px;
+    max-height: 40px;
+}
+.bodyLeftControl button{
+    padding: 8px 15px;
+    border: transparent;
+    border-radius: 10px;
+}
+.bodyRight {
+    max-width: 30vw;
+    width: 32vw;
+    max-height: 65vh;
+    height: 65vh;
+    margin: 0 auto;
+    overflow-y: scroll;
+
+    border-radius: 10px;
+    border: solid firebrick;
+    background-color: lightgrey;
+}
+.bodyRightHeader {
+    text-align: center;
+    line-height: .5;
+    max-height: 50px;
+}
+.bodyRightAttributes {
+    display: flex;
+    flex-direction: row;
+
+    max-height: 100px;
+    max-width: 100%;
+    margin-left: 15px;
+
+    line-height: 2;
+}
+.bodyRightAttributes h3{
+    display: inline;
+}
+.bodyRightFirstAttributes {
+    height: 100px;
+    width: 200px;
+}
+.bodyRightSecAttributes {
+    height: 100px;
+    width: 200px;
+}
+.bodyRightDescription {
+    position: relative;
+    left: 15px;
+    max-width: 93%;
+    padding-bottom: 20px;
+}
+
+
+.forumSection {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 160px;
+    width: 55vw;
+    max-width: 55vw;
+    height: auto;
+    margin: 0 auto;
+    padding-bottom: 10px;
+
+    border-radius: 10px;
+    border: solid firebrick;
+
+    background-color: wheat;
+}
+.forumFooter {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 85%;
+    gap: 20px;
+}
+.forumFooter button {
+    height: 25px;
+    padding: 0 10px;
+}
+.forumHeader {
+    max-height: 130px;
+    width: 100%;
+    overflow-y: hidden;
+    text-align: center;
+}
+.forumAllMessages {
+    position: relative;
+    margin-top: 50px;
+    padding-bottom: 50px;
+    width: 85%;
+}
+.forumMessage {
+    width: 100%;
+
+    border: solid;
+    border-color: dimgrey;
+    border-radius: 10px;
+}
+.forumMessage header {
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-bottom: 20px;
+    font-weight: bold;
+    font-size: 17px;
+}
+.forumMessage p {
+
+    margin-left: 30px;
+}
+.forumMessageFooter {
+    display: flex;
+    flex-flow: row;
+    line-height: 0;
+    margin-right: 10px;
+    padding: 0 10px 5px 10px;
+    text-align: right;
+    font-size: 12px;
+    justify-content: space-between;
+}
+
+
+
+
+/*
+_______________________________________CHASE's CSS______________________________
+ */
+
 .page-container {
     height: fit-content;
     margin-top: 10%;

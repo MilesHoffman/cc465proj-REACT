@@ -104,7 +104,8 @@ function Marketplace(){
                       price={card.Price}
                       location={card.Location}
                       productImage={card.Pictures}
-                        description={card.Description}/>
+                      description={card.Description}
+                />
                 ))}
             </div>
             <Sidefilter onApplyFilter={handleApplyFilter} />

@@ -8,11 +8,11 @@ const {validateLogin, createUser, createListing, getListings} = mongoLogic;
 // Condition: ( New/Good, Used/Pre-owned, Refurbished, Damaged)
 // Category: ( Tech, Home, Apparel, Automobiles, Games )
 
-// createListing("Person", "Franklin", "450",
-//    "This is a person", "Placeholder person picture", "redacted",
-//     "Used/Pre-owned", "Tech" );
+ createListing("test", "Hickville", "FREE",
+    "This is a test", "Placeholder test picture", "redacted",
+     "Used/Pre-owned", "Games" );
 
-getListings();
+// getListings();
 
 // createUser( "test@gmail.com", "TestUser", "1234");
 

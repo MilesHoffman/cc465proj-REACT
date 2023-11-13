@@ -126,6 +126,8 @@
             background-color: white;
             border: solid 1px var(--SecondaryColor);
             border-radius: 7px;
+            width: 150px;
+            height: 30px;
             padding: 2px 10px;
             font-family: var(--RegularFont);
             font-size: 12px;
