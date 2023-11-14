@@ -72,7 +72,7 @@ function ProfilePage() {
             You have 1 listing</div>
             <div class="container-fluid">
                 <SearchToolbar/>
-                <Card productName="BMW Bike" price="8600" location="Erie, PA" productImage={product2} />
+                <CardProfile productName="BMW Bike" price="8600" location="Erie, PA" productImage={product2} />
                 <Footer/>
             </div>
         </div>

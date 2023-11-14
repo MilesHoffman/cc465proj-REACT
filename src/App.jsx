@@ -12,8 +12,9 @@ import CardProfile from './components/cardProfile.jsx'
 import { useNavigate } from '../node_modules/react-router-dom'
 import Login from './mainComponents/login.jsx'
 import CardTest from './components/cardtest.jsx'
-
+import EditListing from "./mainComponents/editListing.jsx";
 import ListingPage from './mainComponents/listingPage.jsx'
+import EditListingContainer from "./mainComponents/editListing.jsx";
 
 
 function App() {
@@ -47,7 +48,7 @@ function App() {
           <Route path="/createUser" element={<CreateUser />} />
           <Route path="/createListing" element={<CreateListing />} />
           <Route path="/profile" element={<ProfilePage />} />
-
+          <Route path="/editListingPage" element={<EditListing/>} />
           <Route path="/listingPage/:name" element={<ListingPage />} />
 
           </Routes>
