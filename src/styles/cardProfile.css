@@ -19,7 +19,7 @@
     text-align: right;
     position:relative;
     bottom: 17px;
-
+    z-index: 9999;
 }
 
 .card-img {

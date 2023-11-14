@@ -19,18 +19,27 @@ import EditListingContainer from "./mainComponents/editListing.jsx";
 
 function App() {
     let [loggedInStatus, setLoggedInStatus] = useState(false);
-    const toggleLoggedInStatus = (state) => {
+    const [currentUser, setCurrentUser] = useState('');
+
+    const toggleLoggedInStatus = (state, username) => {
         setLoggedInStatus(state);
+        setCurrentUser(username);
         sessionStorage.setItem('loggedInStatus', state);
+        sessionStorage.setItem('currentUser', username);
     }
     console.log("LOGGED IN STATUS: ", loggedInStatus);
+    console.log("CURRENT USER: ", currentUser);
 
 
     useEffect(() => {
         // Check if there's a stored login status in sessionStorage
         const storedLoggedInStatus = sessionStorage.getItem('loggedInStatus');
+        const storedCurrentUser = sessionStorage.getItem('currentUser');
         if (storedLoggedInStatus === 'true') {
             setLoggedInStatus(true);
+        }
+        if (storedCurrentUser !== '') {
+            setCurrentUser(storedCurrentUser)
         }
     }, []);
 

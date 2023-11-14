@@ -81,6 +81,7 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
             <div>
                 { showPopup && <LoginContainer
                                                loggedInStatusHandler={loggedInStatusHandler}
+
                                                loginPopup={showPopup}
                                                loginPopupHandler={togglePopup}
                                                buttonRef={buttonRef} />
