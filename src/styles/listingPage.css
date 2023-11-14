@@ -1,18 +1,24 @@
 @import "mainStyle.css";
 
 /* This is for the different section divs */
+
+.page-container{
+    width: 99%;
+    margin-top: 120px;
+    height: fit-content;
+    padding-bottom: 50px;
+}
+
 .bodySection {
     display: grid;
     grid-template-columns: 1fr  1fr;
     position: relative;
     left: 15px;
-    right: 15px;
-    top: 50px;
 
     height: 65vh;
     max-height: 79vh;
-    width: 100%;
-    max-width: 100%;
+    width: 99%;
+    max-width: 99%;
 }
 .bodyLeft {
     display: grid;
@@ -60,7 +66,7 @@
 }
 .bodyRight {
     max-width: 30vw;
-    width: 32vw;
+    width: 30vw;
     max-height: 65vh;
     height: 65vh;
     margin: 0 auto;
@@ -69,11 +75,13 @@
     border-radius: 10px;
     border: solid firebrick;
     background-color: lightgrey;
+    font-family: var(--RegularFont);
 }
 .bodyRightHeader {
     text-align: center;
     line-height: .5;
     max-height: 50px;
+    font-family: var(--TitleFont) !important;
 }
 .bodyRightAttributes {
     display: flex;
@@ -82,11 +90,14 @@
     max-height: 100px;
     max-width: 100%;
     margin-left: 15px;
+    margin-top: 50px;
 
     line-height: 2;
 }
 .bodyRightAttributes h3{
     display: inline;
+    font-size: 16px;
+    font-weight: bold;
 }
 .bodyRightFirstAttributes {
     height: 100px;
@@ -109,11 +120,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 160px;
+    top: 20px;
     width: 55vw;
-    max-width: 55vw;
+    max-width: 90%;
     height: auto;
-    margin: 0 auto;
+    margin: auto;
     padding-bottom: 10px;
 
     border-radius: 10px;
@@ -173,45 +184,3 @@
     justify-content: space-between;
 }
 
-
-
-
-/*
-_______________________________________CHASE's CSS______________________________
- */
-
-.page-container {
-    height: fit-content;
-    margin-top: 10%;
-}
-
-.row1 {
-    display: flex;
-    flex-direction: row;
-    margin-left: 10px;
-}
-
-.row2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.img-container {
-    width: 65%;
-    height: 500px;
-    border: 5px solid black;
-}
-
-.desc-container {
-    width: 30%;
-    margin-left: 10px;
-    border: 5px solid black;
-}
-
-.forum-container {
-    width: 75%;
-    height: 50vh;
-    margin: 10px;
-    border: 5px solid black;
-}

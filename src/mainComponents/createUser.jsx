@@ -109,17 +109,19 @@ function CreateUserContainer({showPopup, togglePopup}) {
 
             <br />
 
-            <SubmitButton
-                buttonName="RETURN TO LOGIN"
-                buttonType="button"
-                change={showPopup}
-                changeHandler={togglePopup}
-                 />
+            <div className="button-row">
+                <SubmitButton
+                    buttonName="RETURN TO LOGIN"
+                    buttonType="button"
+                    change={showPopup}
+                    changeHandler={togglePopup}
+                     />
 
-            <SubmitButton
-                buttonName="CREATE USER"
-                buttonType="button"
-                changeHandler={sendData} />
+                <SubmitButton
+                    buttonName="CREATE USER"
+                    buttonType="button"
+                    changeHandler={sendData} />
+            </div>
         </div>
     );
 }

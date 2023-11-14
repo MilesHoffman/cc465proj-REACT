@@ -18,7 +18,17 @@
 }
 
 .container button {
-    width: fit-content;
+    width: 175px;
+}
+
+.inputField {
+    border-radius: .25em;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-primary {
@@ -28,8 +38,7 @@
 }
 
 .submitButtons {
-    width: 50%;
-    display: inline-block;
+    margin: 10px;
 }
 
 .form-check-input[type=checkbox] {
