@@ -140,12 +140,13 @@ async function doCreateUser( email, username, password ) {
 
 
 // Calls implementation for createListing. Creates a new listing.
-function createListing( name, location, price, desc, pictures, username, condition, category ){
+function createListing( listingData ){
+
 
     const call = async () => {
 
         try {
-            await doCreateListing(name, location, price, desc, pictures, username, condition, category );
+            await doCreateListing( listingData );
         }
         catch (error) {
             console.error(error);
@@ -157,7 +158,9 @@ function createListing( name, location, price, desc, pictures, username, conditi
 
 
 // Implementation to create a listing.
-async function doCreateListing( name, location, price, desc, pictures, username, condition, category ){
+async function doCreateListing( listingData ){
+
+    const { name, location, price, desc, image, username, condition, category } = listingData;
 
     try {
         await connectListings(); // Connects to user collection
@@ -168,7 +171,7 @@ async function doCreateListing( name, location, price, desc, pictures, username,
             "Location" : location,
             "Price" : price,
             "Description" : desc,
-            "Pictures" : pictures,
+            "Pictures" : image,
             "Username" : username,
             "Condition" : condition,
             "Category" : category
@@ -210,6 +213,7 @@ function getListings( filterData ){
     return call();
 }
 
+// Implementation for getting a listing. Returns all listings currently.
 async function doGetListings( filterData ){
 
     let listings;
@@ -230,6 +234,7 @@ async function doGetListings( filterData ){
 
          */
 
+
         listings = await col.find().toArray();
     }
     catch (err){
@@ -239,7 +244,6 @@ async function doGetListings( filterData ){
 
     return listings;
 }
-
 
 // USE THE WRAPPER CLASS NOT THE IMPLEMENTATION CLASS. Unless you don't want to.
 module.exports = {

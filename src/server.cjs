@@ -8,11 +8,12 @@ const app = express();
 app.use(express.json());
 
 // VARIABLES ----------------------------------------------------
-let username = '';
+let globalUsername = '';
 
 // VAR FUNCTIONS ------------------------------------------------
 function setUsername( name ) {
-    username = name;
+    globalUsername = name;
+    console.log("server....THIS IS THE USERNAME..." + globalUsername);
 }
 // --------------------------------------------------------------
 
@@ -51,6 +52,7 @@ app.post('/api/login',  async (req, res) => {
 
     if (isValid) {
         res.json({message: 'Login successful' + isValid}); // Example response
+        setUsername(username);
     }
     else {
         res.status(401).json({message: 'Invalid Credentials'});
@@ -92,12 +94,16 @@ app.post('/api/createListing', (req, res) => {
 
     console.log("POST CreateListing");
 
-    const { name, location, price, desc, image, username, condition, category } = req.body;
+    const { name, location, price, desc, image, condition, category } = req.body;
     const {createListing} = mongoLogic;
 
-    createListing( name, location, price, desc, image, username, condition, category );
+    const listingData = {
+        name, location, price, desc, image, username: globalUsername, condition, category
+    }
 
-    res.json( {message: "Created listing for: " + username} )
+    createListing( listingData );
+
+    res.json( {message: "Created listing for: " + globalUsername} )
 });
 
 app.post('/api/createUser', (req, res) => {

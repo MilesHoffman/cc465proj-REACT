@@ -66,7 +66,7 @@ function CreateListingContainer() {
     const apiUrl = 'http://localhost:5000/api/createListing';
 
     async function sendData() {
-        const data = { name, location: Llocation, price: Price, desc, image };
+        const data = { name, location: location, price: price, desc, image };
         // Default options are marked with *
         try {
             const response = await fetch(apiUrl, {
