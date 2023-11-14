@@ -69,11 +69,13 @@
     border-radius: 10px;
     border: solid firebrick;
     background-color: lightgrey;
+    font-family: var(--RegularFont);
 }
 .bodyRightHeader {
     text-align: center;
     line-height: .5;
     max-height: 50px;
+    font-family: var(--TitleFont) !important;
 }
 .bodyRightAttributes {
     display: flex;
@@ -82,11 +84,14 @@
     max-height: 100px;
     max-width: 100%;
     margin-left: 15px;
+    margin-top: 50px;
 
     line-height: 2;
 }
 .bodyRightAttributes h3{
     display: inline;
+    font-size: 16px;
+    font-weight: bold;
 }
 .bodyRightFirstAttributes {
     height: 100px;
@@ -109,11 +114,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 160px;
+    top: 80px;
     width: 55vw;
     max-width: 55vw;
     height: auto;
-    margin: 0 auto;
+    margin: auto;
     padding-bottom: 10px;
 
     border-radius: 10px;
