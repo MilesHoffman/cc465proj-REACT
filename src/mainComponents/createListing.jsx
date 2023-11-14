@@ -44,8 +44,8 @@ function AddPicture({change, changeHandler}) {
                 accept="image/*"
                 onChange={(e) => {  const file = e.target.files[0];
                                                                         changeHandler(file);            }} />
-            <br />
-            {change && <img src={URL.createObjectURL(change)} alt="Uploaded" style={{maxWidth: '300px', maxHeight: '200px'}} />}
+
+            {change && <img src={URL.createObjectURL(change)} alt="Uploaded" style={{maxWidth: '150px', maxHeight: '150px'}} />}
         </form>
     );
 }
@@ -96,7 +96,10 @@ function CreateListingContainer() {
     }
 
     return (
-        <div className="container" style={ {top: "370px"} }>
+        <div className="container" style={{marginTop: '8vh'}}>
+            <h1>
+                Create a Listing
+            </h1>
             <InputField
                 labelName="Name"
                 change={name}
