@@ -101,7 +101,7 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
           if (response.ok) {
               const valid = await response.json();
               loggedInStatusHandler(true);
-              window.Location.reload();
+              window.location.reload();
               console.log(valid.message);
           }
           else {
@@ -115,8 +115,10 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
 
   }
 
-  const togglePopup = () => {
-      setShowPopup(!showPopup);
+  const togglePopup = (state) => {
+      setTimeout(() => {
+          setShowPopup(state);
+      }, 0);
   }
 
   return (
@@ -145,6 +147,7 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
 
       <br />
 
+        <div className="button-row">
       <SubmitButton
           buttonName="CREATE USER"
           buttonType="button"
@@ -156,10 +159,11 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
           buttonType="button"
           changeHandler={sendData}
       />
+        </div>
 
         <div>
             { showPopup && <CreateUserContainer showPopup={showPopup}
-                                                togglePopup={togglePopup}
+                                                togglePopup={() => togglePopup(!showPopup)}
                                                 /> }
         </div>
     </div>
