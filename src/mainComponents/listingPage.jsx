@@ -26,16 +26,6 @@ function PictureContainer({productImage}) {
 function DescContainer({productName, price, location, description}) {
 
     return (
-        /*
-      <div className="desc-container">
-          <span>{productName}</span>
-          <span>{price}</span>
-          <span>{location}</span>
-          <span>{description}</span>
-      </div>
-
-         */
-
 
         <div className={"bodyRight"}>
             <div className="bodyRightHeader">
@@ -52,13 +42,13 @@ function DescContainer({productName, price, location, description}) {
                 <div className="bodyRightFirstAttributes">
                     <div>
                         <h3>
-                            <span>Condition</span>
+                            <span>Condition: </span>
                         </h3>
                         Good
                     </div>
                     <div>
                         <h3>
-                            Location:
+                            <span>Location: </span>
                         </h3>
                         <span>{location}</span>
                     </div>
@@ -89,44 +79,31 @@ function ListingPage() {
     const {productName, price, location: productLocation, productImage, description} = location.state;
 
     return (
-        /*
-        <div className="page-container">
-            <div className="row1">
-                <PictureContainer productImage={productImage}/>
 
-                <DescContainer productName={productName}
-                               price={price}
+        <div>
+            <div className="bodySection">
+
+                <div className="bodyLeft">
+
+                    <div className="bodyLeftPicture">
+                        <PictureContainer productImage={productImage} />
+                    </div>
+
+                    <div className="bodyLeftControl">
+                        <button type="button">
+                            <text> back arrow  </text>
+                        </button>
+                        <button type="button">
+                            <text> next arrow </text>
+                        </button>
+                    </div>
+                </div>
+
+
+                <DescContainer productName={productName} price={price}
                                location={productLocation} description={description} />
+
             </div>
-            <div className="row2">
-                <ForumContainer />
-            </div>
-        </div>
-
-         */
-
-        <div className="bodySection">
-
-            <div className="bodyLeft">
-
-                <div className="bodyLeftPicture">
-                    <PictureContainer productImage={productImage} />
-                </div>
-
-                <div className="bodyLeftControl">
-                    <button type="button">
-                        <text> back arrow  </text>
-                    </button>
-                    <button type="button">
-                        <text> next arrow </text>
-                    </button>
-                </div>
-            </div>
-
-
-            <DescContainer productName={productName} price={price}
-                           location={productLocation} description={description} />
-
 
             <div className="forumSection">
 
@@ -154,6 +131,8 @@ function ListingPage() {
             </div>
 
         </div>
+
+
     );
 }
 
