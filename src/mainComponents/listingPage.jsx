@@ -80,7 +80,7 @@ function ListingPage() {
 
     return (
 
-        <div>
+        <div className={"page-container"}>
             <div className="bodySection">
 
                 <div className="bodyLeft">
