@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import '../components/cardProfile'
 import '../styles/profilePage.css'
 import SearchToolbar from '../components/searchtoolbar'
@@ -11,6 +11,27 @@ import product2 from '../assets/Classic-BMW-Motorcycles.jpg'
 
 
 function ProfilePage() {
+
+    const [listings, setListings] = useState([]);
+
+    useEffect(() => {
+        // Fetch listings when the component mounts
+        const fetchListings = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/getProfile'); // Update the URL with your actual API endpoint
+                if (response.ok) {
+                    const data = await response.json();
+                    setListings(data);
+                } else {
+                    console.error('Failed to fetch listings:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching listings:', error);
+            }
+        };
+
+        fetchListings();
+    }, []); // Empty dependency array ensures this effect runs once when the component mounts
 
 
     return(
@@ -71,8 +92,18 @@ function ProfilePage() {
 
             You have 1 listing</div>
             <div class="container-fluid">
-                <SearchToolbar/>
-                <CardProfile productName="BMW Bike" price="8600" location="Erie, PA" productImage={product2} />
+                
+                <div className="search-results">
+                    {listings.map((card) => (
+                        //prop creation for card data
+                        <CardProfile productName={card.Name}
+                              price={card.Price}
+                              location={card.Location}
+                              productImage={card.Pictures}
+                              description={card.Description}
+                              id={card._id}/>
+                    ))}
+                </div>
                 <Footer/>
             </div>
         </div>

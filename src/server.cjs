@@ -38,6 +38,23 @@ app.get('/api/getListings', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+app.get('/api/getProfile', async (req, res) => {
+    try {
+
+        const{getListings} = mongoLogic;
+        // Call the getListing function
+        const filterData = 0;
+        const listings = await getListings( filterData );
+
+
+        // Send the listings as a response
+        res.json(listings);
+    } catch (error) {
+        console.error('__________________api/getListings...Error fetching listings:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 app.post('/api/login',  async (req, res) => {
     // Handle login logic here
     const {username, password} = req.body;
@@ -82,11 +99,6 @@ app.post('/api/sendListing', async (req, res) =>{
     }
 
 })
-
-
-
-
-
 
 
 
