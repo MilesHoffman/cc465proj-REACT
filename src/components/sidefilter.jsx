@@ -4,7 +4,7 @@ import app from "../App.jsx";
 
 
 
-function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
+function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
     //states to filter items on sidebar
     const [City, setCity] = useState('');
     const [Zipcode, setZipcode] = useState('');
@@ -122,7 +122,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
         console.log('filtered data', filterData);
 
         // Call the Express API to send the filterData
-        const apiUrl = 'http://localhost:5000/api/sendListing';
+        const apiUrl = 'http://localhost:5000/api/getListings';
 
         try {
             const response = await fetch(apiUrl, {
@@ -131,16 +131,16 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
                 cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
                 headers: {
                     "Content-Type": "application/json",
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify(filterData),
             });
 
             if (response.ok) {
+
                 const result = await response.json();
-                // Handle the API response if needed
-                console.log(result);
-            } else {
+                callSetListings(result);
+            }
+            else {
                 console.error('Failed to send data to the API');
             }
         } catch (error) {
@@ -224,7 +224,18 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter})  {
                     <option value="1"> within 30 days</option>
                     <option value="2"> beyond 30 days</option>
                 </select>
-                <div className="c1-command-buttons"><button type="button" tabindex="0" className="bd-button cl-exec-cancel "><span className="label">cancel</span></button><button type="button" onClick={handleResetFilter} tabindex="0" className="bd-button cl-exec-resetSearch "><span className="label">reset</span></button><button type="button" onClick={handleApplyFilter}  tabindex="0" className="bd-button cl-exec-search "><span className="label">apply</span></button></div>
+                <div className="standardButton">
+                    <button type="button" className={"buttontest"} tabindex="0">
+                        <span className="label">cancel</span>
+                    </button>
+                    <button type="button" onClick={handleResetFilter} tabindex="0">
+                        <span className="label">reset</span>
+                    </button>
+                    <button type="button" onClick={handleApplyFilter}  tabindex="0">
+                        <span className="label">apply</span>
+                    </button>
+
+                </div>
                 <div className="category-title">
                     <h1>Categories</h1>
                 </div>

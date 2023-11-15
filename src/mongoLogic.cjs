@@ -216,26 +216,29 @@ function getListings( filterData ){
 // Implementation for getting a listing. Returns all listings currently.
 async function doGetListings( filterData ){
 
+    console.log("Mongologic..... filterData: ", filterData)
+
     let listings;
     try {
         await connectListings(); // Connects to listing collection
 
-        /*
-        const query = {
+        let query;
+        query = {
             $and: [
                 filterData.City ? { Location: filterData.City } : {},
                 filterData.Zipcode ? { Zipcode: filterData.Zipcode } : {},
                 filterData.minPrice ? { Price: { $gte: filterData.minPrice } } : {},
-                filterData.maxPrice ? { maxPrice: { $lte: filterData.maxPrice } } : {},
-                { Condition: { $in: Object.keys(filterData.conditions).filter(key => filterData.conditions[key]) } },
+                filterData.maxPrice ? { Price: { $lte: filterData.maxPrice } } : {},
+                //{ Condition: { $in: Object.keys(filterData.conditions).filter(key => filterData.conditions[key]) } },
                 filterData.selectedSide ? { Side: filterData.selectedSide } : {}
             ]
         };
 
-         */
+        console.log( "mongoLogic..... QUERY: ",  query)
 
+        listings = await col.find( query ).toArray();
 
-        listings = await col.find().toArray();
+        //console.log( "mongoLogic..... listings: ", listings)
     }
     catch (err){
         console.log(err);

@@ -36,7 +36,7 @@
         }
 
         .search-filter {
-            width: 200px;
+            width: 210px;
             left: 0px;
             top: 100px;
             bottom: 0px;
@@ -259,11 +259,26 @@
 
 
 
-        .c1-command-buttons{
+        .standardButton{
             margin-top: 12px;
-
+            display: flex;
+            flex-flow: row;
 
         }
+            .standardButton button{
+                margin-right: 15px;
+                padding: 5px;
+                border: solid 1px var(--SecondaryColor);
+                border-radius: 10px;
+                background-color: white;
+            }
+            .standardButton button:hover{
+                background-color: var(--ThirdColor);
+            }
+            .standardButton button:active{
+                background-color: var(--SecondaryColor);
+                border-color: var(--FourthColor);
+            }
 
         .lower-icon-container{
             position:relative;

@@ -10,6 +10,10 @@ function Marketplace(){
     //array to hold all listings
     const [listings, setListings] = useState([]);
 
+    function callSetListings( listings ){
+        setListings(listings);
+    }
+
     //to hold state of filters
     const [selectedFilters, setSelectedFilters] = useState({
         location: '',
@@ -25,7 +29,16 @@ function Marketplace(){
         // Fetch listings when the component mounts
         const fetchListings = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/getListings'); // Update the URL with your actual API endpoint
+                const filterData = {};
+                const apiUrl = "http://localhost:5000/api/getListings"
+                const response = await fetch(apiUrl, {
+
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(filterData),
+                });
                 if (response.ok) {
                     const data = await response.json();
                     setListings(data);
@@ -108,7 +121,7 @@ function Marketplace(){
                         id={card._id}/>
                 ))}
             </div>
-            <Sidefilter onApplyFilter={handleApplyFilter} />
+            <Sidefilter onApplyFilter={handleApplyFilter} callSetListings={callSetListings} />
         </div>
     )
 

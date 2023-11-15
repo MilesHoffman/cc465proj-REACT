@@ -27,11 +27,35 @@
     /* CONTROL'S CSS --------------------------------------------> */
 }
 
-
 input:focus {
     border-color: var(--FourthColor);
     outline: none;
 }
+
+
+/* Types of button styles */
+
+    /* Standard button */
+    .standardButton{
+        margin-top: 12px;
+        display: flex;
+        flex-flow: row;
+
+    }
+        .standardButton button{
+            margin-right: 15px;
+            padding: 5px;
+            border: solid 1px var(--SecondaryColor);
+            border-radius: 10px;
+            background-color: white;
+        }
+        .standardButton button:hover{
+            background-color: var(--ThirdColor);
+        }
+        .standardButton button:active{
+            background-color: var(--SecondaryColor);
+            border-color: var(--FourthColor);
+        }
 
 /* Reset default browser styles */
 * {

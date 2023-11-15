@@ -23,13 +23,15 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get('/api/getListings', async (req, res) => {
+app.post('/api/getListings', async (req, res) => {
     try {
 
         const{getListings} = mongoLogic;
         // Call the getListing function
-        const filterData = 0;
+        const filterData = req.body;
         const listings = await getListings( filterData );
+
+        console.log("getListings...... _________ ", listings);
 
         // Send the listings as a response
         res.json(listings);
