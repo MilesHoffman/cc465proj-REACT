@@ -21,6 +21,25 @@ function CardInformation({productName, location, price}) {
         </div>
     );
 }
+
+function CardSave() {
+
+    const handleSave = () => {
+
+
+
+
+    }
+
+    return(
+     <div>
+         <button  type="button" className="btn btn-success btn-sm">
+             Save
+         </button>
+     </div>
+    )
+
+}
 function CardContainer({productName, price, location, productImage, description}) {
     const navigate = useNavigate();
     const handleClick = () => {
@@ -36,6 +55,7 @@ function CardContainer({productName, price, location, productImage, description}
               <CardInformation productName={productName}
                                price={price}
                                location={location} />
+                <CardSave/>
             </div>
     );
 }

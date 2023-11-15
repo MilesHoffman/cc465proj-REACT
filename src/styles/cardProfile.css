@@ -15,10 +15,10 @@
 }
 
 .editdelete-container{
-    margin-right:2px;
-    text-align: right;
-    position:relative;
-    bottom: 17px;
+    margin-right: 2px;
+    position: relative;
+    bottom: 70px;
+    left: 100px;
     z-index: 9999;
 }
 

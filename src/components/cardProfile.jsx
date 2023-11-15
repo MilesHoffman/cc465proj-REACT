@@ -2,11 +2,18 @@ import React, {useEffect, useState} from "react";
 import './../styles/cardProfile.css'
 import {useNavigate, Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import {useRef} from "react";
 
 function CardPicture({productImage}) {
+
+    const handleListing = () => {
+
+
+    }
+
     return (
         <img
+            onClick={handleListing}
             src={productImage}
             alt="Uploaded"
             className="card-img" />
@@ -27,33 +34,43 @@ function CardInformation({productName, location, price}) {
 
 
 //this will hold the edit and delete options on card profile
-function CardProfileEditDelete() {
+function CardProfileEditDelete({ handleEdit }) {
+    const navigate = useNavigate();
+    const [del, setDel] = useState(false);
+    const editButtonRef = useRef();
 
-    const [edit, setEdit] = useState(false);
-    const [del , setDel] = useState(false);
-    const handleEdit = () =>{
-
-        setEdit(!edit)
-        console.log(edit)
-
-    }
-
-    const handleDelete = () =>{
-
-        setDel(!del)
-        console.log(del)
-    }
+    const handleEditClick = () => {
+        setDel(!del);
+        console.log(del);
+        handleEdit();
+    };
 
     useEffect(() => {
+        const handleClickOutside = (event) => {
+            // Check if the click is outside the edit button
+            if (editButtonRef.current && !editButtonRef.current.contains(event.target)) {
+                setDel(false);
+            }
+        };
 
-    }, [edit]);
+        // Add event listener to handle clicks outside the edit button
+        document.addEventListener("mousedown", handleClickOutside);
 
+        // Clean up the event listener on component unmount
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
-    return(
-      <div className="editdelete-container">
-          <button onClick={handleEdit} type="button" className="btn btn-success btn-sm">Edit</button>
-          <button onClick={handleDelete} type="button" className="btn btn-danger btn-sm">Delete</button>
-      </div>
+    return (
+        <div className="editdelete-container">
+            <button ref={editButtonRef} onClick={handleEditClick} type="button" className="btn btn-success btn-sm">
+                Edit
+            </button>
+            <button onClick={() => setDel(!del)} type="button" className="btn btn-danger btn-sm">
+                Delete
+            </button>
+        </div>
     );
 }
 
@@ -68,14 +85,29 @@ function CardProfileContainer({productName, price, location, productImage, descr
         });
     };
 
-    return (
-        <div className="card-container" onClick={handleClick}>
-            <CardPicture productImage={productImage} />
+    const handleEditClick = () => {
+        navigate(`/editListingPage`, {
+            state:{productName,price,location,productImage,description}
 
-            <CardInformation productName={productName}
+        });
+
+
+    };
+
+    return (
+
+        <div>
+            <div className="card-container" onClick={handleClick}>
+                <CardPicture productImage={productImage}  />
+
+                <CardInformation productName={productName}
                              price={price}
                              location={location} />
-            <CardProfileEditDelete/>
+
+            </div>
+            <div className="button-profile-container">
+                <CardProfileEditDelete handleEdit={handleEditClick}/>
+            </div>
         </div>
     );
 }
