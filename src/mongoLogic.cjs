@@ -2,7 +2,7 @@
 
 
 // Initializing the variables to connect to the database.
-const {MongoClient} = require("mongodb");
+const {MongoClient, ObjectId} = require("mongodb");
 //const {PRODUCTS} = require("./products.js");
 const url = "mongodb+srv://cc465proj:cc465proj@cluster0.3wpv56y.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(url);
@@ -248,10 +248,35 @@ async function doGetListings( filterData ){
     return listings;
 }
 
+//edit listing mongoLogic
+
+async function editListing(listingId, updatedData) {
+
+    try {
+        await client.connect();
+
+        const db = client.db(dbName);
+        const collection = db.collection('listings');
+
+        // Convert listingId to ObjectId
+        const objectId = new ObjectId(listingId);
+
+        // Update the listing with the new data
+        const result = await collection.updateOne({ _id: objectId }, { $set: updatedData });
+
+        return result;
+    } finally {
+        await client.close();
+    }
+}
+
+
+
 // USE THE WRAPPER CLASS NOT THE IMPLEMENTATION CLASS. Unless you don't want to.
 module.exports = {
     validateLogin,
     createUser,
     createListing,
-    getListings
+    getListings,
+    editListing
 }

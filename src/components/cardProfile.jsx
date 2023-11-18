@@ -34,40 +34,35 @@ function CardInformation({productName, location, price}) {
 
 
 //this will hold the edit and delete options on card profile
-function CardProfileEditDelete({ handleEdit }) {
+function CardProfileEditDelete({ handleEdit , handleDelete}) {
     const navigate = useNavigate();
     const [del, setDel] = useState(false);
     const editButtonRef = useRef();
 
     const handleEditClick = () => {
-        setDel(!del);
-        console.log(del);
+
         handleEdit();
     };
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            // Check if the click is outside the edit button
-            if (editButtonRef.current && !editButtonRef.current.contains(event.target)) {
-                setDel(false);
-            }
-        };
+    const handleDeleteClick = () => {
 
-        // Add event listener to handle clicks outside the edit button
-        document.addEventListener("mousedown", handleClickOutside);
+        console.log(del);
+        handleDelete();
 
-        // Clean up the event listener on component unmount
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+    }
+
+
+
+
+
+
 
     return (
         <div className="editdelete-container">
             <button ref={editButtonRef} onClick={handleEditClick} type="button" className="btn btn-success btn-sm">
                 Edit
             </button>
-            <button onClick={() => setDel(!del)} type="button" className="btn btn-danger btn-sm">
+            <button onClick={handleDeleteClick} type="button" className="btn btn-danger btn-sm">
                 Delete
             </button>
         </div>
@@ -81,36 +76,40 @@ function CardProfileContainer({productName, price, location, productImage, descr
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/listingPage/${productName}`, {
-            state: { productName, price, location, productImage, description }
+            state: {productName, price, location, productImage, description}
         });
     };
 
     const handleEditClick = () => {
         navigate(`/editListingPage`, {
-            state:{productName,price,location,productImage,description}
+            state: {productName, price, location, productImage, description}
 
         });
 
 
     };
 
-    return (
 
-        <div className="card-container">
-            <div onClick={handleClick}>
-                <CardPicture productImage={productImage}  />
 
-                <CardInformation productName={productName}
-                             price={price}
-                             location={location} />
 
+
+        return (
+
+            <div className="card-container">
+                <div onClick={handleClick}>
+                    <CardPicture productImage={productImage}/>
+
+                    <CardInformation productName={productName}
+                                     price={price}
+                                     location={location}/>
+
+                </div>
+                <div className="button-profile-container">
+                    <CardProfileEditDelete handleEdit={handleEditClick} />
+                </div>
             </div>
-            <div className="button-profile-container">
-                <CardProfileEditDelete handleEdit={handleEditClick}/>
-            </div>
-        </div>
-    );
+        );
+
 }
-
 export default CardProfileContainer;
 

@@ -132,6 +132,35 @@ app.post('/api/createUser', (req, res) => {
     res.json( {message: "Created user for: " + username} )
 });
 
+// To edit a listing
+app.post('/api/editListing', async (req, res) => {
+    try {
+        const { editListing } = mongoLogic;
+        const updatedData = req.body;
+        console.log('ni hao')
+        // Assuming there's a unique identifier for each listing, like _id
+        const listingId = updatedData._id;
+
+        // Call the editListing function with the updated data and listingId
+        const result = await editListing(listingId, updatedData);
+
+        res.json(result);
+    } catch (error) {
+        console.error('Error editing listing:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+//to delete a listing
+app.delete('/api/deleteListing', async (req, res) => {
+
+    //mongoLogic function to delete listing from user
+    console.log('request received')
+
+})
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

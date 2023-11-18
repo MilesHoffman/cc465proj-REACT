@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import '../styles/inputPages.css';
+import {useLocation} from "react-router-dom";
 
 function InputField({labelName, change, changeHandler}) {
     return(
@@ -57,10 +58,13 @@ function SubmitButton( {handler} ) {
     );
 }
 function EditListingContainer() {
-    const [name, setName] = useState('');
-    const [location, setLocation] = useState('');
-    const [price, setPrice] = useState('');
-    const [desc, setDesc] = useState('');
+    const routerLocation = useLocation();
+    const initialState = routerLocation.state || {}; // Access the state passed from the previous page
+
+    const [name, setName] = useState(initialState.productName || '');
+    const [locationState, setLocationState] = useState(initialState.location || '');
+    const [price, setPrice] = useState(initialState.price || '');
+    const [desc, setDesc] = useState(initialState.description || '');
     const [image, setImage] = useState(null);
 
     const apiUrl = 'http://localhost:5000/api/editListing'
@@ -78,7 +82,15 @@ function EditListingContainer() {
                     "Content-Type": "application/json",
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: JSON.stringify(filterData),
+                body: JSON.stringify({
+                    _id: initialState.id,
+                    Name: name,
+                    Location: setLocationState,
+                    Price:price,
+                    Description: desc,
+
+
+                }),
 
             })
             if (response.ok) {
@@ -101,8 +113,8 @@ function EditListingContainer() {
 
             <InputField
                 labelName="Location"
-                change={location}
-                changeHandler={setLocation} />
+                change={locationState}
+                changeHandler={setLocationState} />
 
             <InputField
                 labelName="Price"

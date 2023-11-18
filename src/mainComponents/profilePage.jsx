@@ -90,7 +90,7 @@ function ProfilePage() {
             </form>
 
 
-            You have 1 listing</div>
+            You have {listings.length} listing{listings.length !== 1 && 's'}</div>
             <div class="container-fluid">
                 
                 <div className="search-results">
