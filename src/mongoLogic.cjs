@@ -250,7 +250,7 @@ async function doGetListings( filterData ){
 
 
 // Calls implementation for updateListing.
-function updateListing( listingID, updData ){
+function editListing( listingID, updData ){
 
     const call = async () => {
 
