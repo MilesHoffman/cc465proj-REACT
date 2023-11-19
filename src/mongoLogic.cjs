@@ -248,26 +248,43 @@ async function doGetListings( filterData ){
     return listings;
 }
 
-//edit listing mongoLogic
 
-async function editListing(listingId, updatedData) {
+// Calls implementation for updateListing.
+function updateListing( listingID, updData ){
+
+    const call = async () => {
+
+        try {
+            await doEditListing( listingID, updData );
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
+    call();
+}
+
+
+// updates a listing using its ID and the updated data.
+async function doEditListing(listingId, updData) {
 
     try {
-        await client.connect();
 
-        const db = client.db(dbName);
-        const collection = db.collection('listings');
+        await connectListings();
 
-        // Convert listingId to ObjectId
-        const objectId = new ObjectId(listingId);
+        // outputs the listing's ID
+        console.log( "_________________mongoLogic... DoEditListing..... \n"
+            + listingId );
 
         // Update the listing with the new data
-        const result = await collection.updateOne({ _id: objectId }, { $set: updatedData });
-
-        return result;
-    } finally {
-        await client.close();
+        await col.updateOne({ "_id": listingId }, { $set: updData });
     }
+    catch (err){
+        console.log(err);
+    }
+
+    await client.close();
 }
 
 
