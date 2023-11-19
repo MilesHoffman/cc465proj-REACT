@@ -59,7 +59,7 @@ function CardProfileEditDelete({ handleEdit , handleDelete}) {
 
     return (
         <div className="editdelete-container">
-            <button ref={editButtonRef} onClick={handleEditClick} type="button" className="btn btn-success btn-sm">
+            <button ref={editButtonRef} onClick={handleEdit} type="button" className="btn btn-success btn-sm">
                 Edit
             </button>
             <button onClick={handleDeleteClick} type="button" className="btn btn-danger btn-sm">
@@ -72,7 +72,7 @@ function CardProfileEditDelete({ handleEdit , handleDelete}) {
 
 
 
-function CardProfileContainer({productName, price, location, productImage, description}) {
+function CardProfileContainer({productName, price, location, productImage, description, _id}) {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/listingPage/${productName}`, {
@@ -82,7 +82,7 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
     const handleEditClick = () => {
         navigate(`/editListingPage`, {
-            state: {productName, price, location, productImage, description}
+            state: {productName, price, location, productImage, description, _id}
 
         });
 
@@ -93,23 +93,22 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
 
 
-        return (
+    return (
 
-            <div className="card-container">
-                <div onClick={handleClick}>
-                    <CardPicture productImage={productImage}/>
+        <div className="card-container">
+            <div onClick={handleClick}>
+                <CardPicture productImage={productImage}/>
 
-                    <CardInformation productName={productName}
-                                     price={price}
-                                     location={location}/>
+                <CardInformation productName={productName}
+                                 price={price}
+                                 location={location}/>
 
-                </div>
-                <div className="button-profile-container">
-                    <CardProfileEditDelete handleEdit={handleEditClick} />
-                </div>
             </div>
-        );
+            <div className="button-profile-container">
+                <CardProfileEditDelete handleEdit={handleEditClick} />
+            </div>
+        </div>
+    );
 
 }
 export default CardProfileContainer;
-

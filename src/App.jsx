@@ -57,9 +57,9 @@ function App() {
           <Route path="/createUser" element={<CreateUser />} />
           <Route path="/createListing" element={<CreateListing />} />
           <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/listingPage/:productName" element={<ListingPage />} />
           <Route path="/editListingPage" element={<EditListing/>} />
-          <Route path="/listingPage/:name" element={<ListingPage />} />
-
+          <Route path="/card" element={<CardTest/>}/>
           </Routes>
 
 

@@ -136,13 +136,15 @@ app.post('/api/createUser', (req, res) => {
 app.post('/api/editListing', async (req, res) => {
     try {
         const { editListing } = mongoLogic;
-        const updatedData = req.body;
-        console.log('ni hao')
+        const updData = req.body;
+        console.log(updData) //testing updated data
         // Assuming there's a unique identifier for each listing, like _id
-        const listingId = updatedData._id;
+        const listingID = updData.ID;
 
+        console.log(listingID)
         // Call the editListing function with the updated data and listingId
-        const result = await editListing(listingId, updatedData);
+
+        const result = await editListing(listingID, updData);
 
         res.json(result);
     } catch (error) {
@@ -159,6 +161,8 @@ app.delete('/api/deleteListing', async (req, res) => {
     console.log('request received')
 
 })
+
+
 
 
 const PORT = process.env.PORT || 5000;

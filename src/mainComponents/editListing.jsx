@@ -66,6 +66,8 @@ function EditListingContainer() {
     const [price, setPrice] = useState(initialState.price || '');
     const [desc, setDesc] = useState(initialState.description || '');
     const [image, setImage] = useState(null);
+    const [id, setID] = useState(initialState._id || '');
+
 
     const apiUrl = 'http://localhost:5000/api/editListing'
 
@@ -83,9 +85,9 @@ function EditListingContainer() {
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify({
-                    _id: initialState.id,
+                    ID: initialState.id,
                     Name: name,
-                    Location: setLocationState,
+                    Location: locationState,
                     Price:price,
                     Description: desc,
 
@@ -106,6 +108,7 @@ function EditListingContainer() {
 
     return (
         <div className="container" style={ {top: "370px"} }>
+            <span>id:{id}</span>
             <InputField
                 labelName="Name"
                 change={name}
