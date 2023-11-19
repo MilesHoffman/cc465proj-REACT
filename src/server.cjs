@@ -31,8 +31,6 @@ app.post('/api/getListings', async (req, res) => {
         const filterData = req.body;
         const listings = await getListings( filterData );
 
-        console.log("getListings...... _________ ", listings);
-
         // Send the listings as a response
         res.json(listings);
     } catch (error) {
