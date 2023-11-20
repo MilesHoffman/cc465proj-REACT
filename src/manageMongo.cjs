@@ -14,6 +14,7 @@ let col = '';
 
 // Initializes the functions from mongoLogic.
 const mongoLogic = require("./mongoLogic.cjs");
+const {generateUniqueID} = require("./mongoLogic.cjs");
 
 
 // Starts the connection to the Users collection. Does not close it.
@@ -89,13 +90,14 @@ function main(){
             // Category: ( Tech, Home, Apparel, Automobiles, Games )
 
             const listingData = {
-                name : "Where's my innernet??",
+                name : "Testing ID",
                 location : "Hickville",
                 price : "150", "desc" : "This is a test...",
                 image : "TestImage",
                 username: "Test....",
                 condition : "New/Good",
-                category : "Games"
+                category : "Games",
+                ID : generateUniqueID()
             }
 
             await mongoLogic.createListing(listingData)

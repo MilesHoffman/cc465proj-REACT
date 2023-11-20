@@ -37,6 +37,13 @@ async function connectListings() {
     }
 }
 
+// Creates a unique ID
+function generateUniqueID(){
+    const timestamp = new Date().getTime(); // Current timestamp
+    const random = Math.floor(Math.random() * 10000); // Random number between 0 and 999
+    return timestamp + '-' + random;
+}
+
 // Calls validateLogin implementation. Returns a bool based on the credentials entered.
 function validateLogin(username, password){
 
@@ -174,7 +181,8 @@ async function doCreateListing( listingData ){
             "Pictures" : image,
             "Username" : username,
             "Condition" : condition,
-            "Category" : category
+            "Category" : category,
+            "ID" : generateUniqueID()
         }
 
         const product = await col.insertOne(listing); // Inserts the user
@@ -277,7 +285,7 @@ async function doEditListing(listingId, updData) {
         console.log( "_________________mongoLogic... DoEditListing..... \n" + listingId );
 
         // Update the listing with the new data
-        await col.updateOne({ "_id": listingId }, { $set: updData });
+        await col.updateOne({ "ID": listingId }, { $set: updData });
     }
     catch (err){
         console.log(err);
@@ -294,5 +302,6 @@ module.exports = {
     createUser,
     createListing,
     getListings,
-    editListing
+    editListing,
+    generateUniqueID
 }
