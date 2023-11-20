@@ -294,6 +294,42 @@ async function doEditListing(listingId, updData) {
     await client.close();
 }
 
+// Calls implementation for deleting a listing.
+function deleteListing( listingID ){
+
+    const call = async () => {
+
+        try {
+            await doEditListing( listingID, updData );
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
+    call();
+}
+
+// Deletes a listing
+async function doDeleteListing( listingID ){
+
+    try {
+
+        await connectListings();
+
+        // outputs the listing's ID
+        console.log( "_________________mongoLogic... doDeleteListing..... \n" + listingID );
+
+        // Update the listing with the new data
+        await col.deleteOne({ "ID": listingID });
+    }
+    catch (err){
+        console.log(err);
+    }
+
+    await client.close();
+}
+
 
 
 // USE THE WRAPPER CLASS NOT THE IMPLEMENTATION CLASS. Unless you don't want to.
@@ -303,5 +339,6 @@ module.exports = {
     createListing,
     getListings,
     editListing,
-    generateUniqueID
+    generateUniqueID,
+    deleteListing
 }

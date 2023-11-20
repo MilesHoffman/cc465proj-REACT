@@ -41,6 +41,8 @@ async function connectListings() {
     catch (err){
         console.log(err)
     }
+
+
 }
 
 
@@ -57,6 +59,8 @@ async function deleteAllListings() {
     catch (err){
         console.log(err);
     }
+
+    console.log( "___________manageMongo... Deleted all listings....")
 
     await client.close();
 }
@@ -76,6 +80,7 @@ async function deleteAllUsers() {
         console.log(err);
     }
 
+    console.log( "___________manageMongo... Deleted all users....")
     await client.close();
 }
 
@@ -90,13 +95,13 @@ function main(){
             // Category: ( Tech, Home, Apparel, Automobiles, Games )
 
             const listingData = {
-                name : "Testing ID",
+                name : "Zombeis!! Runn!!",
                 location : "Hickville",
-                price : "150", "desc" : "This is a test...",
+                price : "500", "desc" : "This is a test...",
                 image : "TestImage",
                 username: "Test....",
                 condition : "New/Good",
-                category : "Games",
+                category : "Tech",
                 ID : generateUniqueID()
             }
 
@@ -104,8 +109,8 @@ function main(){
 
             //await mongoLogic.createUser( "testEmail@gmail.com", "TestUser", "1234")
 
-            // await deleteAllUsers()
-            // await deleteAllListings()
+            //await deleteAllUsers()
+            //await deleteAllListings()
         }
         catch (error) {
             console.error(error);
