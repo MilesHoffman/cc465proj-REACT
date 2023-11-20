@@ -72,7 +72,7 @@ function CardProfileEditDelete({ handleEdit , handleDelete}) {
 
 
 
-function CardProfileContainer({productName, price, location, productImage, description, _id}) {
+function CardProfileContainer({productName, price, location, productImage, description, ID}) {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/listingPage/${productName}`, {
@@ -82,7 +82,7 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
     const handleEditClick = () => {
         navigate(`/editListingPage`, {
-            state: {productName, price, location, productImage, description, _id}
+            state: {productName, price, location, productImage, description, ID}
 
         });
 

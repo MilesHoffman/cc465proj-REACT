@@ -118,7 +118,7 @@ function Marketplace(){
                       location={card.Location}
                       productImage={card.Pictures}
                         description={card.Description}
-                        id={card._id}/>
+                        id={card.ID}/>
                 ))}
             </div>
             <Sidefilter onApplyFilter={handleApplyFilter} callSetListings={callSetListings} />

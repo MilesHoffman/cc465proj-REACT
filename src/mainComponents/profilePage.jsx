@@ -33,6 +33,10 @@ function ProfilePage() {
         fetchListings();
     }, []); // Empty dependency array ensures this effect runs once when the component mounts
 
+    listings.map((card) => (
+        console.log(card.ID)
+    ));
+
 
     return(
         <div>
@@ -101,7 +105,7 @@ function ProfilePage() {
                               location={card.Location}
                               productImage={card.Pictures}
                               description={card.Description}
-                              id={card._id}/>
+                              ID={card.ID}/>
                     ))}
                 </div>
                 <Footer/>

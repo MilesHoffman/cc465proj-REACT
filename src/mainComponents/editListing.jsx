@@ -66,7 +66,7 @@ function EditListingContainer() {
     const [price, setPrice] = useState(initialState.price || '');
     const [desc, setDesc] = useState(initialState.description || '');
     const [image, setImage] = useState(null);
-    const [id, setID] = useState(initialState._id || '');
+    const [id, setID] = useState(initialState.ID || '');
 
 
     const apiUrl = 'http://localhost:5000/api/editListing'

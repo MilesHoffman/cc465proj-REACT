@@ -136,7 +136,7 @@ app.post('/api/editListing', async (req, res) => {
         const { editListing } = mongoLogic;
         const updData = req.body;
         console.log(updData) //testing updated data
-        // Assuming there's a unique identifier for each listing, like _id
+        // Assuming there's a unique identifier for each listing, like ID
         const listingID = updData.ID;
 
         console.log(listingID)
