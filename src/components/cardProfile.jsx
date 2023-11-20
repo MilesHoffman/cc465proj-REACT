@@ -72,7 +72,9 @@ function CardProfileDelete({ handleDelete }) {
         }
     }, [del]);
 
-
+    /*
+    delete update
+     */
 
     return(
         <div className='editdelete-container'>
