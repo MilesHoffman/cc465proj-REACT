@@ -56,6 +56,43 @@ function SubmitButton( {handler} ) {
         </form>
     );
 }
+
+function ConditionDropdown({change, changeHandler}) {
+    return (
+        <div className="dropdown">
+            <label>
+                Condition
+            </label>
+            <select value={change} onChange={(e) => changeHandler(e.target.value)}>
+                <option value="">Select an Option</option>
+                <option value="good-condition">Good Condition</option>
+                <option value="used">Used/Pre-Owned</option>
+                <option value="refurbished">Refurbished</option>
+                <option value="damaged">Damaged</option>
+            </select>
+        </div>
+    );
+
+}
+
+function CategoryDropdown({change, changeHandler}) {
+    return (
+        <div className="dropdown">
+            <label>
+                Category
+            </label>
+            <select value={change} onChange={(e) => changeHandler(e.target.value)}>
+                <option value="">Select an Option</option>
+                <option value="apparel">Apparel</option>
+                <option value="technology">Technology</option>
+                <option value="automobiles">Automobiles</option>
+                <option value="games">Games</option>
+                <option value="home">Home</option>
+            </select>
+        </div>
+    );
+}
+
 function CreateListingContainer() {
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
@@ -63,10 +100,16 @@ function CreateListingContainer() {
     const [desc, setDesc] = useState('');
     const [image, setImage] = useState(null);
 
+    const [condition, setCondition] = useState('');
+    const [category, setCategory] = useState('');
+
+    console.log("CONDITION: ", condition);
+    console.log("CATEGORY: ", category);
+
     const apiUrl = 'http://localhost:5000/api/createListing';
 
     async function sendData() {
-        const data = { name, location: location, price: price, desc, image };
+        const data = { name, location: location, price: price, desc, image, condition, category};
         // Default options are marked with *
         try {
             const response = await fetch(apiUrl, {
@@ -119,6 +162,16 @@ function CreateListingContainer() {
                 labelName="Description"
                 change={desc}
                 changeHandler={setDesc} />
+
+            <br />
+
+            <div className="dropdown-container">
+                <ConditionDropdown change={condition}
+                                   changeHandler={setCondition} />
+                <br />
+                <CategoryDropdown change={category}
+                                  changeHandler={setCategory} />
+            </div>
 
             <br />
 

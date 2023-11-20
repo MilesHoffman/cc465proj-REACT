@@ -9,8 +9,6 @@ const client = new MongoClient(url);
 const dbName = "CommunityComrades";
 let col = '';
 
-
-
 // Starts the connection to the Users collection. Does not close it.
 async function connectUsers(){
 

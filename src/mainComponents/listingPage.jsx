@@ -23,6 +23,16 @@ function PictureContainer({productImage}) {
     );
 }
 
+function MakeOfferButton() {
+    return (
+        <form>
+            <button type="button" className="btn btn-primary">
+                Direct Message
+            </button>
+        </form>
+    );
+}
+
 function DescContainer({productName, price, location, description}) {
 
     return (
@@ -62,15 +72,8 @@ function DescContainer({productName, price, location, description}) {
             <div className="bodyRightDescription">
                 <span>{description}</span>
                 </div>
+            <MakeOfferButton />
         </div>
-    );
-}
-
-function ForumContainer() {
-    return (
-      <div className="forum-container">
-          <span>FORUM</span>
-      </div>
     );
 }
 

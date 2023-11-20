@@ -1,6 +1,6 @@
 import React from "react";
 import './../styles/card.css'
-import {useNavigate, Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 function CardPicture({productImage}) {
     return (
@@ -26,9 +26,6 @@ function CardSave() {
 
     const handleSave = () => {
 
-
-
-
     }
 
     return(
@@ -48,11 +45,17 @@ function CardContainer({productName, price, location, productImage, description}
         });
     };
 
+    //truncate name
+    let truncatedName = productName;
+    if (productName.length > 20) {
+        truncatedName = productName.substring(0, 20) + '...';
+    }
+
     return (
             <div className="card-container" onClick={handleClick}>
               <CardPicture productImage={productImage} />
 
-              <CardInformation productName={productName}
+              <CardInformation productName={truncatedName}
                                price={price}
                                location={location} />
                 <CardSave/>

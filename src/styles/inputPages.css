@@ -45,3 +45,23 @@
     border-radius: .25em;
     width: 20px;
 }
+
+.dropdown-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown label {
+    text-align: center;
+}
+
+.dropdown select {
+    width: fit-content;
+    background-color: transparent;
+    border-radius: 5px;
+}

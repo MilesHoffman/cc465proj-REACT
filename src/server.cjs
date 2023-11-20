@@ -78,28 +78,6 @@ app.post('/api/login',  async (req, res) => {
 //hi
 //method to send the filtered data to mongodb so that we can filter for the user
 
-app.post('/api/sendListing', async (req, res) =>{
-
-    const filterData = req.body
-
-
-    console.log('_________________________api/sendListings.....received filters', filterData)
-
-    try {
-        const{getListings} = mongoLogic;
-        // Call the getListing function
-        const listings = await getListings( filterData );
-
-        // Send the listings as a response
-        console.log("\n____________________api/sendListings....\n" & listings);
-        res.json(listings);
-    } catch (error) {
-        console.error('Error fetching listings:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-
-})
-
 
 
 

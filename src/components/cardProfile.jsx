@@ -104,6 +104,10 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
     };
 
+    let truncatedName = productName;
+    if (productName.length > 20) {
+        truncatedName = productName.substring(0, 20) + '...';
+    }
 
 
     const apiUrl = 'http://localhost:5000/api/deleteListing'
@@ -170,7 +174,7 @@ function CardProfileContainer({productName, price, location, productImage, descr
             <div onClick={handleClick}>
                 <CardPicture productImage={productImage}/>
 
-                <CardInformation productName={productName}
+                <CardInformation productName={truncatedName}
                                  price={price}
                                  location={location}/>
 

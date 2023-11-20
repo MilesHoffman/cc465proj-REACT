@@ -44,7 +44,7 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
 
                     <div className={"topSectionHeaderRight"}>
                         <a>
-                            <button  onClick={() => navigate('/createListing')}
+                            <button  onClick={() => {loggedInStatus ? navigate('/createListing') : togglePopup(!showPopup)}}
                                      type="button"
                                      id="dropBtn">
                                 Post
