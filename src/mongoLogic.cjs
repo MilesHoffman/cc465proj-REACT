@@ -221,7 +221,27 @@ function getListings( filterData ){
     return call();
 }
 
-// Implementation for getting a listing. Returns all listings currently.
+/* Implementation for getting a listing. Returns all listings currently.
+
+        FORMAT FOR filterData!!!!!!!!
+        If filterData is empty (returns all listings), then set filterData = { query: false };
+
+        filterData = {
+            query: true,
+            name: "",
+            location: "",
+            minPrice: "",
+            maxPrice: "",
+            username: "",
+            condition: {
+                new: true,
+                used: true,
+                refurbished: true,
+                damaged: true
+            },
+            category: ""
+        }
+ */
 async function doGetListings( filterData ){
 
     console.log("Mongologic..... filterData: ", filterData)
@@ -230,27 +250,34 @@ async function doGetListings( filterData ){
     try {
         await connectListings(); // Connects to listing collection
 
-        let query;
-        query = {
-            $and: [
-                filterData.City ? { Location: filterData.City } : {},
-                filterData.Zipcode ? { Zipcode: filterData.Zipcode } : {},
-                filterData.minPrice ? { Price: { $gte: filterData.minPrice } } : {},
-                filterData.maxPrice ? { Price: { $lte: filterData.maxPrice } } : {},
-                //{ Condition: { $in: Object.keys(filterData.conditions).filter(key => filterData.conditions[key]) } },
-                filterData.selectedSide ? { Side: filterData.selectedSide } : {}
-            ]
-        };
+        let query = {};
+        if( filterData.query ){
+
+            query = {
+                "Name" : (filterData.name === "") ? {} : filterData.name,
+                "Location" : (filterData.location === "") ? {} : filterData.location,
+                "Price": {
+                    $gte: (filterData.minPrice === "") ? {} : filterData.minPrice,
+                    $lte: (filterData.maxPrice === "") ? {} : filterData.maxPrice
+                },
+                "Username" : filterData.username === "" ? {} : filterData.username,
+                "Condition" : {},
+                "Category" : {},
+                "ID" : filterData.ID === "" ? {} : filterData.ID
+            }
+        }
+
 
         console.log( "mongoLogic..... QUERY: ",  query)
 
         listings = await col.find( query ).toArray();
 
-        //console.log( "mongoLogic..... listings: ", listings)
+        console.log( "mongoLogic..... listings: ", listings)
     }
     catch (err){
-        console.log(err);
+        console.log("ERROR LOG getListings: " + err);
     }
+
     await client.close()
 
     return listings;
@@ -300,7 +327,7 @@ function deleteListing( listingID ){
     const call = async () => {
 
         try {
-            await doEditListing( listingID, updData );
+            await doDeleteListing( listingID );
         }
         catch (error) {
             console.error(error);
