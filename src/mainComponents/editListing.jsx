@@ -85,7 +85,7 @@ function EditListingContainer() {
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify({
-                    ID: initialState.id,
+                    ID: id,
                     Name: name,
                     Location: locationState,
                     Price:price,

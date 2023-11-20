@@ -3,7 +3,7 @@ import './../styles/cardProfile.css'
 import {useNavigate, Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {useRef} from "react";
-
+import {useLocation} from 'react-router-dom'
 function CardPicture({productImage}) {
 
     const handleListing = () => {
@@ -34,22 +34,11 @@ function CardInformation({productName, location, price}) {
 
 
 //this will hold the edit and delete options on card profile
-function CardProfileEditDelete({ handleEdit , handleDelete}) {
+function CardProfileEdit({ handleEdit }) {
     const navigate = useNavigate();
     const [del, setDel] = useState(false);
     const editButtonRef = useRef();
 
-    const handleEditClick = () => {
-
-        handleEdit();
-    };
-
-    const handleDeleteClick = () => {
-
-        console.log(del);
-        handleDelete();
-
-    }
 
 
 
@@ -62,11 +51,36 @@ function CardProfileEditDelete({ handleEdit , handleDelete}) {
             <button ref={editButtonRef} onClick={handleEdit} type="button" className="btn btn-success btn-sm">
                 Edit
             </button>
-            <button onClick={handleDeleteClick} type="button" className="btn btn-danger btn-sm">
+
+        </div>
+    );
+}
+
+function CardProfileDelete({ handleDelete }) {
+
+    const [del, setDel] = useState(false)
+    const deleteButtonRef = useRef();
+
+    const handleDel = () => {
+        setDel(!del);
+    };
+
+    useEffect(() => {
+        if (del) {
+            // Reload the page when del state changes
+            window.location.reload();
+        }
+    }, [del]);
+
+
+
+    return(
+        <div className='editdelete-container'>
+            <button ref={deleteButtonRef} onClick={() => { handleDelete(); handleDel(); }}  type="button" className="btn btn-danger btn-sm">
                 Delete
             </button>
         </div>
-    );
+    )
 }
 
 
@@ -86,8 +100,63 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
         });
 
-
     };
+
+
+
+    const apiUrl = 'http://localhost:5000/api/deleteListing'
+
+
+
+
+    //to fetch delete listing api
+    async function handleDeleteClick () {
+
+
+
+
+
+
+        try{
+            const response = await fetch(apiUrl, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify({
+                    ID: ID,
+
+
+
+                }),
+
+
+            })
+            if(response.ok){
+
+
+            }else{
+
+            }
+        }
+        catch (error){
+            console.error('error fetching data', error);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -105,8 +174,13 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
             </div>
             <div className="button-profile-container">
-                <CardProfileEditDelete handleEdit={handleEditClick} />
+                <CardProfileEdit  handleEdit={handleEditClick}   />
+
+                <CardProfileDelete handleDelete={handleDeleteClick}/>
+
             </div>
+
+
         </div>
     );
 

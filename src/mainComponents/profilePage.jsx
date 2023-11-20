@@ -33,10 +33,6 @@ function ProfilePage() {
         fetchListings();
     }, []); // Empty dependency array ensures this effect runs once when the component mounts
 
-    listings.map((card) => (
-        console.log(card.ID)
-    ));
-
 
     return(
         <div>

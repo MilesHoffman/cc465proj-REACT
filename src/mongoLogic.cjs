@@ -300,7 +300,7 @@ function deleteListing( listingID ){
     const call = async () => {
 
         try {
-            await doEditListing( listingID, updData );
+            await doDeleteListing( listingID );
         }
         catch (error) {
             console.error(error);

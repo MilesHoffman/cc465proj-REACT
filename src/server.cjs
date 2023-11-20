@@ -153,8 +153,23 @@ app.post('/api/editListing', async (req, res) => {
 
 
 //to delete a listing
-app.delete('/api/deleteListing', async (req, res) => {
+app.post('/api/deleteListing', async (req, res) => {
 
+
+    const {deleteListing} = mongoLogic;
+
+    const dID = req.body
+
+
+
+    const listingID = dID.ID
+
+    console.log('delete id:', listingID)
+
+
+    const result =  await deleteListing(listingID)
+
+    res.json(result)
     //mongoLogic function to delete listing from user
     console.log('request received')
 
