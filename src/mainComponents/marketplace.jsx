@@ -29,7 +29,7 @@ function Marketplace(){
         // Fetch listings when the component mounts
         const fetchListings = async () => {
             try {
-                const filterData = {};
+                const filterData = { query: false };
                 const apiUrl = "http://localhost:5000/api/getListings"
                 const response = await fetch(apiUrl, {
 
