@@ -252,16 +252,19 @@ async function doGetListings( filterData ){
         if( filterData.query ){
 
             query = {
-                "Name" : (filterData.name === "") ? {} : filterData.name,
-                "Location" : (filterData.location === "") ? {} : filterData.location,
-                "Price": {
-                    $gte: (filterData.minPrice === "") ? {} : filterData.minPrice,
-                    $lte: (filterData.maxPrice === "") ? {} : filterData.maxPrice
+                "Name" : (filterData.name === "") ? undefined : filterData.name,
+                "Location" : (filterData.location === "") ? undefined : filterData.location,
+                "Price": undefined,
+                    /*{
+                    $gte: (filterData.minPrice === "") ? undefined : filterData.minPrice,
+                    $lte: (filterData.maxPrice === "") ? undefined : filterData.maxPrice
                 },
-                "Username" : filterData.username === "" ? {} : filterData.username,
-                "Condition" : {},
-                "Category" : {},
-                "ID" : filterData.ID === "" ? {} : filterData.ID
+
+                     */
+                "Username" : filterData.username === "" ? undefined : filterData.username,
+                "Condition" : undefined,
+                "Category" : undefined,
+                "ID" : filterData.ID === "" ? undefined : undefined
             }
         }
 

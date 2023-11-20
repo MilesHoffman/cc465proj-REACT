@@ -14,10 +14,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
     const [Condition2, setCondition2] = useState(false);
     const [Condition3, setCondition3] = useState(false);
     const [Condition4, setCondition4] = useState(false);
-    const [selectedSide, setSelectedSide] = useState('');
-
-
-
+    const [category, setCategory] = useState('');
 
 
     // Update filterData whenever the state values change
@@ -36,10 +33,10 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
                 'Refurbished':Condition3,
                 'Damaged':Condition4
             },
-            selectedSide,
+            selectedSide: category,
         };
         console.log('filtered data', filterData);
-    }, [City, Zipcode, minPrice, maxPrice, selectedSide]);
+    }, [City, Zipcode, minPrice, maxPrice, category]);
 
 
     //whenever apply button mounts we will send api fetch call to get listings from express api
@@ -86,13 +83,13 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
     };
 
     const handleActivityChange = (event) => {
-        setSelectedSide(event.target.value);
+        setCategory(event.target.value);
     };
 
     //make a handler for categories where we will send to parent component (marketplace).
     const handleCategoriesFilter = (category) => {
 
-        setSelectedSide(category);
+        setCategory(category);
 
         onCategoriesFilter(category)
 
@@ -103,8 +100,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
     //when we click apply it will capture all the current state and put into filterData
     const handleApplyFilter = async () => {
 
-
-
+        /*
         const filterData = {
             City,
             Zipcode,
@@ -118,8 +114,25 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
             },
             selectedSide,
         };
+         */
 
-        console.log('filtered data', filterData);
+        const filterData = {
+            query: true,
+            name: "",
+            location: City,
+            minPrice: minPrice,
+            maxPrice: maxPrice,
+            username: "",
+            condition: {
+                new: false, // booleans
+                used: false,
+                refurbished: false,
+                damaged: false
+            },
+            category: category
+        }
+
+        console.log('filtered data from sideFilter apply Button _________________________', filterData);
 
         // Call the Express API to send the filterData
         const apiUrl = 'http://localhost:5000/api/getListings';
@@ -175,7 +188,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
         condition2Ref.current.checked = false;
         condition3Ref.current.checked = false;
         condition4Ref.current.checked = false;
-        setSelectedSide('');
+        setCategory('');
     };
 
 
@@ -219,7 +232,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
                         <text> Damaged</text>
                     </label>
                 </div>
-                <select  className="search-activity" value={selectedSide} onChange={handleActivityChange}>
+                <select className="search-activity" value={category} onChange={handleActivityChange}>
                     <option value=""> all dates</option>
                     <option value="1"> within 30 days</option>
                     <option value="2"> beyond 30 days</option>

@@ -95,9 +95,10 @@ function main(){
             // Category: ( Tech, Home, Apparel, Automobiles, Games )
 
             const listingData = {
-                name : "Zombeis!! Runn!!",
+                name : "Monty's test cases...",
                 location : "Hickville",
-                price : "500", "desc" : "This is a test...",
+                price : "245",
+                desc : "This is a test...",
                 image : "TestImage",
                 username: "Test....",
                 condition : "New/Good",

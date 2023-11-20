@@ -138,8 +138,6 @@ app.post('/api/deleteListing', async (req, res) => {
 
     const dID = req.body
 
-
-
     const listingID = dID.ID
 
     console.log('delete id:', listingID)
