@@ -64,6 +64,10 @@
                 border-color: var(--SecondaryColor);
                 color: black;
             }
+            .topSectionHeaderRight button:active{
+                background-color: var(--SecondaryColor);
+                border-color: var(--FourthColor);
+            }
     .bottomSectionHeader{
         position: relative;
         display: flex;
@@ -80,14 +84,11 @@
         }
             .bottomSectionHeaderCategories button{
                 border-radius: 20px;
-                padding: 5px 0px;
-                margin: 0 50px;
+                padding: 2px 5px;
+                margin: 0 40px;
                 cursor: pointer;
 
-                font-size: 15px;
-
-                background-color: transparent;
-                border: transparent;
+                font-size: 13px;
             }
         .bottomSectionHeaderRightSide{
             width: auto;

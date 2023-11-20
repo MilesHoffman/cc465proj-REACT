@@ -43,15 +43,13 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
                     </div>
 
                     <div className={"topSectionHeaderRight"}>
-                        <a className={"badge badge-primary"}>
+                        <a>
                             <button  onClick={() => navigate('/createListing')}
-                                     className={"btn btn-primary btn-sm"}
                                      type="button"
                                      id="dropBtn">
                                 Post
                             </button>
                             <button  onClick={() => {loggedInStatus ? navigate('/profile') : togglePopup(!showPopup)}}
-                                     className={"btn btn-primary btn-sm"}
                                      type="button"
                                      id="dropBtn"
                                      ref={buttonRef}>
@@ -63,7 +61,7 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
 
                 <div className={"bottomSectionHeader"}>
 
-                    <div className={"bottomSectionHeaderCategories"}>
+                    <div className={"bottomSectionHeaderCategories sneakyButton"}>
                         <button type="button">Technology</button>
                         <button type="button">Home</button>
                         <button type="button">Apparel</button>
