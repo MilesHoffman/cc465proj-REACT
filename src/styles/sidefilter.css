@@ -107,6 +107,7 @@
                 background-color: white;
                 border-radius: 6px;
                 margin-right: 5px;
+
             }
             .condition input[type="checkbox"]:checked{
                 background-color: var(--ThirdColor);
@@ -119,6 +120,9 @@
                 position: relative;
                 bottom: 3px;
                 left: 2px;
+            }
+            .condition :hover {
+                cursor: pointer;
             }
 
         .search-activity{
