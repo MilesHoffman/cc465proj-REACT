@@ -224,8 +224,8 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
                     <option value="1"> within 30 days</option>
                     <option value="2"> beyond 30 days</option>
                 </select>
-                <div className="standardButton">
-                    <button type="button" className={"buttontest"} tabindex="0">
+                <div className="standardButton filterCommandButtons">
+                    <button type="button" tabindex="0">
                         <span className="label">cancel</span>
                     </button>
                     <button type="button" onClick={handleResetFilter} tabindex="0">
@@ -234,27 +234,28 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
                     <button type="button" onClick={handleApplyFilter}  tabindex="0">
                         <span className="label">apply</span>
                     </button>
-
                 </div>
-                <div className="category-title">
+
+                <div className={"category-title"}>
                     <h1>Categories</h1>
                 </div>
-                <div className="categories-side-bar">
-                    <a className="apparel-side" onClick={() => handleCategoriesFilter('Apparel')}>
-                        <span className="apparel-label">Apparel</span>
-                    </a>
-                    <a className="technology-side" onClick={() => handleCategoriesFilter('Technology')}>
-                        <span className="technology-label"> Technology</span>
-                    </a>
-                    <a className="automobiles-side" onClick={() => handleCategoriesFilter('Automobile')}>
-                        <span className="automobiles-label"> Automobiles</span>
-                    </a>
-                    <a className="games-side" onClick={() => handleCategoriesFilter('Games')}>
-                        <span className="games-label"> Games</span>
-                    </a>
-                    <a className="home-side" onClick={() => handleCategoriesFilter('Home')}>
-                        <span className="home-label"> Home</span>
-                    </a>
+
+                <div className="categories-side-bar sneakyButton">
+                    <button onClick={() => handleCategoriesFilter('Apparel')}>
+                        <span>Apparel</span>
+                    </button>
+                    <button onClick={() => handleCategoriesFilter('Technology')}>
+                        <span>Technology</span>
+                    </button>
+                    <button onClick={() => handleCategoriesFilter('Automobile')}>
+                        <span>Automobiles</span>
+                    </button>
+                    <button onClick={() => handleCategoriesFilter('Games')}>
+                        <span>Games</span>
+                    </button>
+                    <button onClick={() => handleCategoriesFilter('Home')}>
+                        <span>Home</span>
+                    </button>
 
                 </div>
             </div>

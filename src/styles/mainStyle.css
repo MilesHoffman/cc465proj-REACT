@@ -37,22 +37,37 @@ input:focus {
 
     /* Standard button */
     .standardButton{
-        margin-top: 12px;
         display: flex;
-        flex-flow: row;
-
+        font-family: var(--RegularFont);
     }
         .standardButton button{
-            margin-right: 15px;
-            padding: 5px;
             border: solid 1px var(--SecondaryColor);
             border-radius: 10px;
             background-color: white;
+            transition: .2s ease;
         }
         .standardButton button:hover{
             background-color: var(--ThirdColor);
         }
-        .standardButton button:active{
+        .standardButton button:active {
+            background-color: var(--SecondaryColor);
+            border-color: var(--FourthColor);
+        }
+
+    .sneakyButton{
+        display: flex;
+        font-family: var(--RegularFont);
+    }
+        .sneakyButton button{
+            border: transparent;
+            border-radius: 10px;
+            background-color: transparent;
+            transition: .2s ease;
+        }
+        .sneakyButton button:hover{
+            background-color: var(--ThirdColor);
+        }
+        .sneakyButton button:active {
             background-color: var(--SecondaryColor);
             border-color: var(--FourthColor);
         }
@@ -88,20 +103,6 @@ body {
     color: #fff;
     padding: 20px;
     text-align: center;
-}
-
-/* Style for buttons */
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007acc;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.button:hover {
-    background-color: #0055a4;
 }
 
 /* Apply a responsive layout for smaller screens */
