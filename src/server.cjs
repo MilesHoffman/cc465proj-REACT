@@ -145,7 +145,7 @@ app.post('/api/deleteListing', async (req, res) => {
 
     const result =  await deleteListing(listingID)
 
-    res.json(result)
+    res.json({message: "Delete successful"});
     //mongoLogic function to delete listing from user
     console.log('request received')
 

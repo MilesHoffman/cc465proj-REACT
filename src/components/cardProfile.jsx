@@ -65,12 +65,7 @@ function CardProfileDelete({ handleDelete }) {
         setDel(!del);
     };
 
-    useEffect(() => {
-        if (del) {
-            // Reload the page when del state changes
-            window.location.reload();
-        }
-    }, [del]);
+
 
     /*
     delete update
@@ -138,9 +133,11 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
             })
             if(response.ok){
-
-
-            }else{
+                const valid = await response.json();
+                window.location.reload();
+                console.log(valid);
+            }
+            else{
 
             }
         }

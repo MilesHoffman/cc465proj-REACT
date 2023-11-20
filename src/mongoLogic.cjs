@@ -335,12 +335,12 @@ function deleteListing( listingID ){
         }
     };
 
-    call();
+    return call();
 }
 
 // Deletes a listing
 async function doDeleteListing( listingID ){
-
+    let valid;
     try {
 
         await connectListings();
@@ -349,13 +349,14 @@ async function doDeleteListing( listingID ){
         console.log( "_________________mongoLogic... doDeleteListing..... \n" + listingID );
 
         // Update the listing with the new data
-        await col.deleteOne({ "ID": listingID });
+        valid = await col.deleteOne({ "ID": listingID });
     }
     catch (err){
         console.log(err);
     }
 
     await client.close();
+    return valid;
 }
 
 
