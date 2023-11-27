@@ -103,16 +103,8 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
     const apiUrl = 'http://localhost:5000/api/deleteListing'
 
-
-
-
     //to fetch delete listing api
     async function handleDeleteClick () {
-
-
-
-
-
 
         try{
             const response = await fetch(apiUrl, {
@@ -125,11 +117,7 @@ function CardProfileContainer({productName, price, location, productImage, descr
                 },
                 body: JSON.stringify({
                     ID: ID,
-
-
-
                 }),
-
 
             })
             if(response.ok){
@@ -146,20 +134,6 @@ function CardProfileContainer({productName, price, location, productImage, descr
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     return (
 

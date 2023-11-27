@@ -90,8 +90,6 @@ function EditListingContainer() {
                     Location: locationState,
                     Price:price,
                     Description: desc,
-
-
                 }),
 
             })

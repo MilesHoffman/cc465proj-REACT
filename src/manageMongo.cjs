@@ -95,9 +95,9 @@ function main(){
             // Category: ( Tech, Home, Apparel, Automobiles, Games )
 
             const listingData = {
-                name : "Monty's test cases...",
+                name : "test112",
                 location : "Hickville",
-                price : "245",
+                price : 900,
                 desc : "This is a test...",
                 image : "TestImage",
                 username: "Test....",
@@ -106,9 +106,28 @@ function main(){
                 ID : generateUniqueID()
             }
 
-            await mongoLogic.createListing(listingData)
+            const filterData = {
+                query: true,
+                name: "",
+                location: "",
+                minPrice: -1,
+                maxPrice: -1,
+                username: "",
+                condition: {
+                    new: true,
+                    used: true,
+                    refurbished: true,
+                    damaged: true
+                },
+                category: "",
+                ID: ""
+            }
 
+            //await mongoLogic.createListing(listingData)
             //await mongoLogic.createUser( "testEmail@gmail.com", "TestUser", "1234")
+
+            let listings = await mongoLogic.getListings(filterData);
+            console.log( "The listings: ", listings );
 
             //await deleteAllUsers()
             //await deleteAllListings()

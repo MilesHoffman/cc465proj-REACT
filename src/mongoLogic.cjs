@@ -167,6 +167,8 @@ async function doCreateListing( listingData ){
 
     const { name, location, price, desc, image, username, condition, category } = listingData;
 
+    let intPrice = parseInt(price);
+
     try {
         await connectListings(); // Connects to user collection
 
@@ -174,7 +176,7 @@ async function doCreateListing( listingData ){
         let listing = {
             "Name" : name,
             "Location" : location,
-            "Price" : price,
+            "Price" : intPrice,
             "Description" : desc,
             "Pictures" : image,
             "Username" : username,
@@ -223,13 +225,14 @@ function getListings( filterData ){
 
         FORMAT FOR filterData!!!!!!!!
         If filterData is empty (returns all listings), then set filterData = { query: false };
+        The following will also return all listings.
 
         filterData = {
             query: true,
             name: "",
             location: "",
-            minPrice: "",
-            maxPrice: "",
+            minPrice: -1,  MUST BE AN INT
+            maxPrice: -1,  MUST BE AN INT
             username: "",
             condition: {
                 new: true,
@@ -238,11 +241,12 @@ function getListings( filterData ){
                 damaged: true
             },
             category: ""
+            ID: ""
         }
  */
 async function doGetListings( filterData ){
 
-    console.log("Mongologic..... filterData: ", filterData)
+    //console.log("Mongologic..... filterData: ", filterData)
 
     let listings;
     try {
@@ -251,20 +255,29 @@ async function doGetListings( filterData ){
         let query = {};
         if( filterData.query ){
 
-            query = {
-                "Name" : (filterData.name === "") ? undefined : filterData.name,
-                "Location" : (filterData.location === "") ? undefined : filterData.location,
-                "Price": undefined,
-                    /*{
-                    $gte: (filterData.minPrice === "") ? undefined : filterData.minPrice,
-                    $lte: (filterData.maxPrice === "") ? undefined : filterData.maxPrice
-                },
+            let newQuery, usedQuery, refurbQuery, damagedQuery;
+            if( filterData.condition.new ) { newQuery = "New/Good" }
+            if( filterData.condition.used ){ usedQuery = "Used/Pre-Owned" }
+            if( filterData.condition.refurbished ){ refurbQuery = "Refurbished"}
+            if( filterData.condition.damaged ){ damagedQuery = "Damaged" }
 
-                     */
-                "Username" : filterData.username === "" ? undefined : filterData.username,
-                "Condition" : undefined,
-                "Category" : undefined,
-                "ID" : filterData.ID === "" ? undefined : undefined
+
+            query = {
+                ...(filterData.name === "" ? {} : { "Name" : filterData.name }),
+                ...(filterData.location === "" ? {} : { "Location" : filterData.location }),
+                ...(filterData.maxPrice == -1 ? {} : {
+                        "Price": (filterData.maxPrice === -1) ? {} :
+                            {$gte: filterData.minPrice, $lte: filterData.maxPrice} }),
+                ...(filterData.username === "" ? {} : { "Username" : filterData.username }),
+                $and: [
+                { "Condition": { $in: [
+                            (newQuery) ? newQuery : "-1",
+                            (usedQuery) ? usedQuery : "-1",
+                            (refurbQuery) ? refurbQuery : "-1",
+                            (damagedQuery) ? damagedQuery : "-1"
+                        ]}}],
+                ...(filterData.category === "" ? {} : { "Category" : filterData.category }),
+                ...(filterData.ID === "" ? {} : { "ID" : filterData.ID }),
             }
         }
 
@@ -273,7 +286,7 @@ async function doGetListings( filterData ){
 
         listings = await col.find( query ).toArray();
 
-        console.log( "mongoLogic..... listings: ", listings)
+        //console.log( "mongoLogic..... listings: ", listings)
     }
     catch (err){
         console.log("ERROR LOG getListings: " + err);
