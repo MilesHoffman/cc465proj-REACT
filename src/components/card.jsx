@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 function CardPicture({productImage}) {
     return (
         <img
-            src={productImage}
+            src={`data:image/png;base64, ${productImage}`}
             alt="Uploaded"
             className="card-img" />
     );

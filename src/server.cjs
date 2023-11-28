@@ -5,7 +5,28 @@ const cors = require('cors');
 const {getListings} = require("./mongoLogic.cjs");
 const app = express();
 
-app.use(express.json());
+const multer = require('multer');
+const { MongoClient } = require('mongodb');
+
+app.use(express.json({ limit: '20mb' }));
+
+//picture storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const url = "mongodb+srv://cc465proj:cc465proj@cluster0.3wpv56y.mongodb.net/?retryWrites=true&w=majority";
+const dbName = "CommunityComrades";
+
+let db;
+
+MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+    if (err) {
+        console.error('Error connecting to MongoDB:', err);
+        return;
+    }
+
+    console.log('Connected to MongoDB');
+    db = client.db(dbName);
+});
 
 // VARIABLES ----------------------------------------------------
 let globalUsername = '';
@@ -83,15 +104,16 @@ app.post('/api/login',  async (req, res) => {
 
 
 // This will get the request to create a new listing.
-app.post('/api/createListing', (req, res) => {
+app.post('/api/createListing', upload.single('image'), async (req, res) => {
 
     console.log("POST CreateListing");
 
-    const { name, location, price, desc, image, condition, category } = req.body;
+    const { name, location, price, desc, condition, category } = req.body;
+    const imageBase64 = req.file.buffer;
     const {createListing} = mongoLogic;
 
     const listingData = {
-        name, location, price, desc, image, username: globalUsername, condition, category
+        name, location, price, desc, image: imageBase64, username: globalUsername, condition, category
     }
 
     createListing( listingData );

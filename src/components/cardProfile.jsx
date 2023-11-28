@@ -14,7 +14,7 @@ function CardPicture({productImage}) {
     return (
         <img
             onClick={handleListing}
-            src={productImage}
+            src={`data:image/png;base64, ${productImage}`}
             alt="Uploaded"
             className="card-img" />
     );

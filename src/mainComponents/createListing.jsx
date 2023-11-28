@@ -112,23 +112,29 @@ function CreateListingContainer() {
         const data = { name, location: location, price: price, desc, image, condition, category};
         // Default options are marked with *
         try {
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('location', location);
+            formData.append('price', price);
+            formData.append('desc', desc);
+            formData.append('image', image);
+            formData.append('condition', condition);
+            formData.append('category', category);
+
             const response = await fetch(apiUrl, {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
                 mode: "cors", // no-cors, *cors, same-origin
                 cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                headers: {
-                    "Content-Type": "application/json",
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
+
                 redirect: "follow", // manual, *follow, error
                 referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: JSON.stringify(data), // body data type must match "Content-Type" header
+                body: formData, // body data type must match "Content-Type" header
             })
             if (response.ok) {
-
+                console.log("Successful create listing");
             }
             else {
-
+                console.log("Create listing failed");
             }
 
         }
