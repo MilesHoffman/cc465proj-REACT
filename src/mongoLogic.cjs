@@ -35,6 +35,32 @@ async function connectListings() {
     }
 }
 
+// Starts connection to the Comments collection. Does not close.
+async function connectComments() {
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        col = db.collection("Comments");
+    }
+    catch (err){
+        console.log(err)
+    }
+}
+
+// Starts connection to the Replies collection. Does not close.
+async function connectReplies() {
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        col = db.collection("Replies");
+    }
+    catch (err){
+        console.log(err)
+    }
+}
+
 // Creates a unique ID
 function generateUniqueID(){
     const timestamp = new Date().getTime(); // Current timestamp
@@ -297,94 +323,39 @@ async function doGetListings( filterData ){
     return listings;
 }
 
-
-
-// Calls implementation for getListings.
-function getImages( filterData ){
+// Calls implementation for getReplies. Input the comment's ID to get its replies.
+function getReplies( commentID ){
 
     const call = async () => {
 
-        let images;
+        let replies;
 
         try {
-            images = await doGetImages( filterData );
+            replies = await doGetReplies( commentID );
         }
         catch (error) {
             console.error(error);
         }
 
-        return images;
+        return replies;
     };
 
     return call();
 }
 
-/* Implementation for getting a images. Returns all listings currently.
+// Implementation for getting the replies for a comment. Returns all replies sorted by time.
+async function doGetReplies( commentID ){
 
-        FORMAT FOR filterData!!!!!!!!
-        If filterData is empty (returns all listings), then set filterData = { query: false };
-        The following will also return all listings.
-
-        filterData = {
-            query: true,
-            name: "",
-            location: "",
-            minPrice: -1,  MUST BE AN INT
-            maxPrice: -1,  MUST BE AN INT
-            username: "",
-            condition: {
-                new: true,
-                used: true,
-                refurbished: true,
-                damaged: true
-            },
-            category: ""
-            ID: ""
-        }
- */
-async function doGetImages( filterData ){
-
-    //console.log("Mongologic..... filterData: ", filterData)
-
-    let listings;
+    let replies;
     try {
-        await connectListings(); // Connects to listing collection
+        await connectReplies(); // Connects to reply collection
 
-        let query = {};
-        if( filterData.query ){
+        let query = {
+            "commentID" : commentID
+        };
 
-            let newQuery, usedQuery, refurbQuery, damagedQuery;
-            if( filterData.condition.new ) { newQuery = "New/Good" }
-            if( filterData.condition.used ){ usedQuery = "Used/Pre-Owned" }
-            if( filterData.condition.refurbished ){ refurbQuery = "Refurbished"}
-            if( filterData.condition.damaged ){ damagedQuery = "Damaged" }
+        replies = await col.find( query ).sort({ "TimeStamp" : 1 }).toArray();
 
-
-            query = {
-                ...(filterData.name === "" ? {} : { "Name" : filterData.name }),
-                ...(filterData.location === "" ? {} : { "Location" : filterData.location }),
-                ...(filterData.maxPrice == -1 ? {} : {
-                    "Price": (filterData.maxPrice === -1) ? {} :
-                        {$gte: filterData.minPrice, $lte: filterData.maxPrice} }),
-                ...(filterData.username === "" ? {} : { "Username" : filterData.username }),
-                $and: [
-                    { "Condition": { $in: [
-                                (newQuery) ? newQuery : "-1",
-                                (usedQuery) ? usedQuery : "-1",
-                                (refurbQuery) ? refurbQuery : "-1",
-                                (damagedQuery) ? damagedQuery : "-1"
-                            ]}}],
-                ...(filterData.category === "" ? {} : { "Category" : filterData.category }),
-                ...(filterData.ID === "" ? {} : { "ID" : filterData.ID }),
-            }
-        }
-
-
-        console.log( "mongoLogic..... QUERY: ",  query)
-
-        listings = await col.find( query ).toArray();
-
-        //console.log( "mongoLogic..... listings: ", listings)
     }
     catch (err){
         console.log("ERROR LOG getListings: " + err);
@@ -392,11 +363,53 @@ async function doGetImages( filterData ){
 
     await client.close()
 
-    return listings;
+    return replies;
 }
 
+// Calls implementation for getComments. Input the listing's ID to get it's comments.
+function getComments( listingID ){
 
+    const call = async () => {
 
+        let comments;
+
+        try {
+            comments = await doGetComments( listingID );
+        }
+        catch (error) {
+            console.error(error);
+        }
+
+        return comments;
+    };
+
+    return call();
+}
+
+// Implementation for getting the replies for a listing. Returns all comments sorted by time.
+async function doGetComments( listingID ){
+
+    //console.log("Mongologic..... filterData: ", filterData)
+
+    let comments;
+    try {
+        await connectComments(); // Connects to listing collection
+
+        let query = {
+            "ListingID" : listingID
+        };
+
+        comments = await col.find( query ).sort({ "TimeStamp" : 1 }).toArray();
+
+    }
+    catch (err){
+        console.log("ERROR LOG getListings: " + err);
+    }
+
+    await client.close()
+
+    return comments;
+}
 
 // Calls implementation for updateListing.
 function editListing( listingID, updData ){
@@ -472,6 +485,58 @@ async function doDeleteListing( listingID ){
     return valid;
 }
 
+/*
+ Creates a new comment or reply.
+ */
+function createMessage(messageData ){
+
+
+    const call = async () => {
+
+        try {
+            await doCreateMessage( messageData );
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
+    const result = call();
+}
+
+
+// Implementation to create a comment.
+async function doCreateMessage( messageData ){
+
+    const { username, repliedTo, message  } = messageData;
+
+    try {
+        await connectListings(); // Connects to user collection
+
+        // Initializes the user
+        let message = {
+            "Username" : username,
+            "RepliedTo" : repliedTo,
+            "Message" : message,
+            "Timestamp" : Date.now()
+        }
+
+        const product = await col.insertOne(message); // Inserts the user
+
+        if( await col.findOne(message) ) {
+            console.log("Listing found in database. ~Probably created");
+        }
+        else {
+            console.log("Listing not found in database. ~Probably not created")
+        }
+    }
+    catch (err){
+        console.log(err);
+    }
+    await client.close()
+}
+
+
 
 
 // USE THE WRAPPER CLASS NOT THE IMPLEMENTATION CLASS. Unless you don't want to.
@@ -482,5 +547,8 @@ module.exports = {
     getListings,
     editListing,
     generateUniqueID,
-    deleteListing
+    deleteListing,
+    getComments,
+    getReplies,
+    createComment: createMessage
 }
