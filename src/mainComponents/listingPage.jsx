@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/listingPage.css';
 import {useLocation} from "react-router-dom";
+import Message from '../components/message.jsx'
 
 
 function ListPicture({productImage}) {
@@ -115,15 +116,10 @@ function ListingPage() {
                 </div>
 
                 <div className="forumAllMessages">
-                    <div className="forumMessage">
-                        <header>Miles Hoffman</header>
-                        <p>Hi, how much is this car? $1 seems like a great deal.</p>
-
-                        <div className="forumMessageFooter">
-                            <button type="button">Edit</button>
-                            <p>at 12:01 P.M.</p>
-                        </div>
-                    </div>
+                    <Message
+                        username={"miles hoff"}
+                        message={"hello there test mes"}
+                    />
                 </div>
 
                 <div className="forumFooter">

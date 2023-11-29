@@ -151,13 +151,13 @@
 }
 .forumAllMessages {
     position: relative;
-    margin-top: 50px;
-    padding-bottom: 50px;
+    margin-top: 20px;
+    padding-bottom: 40px;
     width: 85%;
 }
 .forumMessage {
     width: 100%;
-
+    margin-top: 15px;
     border: solid;
     border-color: dimgrey;
     border-radius: 10px;
@@ -173,8 +173,10 @@
 
     margin-left: 30px;
 }
+
 .forumMessageFooter {
     display: flex;
+    float: right;
     flex-flow: row;
     line-height: 0;
     margin-right: 10px;
@@ -184,3 +186,18 @@
     justify-content: space-between;
 }
 
+.forumReplyAll{
+    position: relative;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    padding-top: 1px;
+    left: 15%;
+    width: 83%;
+    border-left: solid var(--SecondaryColor);
+    border-top-left-radius: 20px;
+}
+
+.forumReplyMsg{
+
+}

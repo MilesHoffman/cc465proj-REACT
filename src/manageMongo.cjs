@@ -126,8 +126,8 @@ function main(){
             //await mongoLogic.createListing(listingData)
             //await mongoLogic.createUser( "testEmail@gmail.com", "TestUser", "1234")
 
-            let listings = await mongoLogic.getListings(filterData);
-            console.log( "The listings: ", listings );
+            //let listings = await mongoLogic.getListings(filterData);
+            //console.log( "The listings: ", listings );
 
             //await deleteAllUsers()
             //await deleteAllListings()
