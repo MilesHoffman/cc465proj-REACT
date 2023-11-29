@@ -298,6 +298,106 @@ async function doGetListings( filterData ){
 }
 
 
+
+// Calls implementation for getListings.
+function getImages( filterData ){
+
+    const call = async () => {
+
+        let images;
+
+        try {
+            images = await doGetImages( filterData );
+        }
+        catch (error) {
+            console.error(error);
+        }
+
+        return images;
+    };
+
+    return call();
+}
+
+/* Implementation for getting a images. Returns all listings currently.
+
+        FORMAT FOR filterData!!!!!!!!
+        If filterData is empty (returns all listings), then set filterData = { query: false };
+        The following will also return all listings.
+
+        filterData = {
+            query: true,
+            name: "",
+            location: "",
+            minPrice: -1,  MUST BE AN INT
+            maxPrice: -1,  MUST BE AN INT
+            username: "",
+            condition: {
+                new: true,
+                used: true,
+                refurbished: true,
+                damaged: true
+            },
+            category: ""
+            ID: ""
+        }
+ */
+async function doGetImages( filterData ){
+
+    //console.log("Mongologic..... filterData: ", filterData)
+
+    let listings;
+    try {
+        await connectListings(); // Connects to listing collection
+
+        let query = {};
+        if( filterData.query ){
+
+            let newQuery, usedQuery, refurbQuery, damagedQuery;
+            if( filterData.condition.new ) { newQuery = "New/Good" }
+            if( filterData.condition.used ){ usedQuery = "Used/Pre-Owned" }
+            if( filterData.condition.refurbished ){ refurbQuery = "Refurbished"}
+            if( filterData.condition.damaged ){ damagedQuery = "Damaged" }
+
+
+            query = {
+                ...(filterData.name === "" ? {} : { "Name" : filterData.name }),
+                ...(filterData.location === "" ? {} : { "Location" : filterData.location }),
+                ...(filterData.maxPrice == -1 ? {} : {
+                    "Price": (filterData.maxPrice === -1) ? {} :
+                        {$gte: filterData.minPrice, $lte: filterData.maxPrice} }),
+                ...(filterData.username === "" ? {} : { "Username" : filterData.username }),
+                $and: [
+                    { "Condition": { $in: [
+                                (newQuery) ? newQuery : "-1",
+                                (usedQuery) ? usedQuery : "-1",
+                                (refurbQuery) ? refurbQuery : "-1",
+                                (damagedQuery) ? damagedQuery : "-1"
+                            ]}}],
+                ...(filterData.category === "" ? {} : { "Category" : filterData.category }),
+                ...(filterData.ID === "" ? {} : { "ID" : filterData.ID }),
+            }
+        }
+
+
+        console.log( "mongoLogic..... QUERY: ",  query)
+
+        listings = await col.find( query ).toArray();
+
+        //console.log( "mongoLogic..... listings: ", listings)
+    }
+    catch (err){
+        console.log("ERROR LOG getListings: " + err);
+    }
+
+    await client.close()
+
+    return listings;
+}
+
+
+
+
 // Calls implementation for updateListing.
 function editListing( listingID, updData ){
 
