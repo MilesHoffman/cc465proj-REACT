@@ -26,8 +26,8 @@ function PictureContainer({productImage}) {
 
 function MakeOfferButton() {
     return (
-        <form>
-            <button type="button" className="btn btn-primary">
+        <form className={"standardButton dmButton"}>
+            <button type="button">
                 Direct Message
             </button>
         </form>
@@ -93,12 +93,12 @@ function ListingPage() {
                         <PictureContainer productImage={productImage} />
                     </div>
 
-                    <div className="bodyLeftControl">
+                    <div className="bodyLeftControl standardButton">
                         <button type="button">
-                            <text> back arrow  </text>
+                            <text> back  </text>
                         </button>
                         <button type="button">
-                            <text> next arrow </text>
+                            <text> next </text>
                         </button>
                     </div>
                 </div>
@@ -122,7 +122,7 @@ function ListingPage() {
                     />
                 </div>
 
-                <div className="forumFooter">
+                <div className="forumFooter standardButton">
                     <button type="button">Post</button>
                     <button type="button">Report Listing</button>
                 </div>

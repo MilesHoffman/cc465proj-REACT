@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/listingPage.css';
 import Reply from '../components/reply.jsx'
+import Button from "bootstrap/js/src/button.js";
 
 function GetCurrentTime(){
 
@@ -23,6 +24,11 @@ function messageContainer({username, message}){
             <p>{message}</p>
 
             <div className="forumMessageFooter">
+
+                <div className={"standardButton replyButton"}>
+                    <button type={"button"}>Reply</button>
+                </div>
+
                 <p>
                     <GetCurrentTime/>
                 </p>
