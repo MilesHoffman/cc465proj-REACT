@@ -524,7 +524,7 @@ async function doCreateMessage( messageData ){
         const product = await col.insertOne(message); // Inserts the user
 
         if( await col.findOne(message) ) {
-            console.log("Listing found in database. ~Probably created");
+            console.log("Message found in database. ~Probably created");
         }
         else {
             console.log("Listing not found in database. ~Probably not created")
