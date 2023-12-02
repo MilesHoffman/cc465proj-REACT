@@ -50,7 +50,6 @@ app.post('/api/getListings', async (req, res) => {
         const{getListings} = mongoLogic;
         // Call the getListing function
         const filterData = req.body;
-        console.log("Server....GetListings....filterData: ", filterData)
         const listings = await getListings( filterData );
 
         // Send the listings as a response
@@ -66,7 +65,22 @@ app.get('/api/getProfile', async (req, res) => {
 
         const{getListings} = mongoLogic;
         // Call the getListing function
-        const filterData = 0;
+        const filterData = {
+            query: true,
+            name: "",
+            location: "",
+            minPrice: "",
+            maxPrice: "",
+            username: globalUsername,
+            condition: {
+                new: true,
+                used: true,
+                refurbished: true,
+                damaged: true
+            },
+            category: "",
+            ID: ""
+        };
         const listings = await getListings( filterData );
 
 

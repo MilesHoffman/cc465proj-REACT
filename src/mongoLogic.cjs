@@ -266,7 +266,7 @@ function getListings( filterData ){
                 refurbished: true,
                 damaged: true
             },
-            category: ""
+            category: "",
             ID: ""
         }
  */
@@ -338,8 +338,7 @@ async function doGetListings( filterData ){
         }
 
 
-        console.log( "mongoLogic..... QUERY: ");
-        console.log(query)
+        //console.log( "mongoLogic..... QUERY: ", query);
 
         listings = await col.find( query ).toArray();
 
