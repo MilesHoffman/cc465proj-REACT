@@ -93,8 +93,6 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
 
         onCategoriesFilter(category)
 
-
-
     }
 
     //when we click apply it will capture all the current state and put into filterData
@@ -124,12 +122,13 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
             maxPrice: maxPrice,
             username: "",
             condition: {
-                new: false, // booleans
-                used: false,
-                refurbished: false,
-                damaged: false
+                new: Condition1, // booleans
+                used: Condition2,
+                refurbished: Condition3,
+                damaged: Condition4
             },
-            category: category
+            category: category,
+            ID: ""
         }
 
         console.log('filtered data from sideFilter apply Button _________________________', filterData);
@@ -179,15 +178,22 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
 
     const handleResetFilter = () => {
         CityRef.current.value = '';
+        setCity('');
         ZipcodeRef.current.value = '';
         minPriceRef.current.value = '';
+        setMaxPrice('');
         maxPriceRef.current.value = '';
+        setMinPrice('');
         // ... reset other input fields using their refs
         // Reset checkbox values using refs
         condition1Ref.current.checked = false;
         condition2Ref.current.checked = false;
         condition3Ref.current.checked = false;
         condition4Ref.current.checked = false;
+        setCondition1(false);
+        setCondition2(false);
+        setCondition3(false);
+        setCondition4(false);
         setCategory('');
     };
 
@@ -257,10 +263,10 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
                     <button onClick={() => handleCategoriesFilter('Apparel')}>
                         <span>Apparel</span>
                     </button>
-                    <button onClick={() => handleCategoriesFilter('Technology')}>
+                    <button onClick={() => handleCategoriesFilter('Tech')}>
                         <span>Technology</span>
                     </button>
-                    <button onClick={() => handleCategoriesFilter('Automobile')}>
+                    <button onClick={() => handleCategoriesFilter('Automobiles')}>
                         <span>Automobiles</span>
                     </button>
                     <button onClick={() => handleCategoriesFilter('Games')}>

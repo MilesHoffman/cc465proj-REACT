@@ -95,14 +95,14 @@ function main(){
             // Category: ( Tech, Home, Apparel, Automobiles, Games )
 
             const listingData = {
-                name : "test112",
-                location : "Hickville",
-                price : 900,
+                name : "Damaged / Games test",
+                location : "Erie",
+                price : 55,
                 desc : "This is a test...",
                 image : "TestImage",
-                username: "Test....",
-                condition : "New/Good",
-                category : "Tech",
+                username: "TestUser",
+                condition : "Damaged",
+                category : "Games",
                 ID : generateUniqueID()
             }
 
@@ -110,8 +110,8 @@ function main(){
                 query: true,
                 name: "",
                 location: "",
-                minPrice: -1,
-                maxPrice: -1,
+                minPrice: '',
+                maxPrice: '',
                 username: "",
                 condition: {
                     new: true,
@@ -123,7 +123,7 @@ function main(){
                 ID: ""
             }
 
-            //await mongoLogic.createListing(listingData)
+            await mongoLogic.createListing(listingData)
             //await mongoLogic.createUser( "testEmail@gmail.com", "TestUser", "1234")
 
             //let listings = await mongoLogic.getListings(filterData);

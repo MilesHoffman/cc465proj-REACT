@@ -65,10 +65,10 @@ function ConditionDropdown({change, changeHandler}) {
             </label>
             <select value={change} onChange={(e) => changeHandler(e.target.value)}>
                 <option value="">Select an Option</option>
-                <option value="good-condition">Good Condition</option>
-                <option value="used">Used/Pre-Owned</option>
-                <option value="refurbished">Refurbished</option>
-                <option value="damaged">Damaged</option>
+                <option value="New/Good">Good Condition</option>
+                <option value="Used/Pre-Owned">Used/Pre-Owned</option>
+                <option value="Refurbished">Refurbished</option>
+                <option value="Damaged">Damaged</option>
             </select>
         </div>
     );
@@ -83,11 +83,11 @@ function CategoryDropdown({change, changeHandler}) {
             </label>
             <select value={change} onChange={(e) => changeHandler(e.target.value)}>
                 <option value="">Select an Option</option>
-                <option value="apparel">Apparel</option>
-                <option value="technology">Technology</option>
-                <option value="automobiles">Automobiles</option>
-                <option value="games">Games</option>
-                <option value="home">Home</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Technology">Technology</option>
+                <option value="Automobiles">Automobiles</option>
+                <option value="Games">Games</option>
+                <option value="Home">Home</option>
             </select>
         </div>
     );
@@ -109,7 +109,7 @@ function CreateListingContainer() {
     const apiUrl = 'http://localhost:5000/api/createListing';
 
     async function sendData() {
-        const data = { name, location: location, price: price, desc, image, condition, category};
+        const data = { name, location: location, price: isNaN(price) ? 0 : price, desc, image, condition, category};
         // Default options are marked with *
         try {
             const formData = new FormData();

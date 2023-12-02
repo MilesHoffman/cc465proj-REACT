@@ -257,8 +257,8 @@ function getListings( filterData ){
             query: true,
             name: "",
             location: "",
-            minPrice: -1,  MUST BE AN INT
-            maxPrice: -1,  MUST BE AN INT
+            minPrice: "",
+            maxPrice: "",
             username: "",
             condition: {
                 new: true,
@@ -281,38 +281,68 @@ async function doGetListings( filterData ){
         let query = {};
         if( filterData.query ){
 
-            let newQuery, usedQuery, refurbQuery, damagedQuery;
-            if( filterData.condition.new ) { newQuery = "New/Good" }
-            if( filterData.condition.used ){ usedQuery = "Used/Pre-Owned" }
-            if( filterData.condition.refurbished ){ refurbQuery = "Refurbished"}
-            if( filterData.condition.damaged ){ damagedQuery = "Damaged" }
+            let newQuery, usedQuery, refurbQuery, damagedQuery, conditionQuery = true;
+            let newStr, usedStr, refurbStr, dmgStr;
+            newStr = "New/Good"
+            usedStr = "Used/Pre-Owned"
+            dmgStr = "Damaged"
+            refurbStr = "Refurbished"
 
+            for( const key in filterData.condition){
+                if( filterData.condition[key] === false){
+                    conditionQuery = false;
+                }
+                else{
+                    conditionQuery = true;
+                    break;
+                }
+            }
+
+            if(conditionQuery){
+                newQuery = filterData.condition.new
+                usedQuery = filterData.condition.used
+                refurbQuery = filterData.condition.refurbished
+                damagedQuery = filterData.condition.damaged
+            }
 
             query = {
                 ...(filterData.name === "" ? {} : { "Name" : filterData.name }),
                 ...(filterData.location === "" ? {} : { "Location" : filterData.location }),
-                ...(filterData.maxPrice == -1 ? {} : {
-                        "Price": (filterData.maxPrice === -1) ? {} :
-                            {$gte: filterData.minPrice, $lte: filterData.maxPrice} }),
+                ...(filterData.maxPrice === "" && filterData.minPrice === "" ? {} : {
+                    "Price": {
+                        $lte: filterData.maxPrice !== "" ? parseInt(filterData.maxPrice) : Infinity,
+                        $gte: filterData.minPrice !== "" ? parseInt(filterData.minPrice) : -Infinity,
+                    }
+                }),
                 ...(filterData.username === "" ? {} : { "Username" : filterData.username }),
                 $and: [
-                { "Condition": { $in: [
-                            (newQuery) ? newQuery : "-1",
-                            (usedQuery) ? usedQuery : "-1",
-                            (refurbQuery) ? refurbQuery : "-1",
-                            (damagedQuery) ? damagedQuery : "-1"
-                        ]}}],
+                { "Condition":
+                        (!conditionQuery) ?
+                            {
+                                $in: [
+                                    newStr,
+                                    usedStr,
+                                    refurbStr,
+                                    dmgStr
+                                ]
+                            } :
+                            { $in: [
+                                (newQuery) ? newStr : "-1",
+                                (usedQuery) ? usedStr : "-1",
+                                (refurbQuery) ? refurbStr : "-1",
+                                (damagedQuery) ? dmgStr : "-1"
+                            ]}}],
                 ...(filterData.category === "" ? {} : { "Category" : filterData.category }),
                 ...(filterData.ID === "" ? {} : { "ID" : filterData.ID }),
             }
         }
 
 
-        console.log( "mongoLogic..... QUERY: ",  query)
+        console.log( "mongoLogic..... QUERY: ");
+        console.log(query)
 
         listings = await col.find( query ).toArray();
 
-        //console.log( "mongoLogic..... listings: ", listings)
     }
     catch (err){
         console.log("ERROR LOG getListings: " + err);

@@ -50,6 +50,7 @@ app.post('/api/getListings', async (req, res) => {
         const{getListings} = mongoLogic;
         // Call the getListing function
         const filterData = req.body;
+        console.log("Server....GetListings....filterData: ", filterData)
         const listings = await getListings( filterData );
 
         // Send the listings as a response
@@ -109,7 +110,14 @@ app.post('/api/createListing', upload.single('image'), async (req, res) => {
     console.log("POST CreateListing");
 
     const { name, location, price, desc, condition, category } = req.body;
-    const imageBase64 = req.file.buffer;
+    let imageBase64 = '';
+    try{
+        imageBase64 = req.file.buffer;
+    }
+    catch{
+        console.log("No image input");
+    }
+
     const {createListing} = mongoLogic;
 
     const listingData = {
