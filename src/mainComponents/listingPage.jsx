@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import '../styles/listingPage.css';
 import {useLocation} from "react-router-dom";
 import Message from '../components/message.jsx'
@@ -80,7 +80,39 @@ function DescContainer({productName, price, location, description}) {
 
 function ListingPage() {
     const location = useLocation();
-    const {productName, price, location: productLocation, productImage, description} = location.state;
+    const {productName, price, location: productLocation, productImage, description, ID} = location.state;
+
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        // Fetch messages when the component mounts
+        const fetchMessages = async () => {
+            try {
+                const data = {
+                    listingID: ID
+                };
+                const apiUrl = "http://localhost:5000/api/getComments"
+                const response = await fetch(apiUrl, {
+
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data),
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setMessages(data);
+                } else {
+                    console.error('Failed to fetch comments:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching comments:', error);
+            }
+        };
+
+        fetchMessages();
+    }, []);
 
     return (
 
@@ -116,10 +148,17 @@ function ListingPage() {
                 </div>
 
                 <div className="forumAllMessages">
-                    <Message
-                        username={"miles hoff"}
-                        message={"hello there test mes"}
-                    />
+
+                    {messages.map( (message) => (
+                        <Message
+                            username={message.Username}
+                            message={message.Message}
+                            time={message.Timestamp}
+                        />
+                    ))}
+
+
+
                 </div>
 
                 <div className="forumFooter standardButton">
@@ -128,7 +167,6 @@ function ListingPage() {
                 </div>
 
             </div>
-
         </div>
 
 

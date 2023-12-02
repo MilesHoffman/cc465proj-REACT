@@ -123,11 +123,19 @@ function main(){
                 ID: ""
             }
 
-            await mongoLogic.createListing(listingData)
+            let commentData = {
+                username: "TestUser",
+                message: "This is a test comment",
+                listingID: "1701474555820-9716"
+            }
+
+            //await mongoLogic.createListing(listingData)
             //await mongoLogic.createUser( "testEmail@gmail.com", "TestUser", "1234")
 
             //let listings = await mongoLogic.getListings(filterData);
             //console.log( "The listings: ", listings );
+
+            //await mongoLogic.createComment(commentData);
 
             //await deleteAllUsers()
             //await deleteAllListings()

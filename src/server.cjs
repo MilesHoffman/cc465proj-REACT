@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const {getListings} = require("./mongoLogic.cjs");
 const app = express();
+const MongoLogic = require('./mongoLogic.cjs');
 
 const multer = require('multer');
 const { MongoClient } = require('mongodb');
@@ -59,6 +60,24 @@ app.post('/api/getListings', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+app.post('/api/getComments', async (req, res) => {
+    try {
+
+        // Call the getListing function
+        const data = req.body;
+        const comments = await MongoLogic.getComments( data.listingID );
+
+        console.log("Server...GetComments...Comments: ", comments);
+
+        // Send the listings as a response
+        res.json(comments);
+    } catch (error) {
+        console.error('__________________api/getListings...Error fetching listings:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 app.get('/api/getProfile', async (req, res) => {
     try {

@@ -337,9 +337,6 @@ async function doGetListings( filterData ){
             }
         }
 
-
-        //console.log( "mongoLogic..... QUERY: ", query);
-
         listings = await col.find( query ).toArray();
 
     }
@@ -418,8 +415,6 @@ function getComments( listingID ){
 // Implementation for getting the replies for a listing. Returns all comments sorted by time.
 async function doGetComments( listingID ){
 
-    //console.log("Mongologic..... filterData: ", filterData)
-
     let comments;
     try {
         await connectComments(); // Connects to listing collection
@@ -428,7 +423,11 @@ async function doGetComments( listingID ){
             "ListingID" : listingID
         };
 
+        console.log("Mongologic..getComments... query: ", query);
+
         comments = await col.find( query ).sort({ "TimeStamp" : 1 }).toArray();
+
+        console.log("...GetComments...returned comments: ", comments)
 
     }
     catch (err){
@@ -517,13 +516,13 @@ async function doDeleteListing( listingID ){
 /*
  Creates a new comment or reply.
  */
-function createMessage(messageData ){
+function createComment(commentData ){
 
 
     const call = async () => {
 
         try {
-            await doCreateMessage( messageData );
+            await doCreateComment( commentData );
         }
         catch (error) {
             console.error(error);
@@ -535,28 +534,28 @@ function createMessage(messageData ){
 
 
 // Implementation to create a comment.
-async function doCreateMessage( messageData ){
+async function doCreateComment( commentData ){
 
-    const { username, repliedTo, message  } = messageData;
+    const { username, message, listingID  } = commentData;
 
     try {
-        await connectListings(); // Connects to user collection
+        await connectComments(); // Connects to user collection
 
         // Initializes the user
-        let message = {
+        let comment = {
             "Username" : username,
-            "RepliedTo" : repliedTo,
             "Message" : message,
-            "Timestamp" : Date.now()
+            "Timestamp" : new Date(Date.now()).toLocaleString(),
+            "ListingID" : listingID
         }
 
-        const product = await col.insertOne(message); // Inserts the user
+        const product = await col.insertOne(comment); // Inserts the user
 
-        if( await col.findOne(message) ) {
+        if( await col.findOne(comment) ) {
             console.log("Message found in database. ~Probably created");
         }
         else {
-            console.log("Listing not found in database. ~Probably not created")
+            console.log("Message not found in database. ~Probably not created")
         }
     }
     catch (err){
@@ -579,5 +578,5 @@ module.exports = {
     deleteListing,
     getComments,
     getReplies,
-    createComment: createMessage
+    createComment
 }

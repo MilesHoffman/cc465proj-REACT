@@ -37,11 +37,11 @@ function CardSave() {
     )
 
 }
-function CardContainer({productName, price, location, productImage, description}) {
+function CardContainer({productName, price, location, productImage, description, ID}) {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/listingPage/${productName}`, {
-            state: { productName, price, location, productImage, description }
+            state: { productName, price, location, productImage, description, ID }
         });
     };
 

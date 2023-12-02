@@ -3,19 +3,8 @@ import '../styles/listingPage.css';
 import Reply from '../components/reply.jsx'
 import Button from "bootstrap/js/src/button.js";
 
-function GetCurrentTime(){
 
-    const timestamp = new Date(Date.now()).toLocaleString();
-
-    return (
-        <div>
-            {timestamp}
-        </div>
-    );
-}
-
-
-function messageContainer({username, message}){
+function messageContainer({username, message, time}){
 
 
     return (
@@ -30,7 +19,7 @@ function messageContainer({username, message}){
                 </div>
 
                 <p>
-                    <GetCurrentTime/>
+                    {time}
                 </p>
             </div>
 
