@@ -1,5 +1,5 @@
 import React from "react";
-import './../styles/card.css'
+import './../styles/card.css';
 import {useNavigate} from "react-router-dom";
 
 function CardPicture({productImage}) {
@@ -30,7 +30,7 @@ function CardSave() {
 
     return(
      <div>
-         <button  type="button" className="btn btn-success btn-sm">
+         <button  type="button" className="btn btn-success btn-sm save-btn">
              Save
          </button>
      </div>
