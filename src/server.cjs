@@ -8,6 +8,7 @@ const MongoLogic = require('./mongoLogic.cjs');
 
 const multer = require('multer');
 const { MongoClient } = require('mongodb');
+const {Promise} = require("mongoose");
 
 app.use(express.json({ limit: '20mb' }));
 
@@ -51,7 +52,7 @@ app.post('/api/getListings', async (req, res) => {
         const{getListings} = mongoLogic;
         // Call the getListing function
         const filterData = req.body;
-        const listings = await getListings( filterData );
+        const listings = await getListings(filterData);
 
         // Send the listings as a response
         res.json(listings);
@@ -64,16 +65,42 @@ app.post('/api/getListings', async (req, res) => {
 app.post('/api/getComments', async (req, res) => {
     try {
 
-        // Call the getListing function
-        const data = req.body;
-        const comments = await MongoLogic.getComments( data.listingID );
+        const {getComments} = require('./mongoLogic.cjs');
 
-        console.log("Server...GetComments...Comments: ", comments);
+        // Call the getListing function
+        console.log("server start getComments")
+
+        const data = req.body;
+        const comments = await getComments(data.listingID);
+
+        console.log("Server...GetComments...Comments: ");
 
         // Send the listings as a response
         res.json(comments);
     } catch (error) {
         console.error('__________________api/getListings...Error fetching listings:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Returns an array of sorted replies - MH
+app.post('/api/getReplies', async (req, res) => {
+    try {
+
+        const {getReplies} = require('./mongoLogic.cjs')
+
+        // Call the getReplies function
+        console.log("server start getReplies")
+
+        const data = req.body;
+        const comments = await getReplies( data.commentID );
+
+        console.log("Server...GetReply...replies: ");
+
+        // Send the replies as a response
+        res.json(comments);
+    } catch (error) {
+        console.error('__________________api/getReplies...Error fetching replies:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });

@@ -41,10 +41,33 @@ async function connectListings() {
     catch (err){
         console.log(err)
     }
-
-
 }
 
+// Starts connection to the Comments collection. Does not close connection.
+async function connectComments() {
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        col = db.collection("Comments");
+    }
+    catch (err){
+        console.log(err)
+    }
+}
+
+// Starts connection to the Replies collection. Does not close connection.
+async function connectReplies() {
+
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        col = db.collection("Replies");
+    }
+    catch (err){
+        console.log(err)
+    }
+}
 
 // DELETES ALL LISTINGS!!
 async function deleteAllListings() {
@@ -81,6 +104,24 @@ async function deleteAllUsers() {
     }
 
     console.log( "___________manageMongo... Deleted all users....")
+    await client.close();
+}
+
+// DELETES ALL COMMENTS!!
+async function deleteAllComments() {
+
+    try {
+
+        await connectComments();
+
+        // deletes all users
+        await col.deleteMany();
+    }
+    catch (err){
+        console.log(err);
+    }
+
+    console.log( "___________manageMongo... Deleted all comments....")
     await client.close();
 }
 
@@ -125,20 +166,30 @@ function main(){
 
             let commentData = {
                 username: "TestUser",
-                message: "This is a test comment",
+                message: "This is a test comment4",
                 listingID: "1701474555820-9716"
+            }
+
+            let replyData = {
+                username: "TestReplyUser",
+                message: "This is a test reply3",
+                repliedTo: "TestUser",
+                commentID: "1701484711026-7023"
             }
 
             //await mongoLogic.createListing(listingData)
             //await mongoLogic.createUser( "testEmail@gmail.com", "TestUser", "1234")
+            //await mongoLogic.createComment(commentData);
+            //await mongoLogic.createReply(replyData);
 
             //let listings = await mongoLogic.getListings(filterData);
             //console.log( "The listings: ", listings );
 
-            //await mongoLogic.createComment(commentData);
+
 
             //await deleteAllUsers()
             //await deleteAllListings()
+            //await deleteAllComments()
         }
         catch (error) {
             console.error(error);

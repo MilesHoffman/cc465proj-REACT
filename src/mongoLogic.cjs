@@ -2,8 +2,7 @@
 
 
 // Initializing the variables to connect to the database.
-const {MongoClient, ObjectId} = require("mongodb");
-//const {PRODUCTS} = require("./products.js");
+const {MongoClient} = require("mongodb");
 const url = "mongodb+srv://cc465proj:cc465proj@cluster0.3wpv56y.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(url);
 const dbName = "CommunityComrades";
@@ -350,23 +349,22 @@ async function doGetListings( filterData ){
 }
 
 // Calls implementation for getReplies. Input the comment's ID to get its replies.
-function getReplies( commentID ){
+async function getReplies(commentID) {
 
     const call = async () => {
 
         let replies;
 
         try {
-            replies = await doGetReplies( commentID );
-        }
-        catch (error) {
+            replies = await doGetReplies(commentID);
+        } catch (error) {
             console.error(error);
         }
 
         return replies;
     };
 
-    return call();
+    return await call();
 }
 
 // Implementation for getting the replies for a comment. Returns all replies sorted by time.
@@ -379,6 +377,8 @@ async function doGetReplies( commentID ){
         let query = {
             "commentID" : commentID
         };
+
+        console.log("...mongologic...getReplies...");
 
         replies = await col.find( query ).sort({ "TimeStamp" : 1 }).toArray();
 
@@ -423,11 +423,11 @@ async function doGetComments( listingID ){
             "ListingID" : listingID
         };
 
-        console.log("Mongologic..getComments... query: ", query);
+        console.log("Mongologic..getComments... query: ", listingID);
 
         comments = await col.find( query ).sort({ "TimeStamp" : 1 }).toArray();
 
-        console.log("...GetComments...returned comments: ", comments)
+        //console.log("...GetComments...returned comments: ", comments)
 
     }
     catch (err){
@@ -514,7 +514,8 @@ async function doDeleteListing( listingID ){
 }
 
 /*
- Creates a new comment or reply.
+ Creates a new comment.
+ Input the username, message, and listingID in the commentData.
  */
 function createComment(commentData ){
 
@@ -534,7 +535,7 @@ function createComment(commentData ){
 
 
 // Implementation to create a comment.
-async function doCreateComment( commentData ){
+async function doCreateComment( commentData )   {
 
     const { username, message, listingID  } = commentData;
 
@@ -546,7 +547,8 @@ async function doCreateComment( commentData ){
             "Username" : username,
             "Message" : message,
             "Timestamp" : new Date(Date.now()).toLocaleString(),
-            "ListingID" : listingID
+            "ListingID" : listingID,
+            "CommentID": generateUniqueID()
         }
 
         const product = await col.insertOne(comment); // Inserts the user
@@ -566,6 +568,60 @@ async function doCreateComment( commentData ){
 
 
 
+/*
+ Creates a new reply.
+ Input the username, message, repliedTo, and commentID in the replyData.
+ */
+function createReply( replyData ){
+
+
+    const call = async () => {
+
+        try {
+            await doCreateReply( replyData );
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
+
+    const result = call();
+}
+
+
+// Implementation to create a Reply.
+async function doCreateReply( replyData ){
+
+    const { username, message, repliedTo, commentID  } = replyData;
+
+    try {
+        await connectReplies(); // Connects to user collection
+
+        // Initializes the user
+        let comment = {
+            "Username" : username,
+            "Message" : message,
+            "RepliedTo": repliedTo,
+            "Timestamp" : new Date(Date.now()).toLocaleString(),
+            "CommentID" : commentID
+        }
+
+        const product = await col.insertOne(comment); // Inserts the user
+
+        if( await col.findOne(comment) ) {
+            console.log("Reply found in database. ~Probably created");
+        }
+        else {
+            console.log("Reply not found in database. ~Probably not created")
+        }
+    }
+    catch (err){
+        console.log(err);
+    }
+    await client.close()
+}
+
+
 
 // USE THE WRAPPER CLASS NOT THE IMPLEMENTATION CLASS. Unless you don't want to.
 module.exports = {
@@ -578,5 +634,6 @@ module.exports = {
     deleteListing,
     getComments,
     getReplies,
-    createComment
+    createComment,
+    createReply
 }

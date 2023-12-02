@@ -2,19 +2,7 @@ import '../styles/listingPage.css';
 import React from "react";
 
 
-function GetCurrentTime(){
-
-    const timestamp = new Date(Date.now()).toLocaleString();
-
-    return (
-        <div>
-            {timestamp}
-        </div>
-    );
-}
-
-
-function replyContainer( {username, message, repliedTo}) {
+function replyContainer( {username, message, repliedTo, time}) {
 
     return (
 
@@ -25,7 +13,7 @@ function replyContainer( {username, message, repliedTo}) {
 
             <div className="forumMessageFooter">
                 <p>
-                    <GetCurrentTime/>
+                    {time}
                 </p>
             </div>
         </div>

@@ -154,6 +154,7 @@ function ListingPage() {
                             username={message.Username}
                             message={message.Message}
                             time={message.Timestamp}
+                            ID={message.commentID}
                         />
                     ))}
 
