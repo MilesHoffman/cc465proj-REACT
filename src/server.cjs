@@ -95,7 +95,9 @@ app.post('/api/getReplies', async (req, res) => {
         const data = req.body;
         const comments = await getReplies( data.commentID );
 
-        console.log("Server...GetReply...replies: ");
+        console.log("commentss", data.commentID)
+
+        console.log("Server...GetReply...replies: ", comments);
 
         // Send the replies as a response
         res.json(comments);

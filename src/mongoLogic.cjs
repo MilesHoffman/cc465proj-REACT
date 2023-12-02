@@ -425,7 +425,7 @@ async function doGetComments( listingID ){
 
         console.log("Mongologic..getComments... query: ", listingID);
 
-        comments = await col.find( query ).sort({ "TimeStamp" : 1 }).toArray();
+        comments = await col.find( query ).sort({ "Timestamp" : 1 }).toArray();
 
         //console.log("...GetComments...returned comments: ", comments)
 
