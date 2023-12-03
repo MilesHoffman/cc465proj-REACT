@@ -271,6 +271,34 @@ app.post('/api/sendComment', async (req, res) => {
 })
 
 
+app.post('/api/sendReply', async (req, res) => {
+
+
+    const {createReply} = mongoLogic;
+
+
+    const rID = req.body
+    const replyData = {
+        username: globalUsername,
+        message: rID.TextBoxMessage,
+        commentID: rID.commentid
+
+
+    }
+
+    console.log('data', replyData)
+
+
+
+    const result =  await createReply(replyData)
+
+
+    //mongoLogic function to delete listing from user
+    console.log('request received')
+
+})
+
+
 
 
 
