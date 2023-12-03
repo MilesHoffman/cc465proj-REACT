@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import '../styles/listingPage.css';
 import {useLocation} from "react-router-dom";
 import Message from '../components/message.jsx'
+import reply from "../components/reply.jsx";
 
 
 function ListPicture({productImage}) {
@@ -83,11 +84,6 @@ function TextBox({change,changeHandler}){
     return(
 
         <form className="reply-textbox">
-
-            <label>
-                textArea
-            </label>
-            <br></br>
             <p>
                 <textarea
                     rows="4"
@@ -96,7 +92,6 @@ function TextBox({change,changeHandler}){
                     onChange={(e) => changeHandler(e.target.value)}
                 ></textarea>
             </p>
-
         </form>
 
     );
@@ -123,8 +118,10 @@ function ListingPage() {
 
     const [messages, setMessages] = useState([]);
     const [textboxmessage, setTextboxmessage] = useState('')
+    const [loadingMessages, setLoadingMessages] = useState(true)
+    const [replies, setReplies] = useState([]);
 
-    useEffect( () => {
+    useEffect( async () => {
         // Fetch messages when the component mounts
         const fetchMessages = async () => {
             try {
@@ -151,14 +148,44 @@ function ListingPage() {
             }
         };
 
-        fetchMessages();
+        // Fetch messages when the component mounts
+        const fetchReplies = async () => {
+
+            try {
+                const data = {
+                    listingID: ID
+                };
+                const apiUrl = "http://localhost:5000/api/getReplies";
+                const response = await fetch(apiUrl, {
+
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data),
+                });
+                if (response.ok) {
+                    const comments = await response.json();
+                    setReplies(comments);
+                } else {
+                    console.error('Failed to fetch replies:', response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching replies:', error);
+            }
+        };
+
+
+        await fetchMessages();
+        await fetchReplies();
     }, []);
+
+
+
 
     const apiUrl = 'http://localhost:5000/api/sendComment'
 
     const handleTextboxFetch = async () => {
-
-
 
         try {
             const response = await fetch(apiUrl, {
@@ -173,8 +200,6 @@ function ListingPage() {
                     Username: 'bob',
                     TextBoxMessage:textboxmessage,
                     ListingID: ID,
-
-
                 }),
 
             })
@@ -190,6 +215,19 @@ function ListingPage() {
 
     }
 
+    const getMessagesReplies = ( commentID ) => {
+
+        let commentReplies = [];
+
+        for( let i = 0; i < replies.length; i++ ){
+
+            if( replies[i].CommentID === commentID ){
+                commentReplies.push( replies[i] );
+            }
+        }
+
+        return commentReplies;
+    };
 
 
     return (
@@ -227,25 +265,25 @@ function ListingPage() {
 
                 <div className="forumAllMessages">
 
-                    {messages.map( (message) => (
+                    { messages.length > 0 ? messages.map( (message) => (
                         <Message
                             username={message.Username}
                             message={message.Message}
                             time={message.Timestamp}
                             ID={message.CommentID}
+                            replies={getMessagesReplies( message.CommentID)}
+                            listingID={ID}
                         />
-                    ))}
+                    ))
+                        : <h5>Be the first to comment!</h5>
+                    }
 
 
                 <TextBox change={textboxmessage} changeHandler={setTextboxmessage}/>
 
-
                  <Forumfooter handler={handleTextboxFetch}/>
 
-
                 </div>
-
-
 
             </div>
         </div>

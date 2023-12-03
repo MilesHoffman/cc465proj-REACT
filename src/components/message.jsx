@@ -6,55 +6,19 @@ function ForumFooter({ handler }) {
     return (
         <div className="forumFooter standardButton">
             <button type="button" onClick={handler}>Post</button>
-            <button type="button">Report Listing</button>
         </div>
     );
 }
 
-function MessageContainer( { username, message, time, ID } ) {
-    const [replies, setReplies] = useState([]);
+function MessageContainer( { username, message, time, ID, replies, listingID } ) {
+
     const [showReplyTextbox, setShowReplyTextbox] = useState(false);
     const [textboxmessage,setTextboxmessage] = useState('')
     const [commID, setCommID] = useState('')
 
-    useEffect(async () => {
-        // Fetch messages when the component mounts
-        const fetchReplies = async () => {
-
-            return new Promise( async (resolve, reject) => {
-
-                try {
-                    const data = {
-                        commentID: ID
-                    };
-                    const apiUrl = "http://localhost:5000/api/getReplies";
-                    const response = await fetch(apiUrl, {
-
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(data),
-                    });
-                    if (response.ok) {
-                        const comments = await response.json();
-                        setReplies(comments);
-                    } else {
-                        console.error('Failed to fetch replies:', response.status);
-                    }
-                } catch (error) {
-                    console.error('Error fetching replies:', error);
-                }
-
-            });
-        };
-
-        await fetchReplies();
-    }, []);
-
     const apiUrl = 'http://localhost:5000/api/sendReply'
     const handleReplyButtonClick = async () => {
-        setShowReplyTextbox(true);
+        setShowReplyTextbox(!showReplyTextbox);
 
 
         try {
@@ -67,26 +31,25 @@ function MessageContainer( { username, message, time, ID } ) {
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify({
-                    Username: 'bob',
-                    TextBoxMessage:textboxmessage,
-                    commentid: ID
-
-
+                    textBoxMessage: textboxmessage,
+                    commentID: ID,
+                    listingID: listingID,
+                    repliedTo: username
                 }),
 
             })
             if (response.ok) {
 
-            } else {
-
             }
-
         } catch (error) {
             console.error('Error fetching data: ', error);
         }
-
-
     };
+
+    const clickShowReplyBox = () => {
+
+        setShowReplyTextbox(!showReplyTextbox);
+    }
 
 
 
@@ -97,7 +60,7 @@ function MessageContainer( { username, message, time, ID } ) {
 
             <div className="forumMessageFooter">
                 <div className="standardButton replyButton">
-                    <button type="button" onClick={handleReplyButtonClick}>
+                    <button type="button" onClick={clickShowReplyBox}>
                         Reply
                     </button>
                 </div>
@@ -108,8 +71,6 @@ function MessageContainer( { username, message, time, ID } ) {
                 {showReplyTextbox && (
                     <>
                         <form className="reply-textbox">
-                            <label>textArea</label>
-                            <br />
                             <p>
                                 <textarea
                                     rows="4"
@@ -122,7 +83,8 @@ function MessageContainer( { username, message, time, ID } ) {
                         <ForumFooter handler={handleReplyButtonClick} />
                     </>
                 )}
-                {replies.map((reply) => (
+
+                { replies.length > 0 ? replies.map((reply) => (
                     <Reply
                         key={reply.id} // Ensure each item has a unique key
                         username={reply.Username}
@@ -130,21 +92,12 @@ function MessageContainer( { username, message, time, ID } ) {
                         repliedTo={reply.RepliedTo}
                         time={reply.Timestamp}
                     />
-                ))}
+                ))
+                    : <></>
+                }
             </div>
         </div>
     );
 }
 
 export default MessageContainer;
-
-/*
-{replies.map( (reply) => (
-                    <Reply
-                        username={reply.Username}
-                        message={reply.Message}
-                        repliedTo={reply.RepliedTo}
-                        time={reply.Timestamp}
-                    />
-                ))}
- */

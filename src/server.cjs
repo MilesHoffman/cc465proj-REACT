@@ -67,6 +67,13 @@ app.post('/api/getListings', async (req, res) => {
     }
 });
 
+app.get('api/closeMongo', async (req, res) => {
+
+    await MongoLogic.closeMongo();
+
+    res.json("Closed mongo");
+});
+
 app.post('/api/getComments', async (req, res) => {
     try {
 
@@ -98,9 +105,9 @@ app.post('/api/getReplies', async (req, res) => {
         console.log("1 server start getReplies ")
 
         const data = req.body;
-        const comments = await getReplies( data.commentID );
+        const comments = await getReplies( data.listingID );
 
-        console.log("4 Server...GetReply...replies: ", comments);
+        console.log("4 Server...GetReply...replies: ", );
 
         // Send the replies as a response
         res.json(comments);
@@ -290,22 +297,17 @@ app.post('/api/sendReply', async (req, res) => {
     const rID = req.body
     const replyData = {
         username: globalUsername,
-        message: rID.TextBoxMessage,
-        commentID: rID.commentid
-
-
+        message: rID.textBoxMessage,
+        commentID: rID.commentID,
+        listingID: rID.listingID,
+        repliedTo: rID.repliedTo
     }
 
-    console.log('data', replyData)
-
-
+    //console.log('data', replyData)
 
     const result =  await createReply(replyData)
 
-
-    //mongoLogic function to delete listing from user
-    console.log('request received')
-
+    console.log("... Server..A reply has been created: ", replyData)
 })
 
 
