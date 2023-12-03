@@ -465,7 +465,7 @@ async function doEditListing(listingId, updData) {
 
         // outputs the listing's ID
         console.log( "_________________mongoLogic... DoEditListing..... \n" + listingId );
-
+        
         // Update the listing with the new data
         await col.updateOne({ "ID": listingId }, { $set: updData });
     }

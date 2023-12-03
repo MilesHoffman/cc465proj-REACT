@@ -67,6 +67,17 @@
     border-width: 2px;
     text-align: center;
 }
+.reply-textbox{
+
+
+}
+.reply-textbox textarea{
+
+        width: 250%;
+
+
+
+}
 .bodyRight {
     max-width: 30vw;
     width: 30vw;

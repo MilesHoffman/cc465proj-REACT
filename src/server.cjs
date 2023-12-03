@@ -244,6 +244,34 @@ app.post('/api/deleteListing', async (req, res) => {
 })
 
 
+app.post('/api/sendComment', async (req, res) => {
+
+
+    const {createComment} = mongoLogic;
+
+
+    const lID = req.body
+    const commentData = {
+        username: globalUsername,
+        message: lID.TextBoxMessage,
+        listingID: lID.ListingID
+
+    }
+
+    console.log('data', commentData)
+
+
+
+    const result =  await createComment(commentData)
+
+    res.json({message: "comment sent"});
+    //mongoLogic function to delete listing from user
+    console.log('request received')
+
+})
+
+
+
 
 
 const PORT = process.env.PORT || 5000;

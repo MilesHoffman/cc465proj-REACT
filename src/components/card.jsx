@@ -1,6 +1,6 @@
 import React from "react";
 import './../styles/card.css';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 function CardPicture({productImage}) {
     return (

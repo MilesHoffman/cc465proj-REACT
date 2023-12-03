@@ -78,11 +78,52 @@ function DescContainer({productName, price, location, description}) {
     );
 }
 
+function TextBox({change,changeHandler}){
+
+
+    return(
+
+        <form className="reply-textbox">
+
+            <label>
+                textArea
+            </label>
+            <br></br>
+            <p>
+                <textarea
+                    rows="4"
+                    style={{width: '50ch'}}
+                    value={change}
+                    onChange={(e) => changeHandler(e.target.value)}
+                ></textarea>
+            </p>
+
+        </form>
+
+    );
+}
+
+function Forumfooter({handler}){
+
+
+    return(
+
+        <div className="forumFooter standardButton">
+            <button type="button" onClick={handler}>Post</button>
+            <button type="button">Report Listing</button>
+        </div>
+
+
+    );
+
+}
+
 function ListingPage() {
     const location = useLocation();
     const {productName, price, location: productLocation, productImage, description, ID} = location.state;
 
     const [messages, setMessages] = useState([]);
+    const [textboxmessage, setTextboxmessage] = useState('')
 
     useEffect(() => {
         // Fetch messages when the component mounts
@@ -113,6 +154,44 @@ function ListingPage() {
 
         fetchMessages();
     }, []);
+
+    const apiUrl = 'http://localhost:5000/api/sendComment'
+
+    const handleTextboxFetch = async () => {
+
+
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify({
+                    Username: 'bob',
+                    TextBoxMessage:textboxmessage,
+                    ListingID: ID,
+
+
+                }),
+
+            })
+            if (response.ok) {
+
+            } else {
+
+            }
+
+        } catch (error) {
+            console.error('Error fetching data: ', error);
+        }
+
+    }
+
+
 
     return (
 
@@ -158,14 +237,15 @@ function ListingPage() {
                         />
                     ))}
 
+                <TextBox change={textboxmessage} changeHandler={setTextboxmessage}/>
+
+
+                 <Forumfooter handler={handleTextboxFetch}/>
 
 
                 </div>
 
-                <div className="forumFooter standardButton">
-                    <button type="button">Post</button>
-                    <button type="button">Report Listing</button>
-                </div>
+
 
             </div>
         </div>
