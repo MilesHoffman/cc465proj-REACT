@@ -9,22 +9,19 @@ import LoginContainer from '../mainComponents/login.jsx';
 
 function Header({loggedInStatus, loggedInStatusHandler}) {
 
+    const [searchText, setSearchText] = useState('');
+
     const navigate = useNavigate();
 
     const handleSearch = (event) => {
         if( event.key === "Enter" ){
-            console.log("ENTER....Enter key was pressed in the Search Box")
 
-            /*
-            SOMEHOW CALL THE MARKETPLACE AND SEND A FILTERDATA
-            CONTAINING THE SEARCH
-             */
             const filterData = {
                 query: true,
-                name: "",
+                name: searchText,
                 location: "",
                 minPrice: "",
-                maxPrice: "40",
+                maxPrice: "",
                 username: "",
                 condition: {
                     new: true,
@@ -44,7 +41,25 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
 
     const handleCategeryClick = (category) => {
         console.log("...handleCategoryClick....category: ", category)
-        navigate(('/'), {state: {category}});
+
+        const filterData = {
+            query: true,
+            name: "",
+            location: "",
+            minPrice: "",
+            maxPrice: "",
+            username: "",
+            condition: {
+                new: true,
+                used: true,
+                refurbished: true,
+                damaged: true
+            },
+            category: category,
+            ID: ""
+        }
+
+        navigate(('/'), {state: filterData});
     }
 
     //use state value to open the login popup
@@ -80,7 +95,9 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
                             type="text"
                             className={"searchBarTextBox"}
                             placeholder="Search..."
-                            onKeyDown={handleSearch}
+                            onKeyDown={(e) => handleSearch(e)}
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
                         />
                     </div>
 

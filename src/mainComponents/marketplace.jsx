@@ -38,22 +38,7 @@ function Marketplace(  ){
                 console.log("THIS IS THE CATEGORY STATE: ", location.state)
 
                 if (location.state !== null) {
-                    filterData = {
-                        query: true,
-                        name: "",
-                        location: "",
-                        minPrice: "",
-                        maxPrice: "",
-                        username: "",
-                        condition: {
-                            new: true,
-                            used: true,
-                            refurbished: true,
-                            damaged: true
-                        },
-                        category: location.state.category,
-                        ID: ""
-                    }
+                    filterData = location.state;
                 }
 
                 const apiUrl = "http://localhost:5000/api/getListings"
