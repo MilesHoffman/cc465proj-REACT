@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import '../styles/inputPages.css';
+import {useNavigate} from "react-router-dom";
 
 function InputField({labelName, change, changeHandler}) {
     return(
@@ -50,7 +51,7 @@ function AddPicture({change, changeHandler}) {
                 <strong>Selected Files:</strong>
                 <ul>
                     {change.map((file, index) => (
-                        <li key={index}>{file.originalname}</li>
+                        <li key={index}>{file.fileName}</li>
                     ))}
                 </ul>
             </div>
@@ -102,6 +103,8 @@ function CategoryDropdown({change, changeHandler}) {
 }
 
 function CreateListingContainer() {
+    const navigate = useNavigate();
+
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [price, setPrice] = useState('');
@@ -115,7 +118,7 @@ function CreateListingContainer() {
         const files = e.target.files;
         const updatedImages = Array.from(files)
         const formattedImages = updatedImages.map((pic, index) => ({
-            fileName: `image${index}`,
+            fileName: pic.originalname,
             file: pic,
             type: pic.type,
         }));
@@ -157,6 +160,8 @@ function CreateListingContainer() {
             })
             if (response.ok) {
                 console.log("Successful create listing");
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                navigate("/profile");
             }
             else {
                 console.log("Create listing failed");

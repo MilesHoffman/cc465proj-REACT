@@ -244,9 +244,7 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
                     <option value="2"> beyond 30 days</option>
                 </select>
                 <div className="standardButton filterCommandButtons">
-                    <button type="button" tabindex="0">
-                        <span className="label">cancel</span>
-                    </button>
+
                     <button type="button" onClick={handleResetFilter} tabindex="0">
                         <span className="label">reset</span>
                     </button>

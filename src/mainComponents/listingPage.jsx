@@ -12,13 +12,13 @@ function ListPicture({productImage}) {
     );
 }
 
-function PictureContainer({productImage}) {
+function PictureContainer({currentPicture, productImage}) {
 
     // Currently Hardcoded
 
     return (
       <div className="bodyLeftPicture">
-          <ListPicture productImage={`data:image/png;base64, ${productImage[0].file}`} />
+          <ListPicture productImage={`data:image/png;base64, ${productImage[currentPicture].file}`} />
       </div>
     );
 }
@@ -122,7 +122,27 @@ function ListingPage() {
     const {productName, price, location: productLocation, productImage, description, ID} = location.state;
 
     const [messages, setMessages] = useState([]);
-    const [textboxmessage, setTextboxmessage] = useState('')
+    const [textboxmessage, setTextboxmessage] = useState('');
+    const [currentPicture, setCurrentPicture] = useState(0);
+
+    console.log(currentPicture);
+
+    function handleBackButton() {
+        if (currentPicture - 1 < 0) {
+            setCurrentPicture(productImage.length - 1);
+        }
+        else {
+            setCurrentPicture(currentPicture + 1);
+        }
+    }
+    function handleNextButton() {
+        if (currentPicture + 1 === productImage.length) {
+            setCurrentPicture(0);
+        }
+        else {
+            setCurrentPicture(currentPicture + 1);
+        }
+    }
 
     useEffect( () => {
         // Fetch messages when the component mounts
@@ -200,14 +220,15 @@ function ListingPage() {
                 <div className="bodyLeft">
 
                     <div className="bodyLeftPicture">
-                        <PictureContainer productImage={productImage} />
+                        <PictureContainer productImage={productImage}
+                                          currentPicture={currentPicture} />
                     </div>
 
                     <div className="bodyLeftControl standardButton">
-                        <button type="button">
+                        <button type="button" onClick={handleBackButton}>
                             <text> back  </text>
                         </button>
-                        <button type="button">
+                        <button type="button" onClick={handleNextButton}>
                             <text> next </text>
                         </button>
                     </div>
