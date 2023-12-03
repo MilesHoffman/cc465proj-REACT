@@ -14,7 +14,13 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
     const navigate = useNavigate();
 
     const handleSearch = (event) => {
+
+        console.log("Key pressed:", event.key, "Key code:", event.keyCode);
+
         if( event.key === "Enter" ){
+            event.preventDefault();
+
+            console.log("ENTER KEY HAD BEEN CLICKED SEARACH")
 
             const filterData = {
                 query: true,
@@ -33,9 +39,7 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
                 ID: ""
             }
 
-            navigate(`/`, {
-                state: { filterData }
-            });
+            navigate(('/'), {state: filterData});
         }
     }
 
