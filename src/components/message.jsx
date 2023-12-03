@@ -11,39 +11,45 @@ function ForumFooter({ handler }) {
     );
 }
 
-function MessageContainer({ username, message, time, ID }) {
+function MessageContainer( { username, message, time, ID } ) {
     const [replies, setReplies] = useState([]);
     const [showReplyTextbox, setShowReplyTextbox] = useState(false);
     const [textboxmessage,setTextboxmessage] = useState('')
     const [commID, setCommID] = useState('')
 
-    useEffect(() => {
+    useEffect(async () => {
         // Fetch messages when the component mounts
         const fetchReplies = async () => {
-            try {
-                const data = {
-                    commentID: ID
-                };
-                const apiUrl = "http://localhost:5000/api/getReplies";
-                const response = await fetch(apiUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data),
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    setReplies(data);
-                } else {
-                    console.error('Failed to fetch replies:', response.status);
+
+            return new Promise( async (resolve, reject) => {
+
+                try {
+                    const data = {
+                        commentID: ID
+                    };
+                    const apiUrl = "http://localhost:5000/api/getReplies";
+                    const response = await fetch(apiUrl, {
+
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data),
+                    });
+                    if (response.ok) {
+                        const comments = await response.json();
+                        setReplies(comments);
+                    } else {
+                        console.error('Failed to fetch replies:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error fetching replies:', error);
                 }
-            } catch (error) {
-                console.error('Error fetching replies:', error);
-            }
+
+            });
         };
 
-        fetchReplies();
+        await fetchReplies();
     }, []);
 
     const apiUrl = 'http://localhost:5000/api/sendReply'
@@ -116,7 +122,6 @@ function MessageContainer({ username, message, time, ID }) {
                         <ForumFooter handler={handleReplyButtonClick} />
                     </>
                 )}
-
                 {replies.map((reply) => (
                     <Reply
                         key={reply.id} // Ensure each item has a unique key
@@ -132,3 +137,14 @@ function MessageContainer({ username, message, time, ID }) {
 }
 
 export default MessageContainer;
+
+/*
+{replies.map( (reply) => (
+                    <Reply
+                        username={reply.Username}
+                        message={reply.Message}
+                        repliedTo={reply.RepliedTo}
+                        time={reply.Timestamp}
+                    />
+                ))}
+ */

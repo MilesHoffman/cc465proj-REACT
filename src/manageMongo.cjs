@@ -167,25 +167,23 @@ function main(){
             let commentData = {
                 username: "TestUser",
                 message: "This is a test comment4",
-                listingID: "1701474555820-9716"
+                listingID: "1701574136872-7119"
             }
 
             let replyData = {
                 username: "TestReplyUser",
-                message: "This is a test reply3",
+                message: "The second reply",
                 repliedTo: "TestUser",
-                commentID: "1701484711026-7023"
+                commentID: "1701575312560-1609"
             }
 
             //await mongoLogic.createListing(listingData)
             //await mongoLogic.createUser( "testEmail@gmail.com", "TestUser", "1234")
-            //await mongoLogic.createComment(commentData);
+            // mongoLogic.createComment(commentData);
             //await mongoLogic.createReply(replyData);
 
             //let listings = await mongoLogic.getListings(filterData);
             //console.log( "The listings: ", listings );
-
-
 
             //await deleteAllUsers()
             //await deleteAllListings()

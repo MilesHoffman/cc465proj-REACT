@@ -125,7 +125,7 @@ function ListingPage() {
     const [messages, setMessages] = useState([]);
     const [textboxmessage, setTextboxmessage] = useState('')
 
-    useEffect(() => {
+    useEffect( () => {
         // Fetch messages when the component mounts
         const fetchMessages = async () => {
             try {
@@ -236,6 +236,7 @@ function ListingPage() {
                             ID={message.CommentID}
                         />
                     ))}
+
 
                 <TextBox change={textboxmessage} changeHandler={setTextboxmessage}/>
 

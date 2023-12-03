@@ -52,6 +52,9 @@ app.post('/api/getListings', async (req, res) => {
         const{getListings} = mongoLogic;
         // Call the getListing function
         const filterData = req.body;
+
+        console.log("....Server getListing.... filterData: ", filterData)
+
         const listings = await getListings(filterData);
 
         // Send the listings as a response
@@ -68,12 +71,12 @@ app.post('/api/getComments', async (req, res) => {
         const {getComments} = require('./mongoLogic.cjs');
 
         // Call the getListing function
-        console.log("server start getComments")
+        //console.log("server start getComments")
 
         const data = req.body;
         const comments = await getComments(data.listingID);
 
-        console.log("Server...GetComments...Comments: ");
+        //console.log("Server...GetComments...Comments: ", comments);
 
         // Send the listings as a response
         res.json(comments);
@@ -90,14 +93,12 @@ app.post('/api/getReplies', async (req, res) => {
         const {getReplies} = require('./mongoLogic.cjs')
 
         // Call the getReplies function
-        console.log("server start getReplies")
+        console.log("1 server start getReplies ")
 
         const data = req.body;
         const comments = await getReplies( data.commentID );
 
-        console.log("commentss", data.commentID)
-
-        console.log("Server...GetReply...replies: ", comments);
+        console.log("4 Server...GetReply...replies: ", comments);
 
         // Send the replies as a response
         res.json(comments);
@@ -159,12 +160,7 @@ app.post('/api/login',  async (req, res) => {
         res.status(401).json({message: 'Invalid Credentials'});
     }
 });
-//hi
-//method to send the filtered data to mongodb so that we can filter for the user
-
-
-
-
+//method to send the filtered data to mongodb so that we can filter for th
 
 // This will get the request to create a new listing.
 app.post('/api/createListing', upload.single('image'), async (req, res) => {

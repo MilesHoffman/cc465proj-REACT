@@ -5,7 +5,7 @@ import { PRODUCTS } from '../products'
 import './../styles/marketplace.css'
 
 
-function Marketplace(){
+function Marketplace(  ){
 
     //array to hold all listings
     const [listings, setListings] = useState([]);
@@ -29,7 +29,20 @@ function Marketplace(){
         // Fetch listings when the component mounts
         const fetchListings = async () => {
             try {
+                /*
+                let filterData = location.state.filterData;
+
+                if( !filterData ){
+                    filterData = {
+                        query: false
+                    }
+                }
+
+                 */
+
+
                 const filterData = { query: false };
+
                 const apiUrl = "http://localhost:5000/api/getListings"
                 const response = await fetch(apiUrl, {
 

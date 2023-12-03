@@ -8,7 +8,43 @@ import LoginContainer from '../mainComponents/login.jsx';
 
 
 function Header({loggedInStatus, loggedInStatusHandler}) {
+
     const navigate = useNavigate();
+
+    const handleSearch = (event) => {
+        if( event.key === "Enter" ){
+            console.log("ENTER....Enter key was pressed in the Search Box")
+
+            /*
+            SOMEHOW CALL THE MARKETPLACE AND SEND A FILTERDATA
+            CONTAINING THE SEARCH
+             */
+            const filterData = {
+                query: true,
+                name: "",
+                location: "",
+                minPrice: "",
+                maxPrice: "40",
+                username: "",
+                condition: {
+                    new: true,
+                    used: true,
+                    refurbished: true,
+                    damaged: true
+                },
+                category: "",
+                ID: ""
+            }
+
+            navigate(`/`, {
+                state: { filterData }
+            });
+        }
+    }
+
+    const handleCategeryClick = (category) => {
+        console.log("...handleCategoryClick....category: ", category)
+    }
 
     //use state value to open the login popup
     const [showPopup, setShowPopup] = useState(false);
@@ -39,7 +75,12 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
                     </div>
 
                     <div className={"topsectionHeaderSearch"}>
-                        <input type="text" className={"searchBarTextBox"} placeholder="Search..."/>
+                        <input
+                            type="text"
+                            className={"searchBarTextBox"}
+                            placeholder="Search..."
+                            onKeyDown={handleSearch}
+                        />
                     </div>
 
                     <div className={"topSectionHeaderRight"}>
@@ -62,11 +103,11 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
                 <div className={"bottomSectionHeader"}>
 
                     <div className={"bottomSectionHeaderCategories sneakyButton"}>
-                        <button type="button">Technology</button>
-                        <button type="button">Home</button>
-                        <button type="button">Apparel</button>
-                        <button type="button">Automobiles</button>
-                        <button type="button">Games</button>
+                        <button type="button" onClick={handleCategeryClick("Tech")}>Technology</button>
+                        <button type="button" onClick={handleCategeryClick("Home")}>Home</button>
+                        <button type="button" onClick={handleCategeryClick("Apparel")}>Apparel</button>
+                        <button type="button" onClick={handleCategeryClick("Automobiles")}>Automobiles</button>
+                        <button type="button" onClick={handleCategeryClick("Games")}>Games</button>
                     </div>
 
                     <div className={"bottomSectionHeaderRightSide"}>

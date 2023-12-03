@@ -3,6 +3,7 @@
 
 // Initializing the variables to connect to the database.
 const {MongoClient} = require("mongodb");
+const repl = require("repl");
 const url = "mongodb+srv://cc465proj:cc465proj@cluster0.3wpv56y.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(url);
 const dbName = "CommunityComrades";
@@ -374,13 +375,15 @@ async function doGetReplies( commentID ){
     try {
         await connectReplies(); // Connects to reply collection
 
+        console.log("2 mongologic.....commentID: ", commentID)
+
         let query = {
-            "commentID" : commentID
+            "CommentID" : commentID
         };
 
-        console.log("...mongologic...getReplies...");
-
         replies = await col.find( query ).sort({ "TimeStamp" : 1 }).toArray();
+
+        console.log("3 ....Mongologic replies: ", replies)
 
     }
     catch (err){
@@ -518,8 +521,6 @@ async function doDeleteListing( listingID ){
  Input the username, message, and listingID in the commentData.
  */
 function createComment(commentData ){
-
-
     const call = async () => {
 
         try {
