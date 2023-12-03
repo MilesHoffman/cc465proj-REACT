@@ -5,7 +5,7 @@ import {useNavigate, useLocation} from "react-router-dom";
 function CardPicture({productImage}) {
     return (
         <img
-            src={`data:image/png;base64, ${productImage}`}
+            src={`data:image/png;base64, ${productImage[0].file}`}
             alt="Uploaded"
             className="card-img" />
     );
@@ -39,6 +39,7 @@ function CardSave() {
 }
 function CardContainer({productName, price, location, productImage, description, ID}) {
     const navigate = useNavigate();
+    console.log("IN CARD: ", productImage);
     const handleClick = () => {
         navigate(`/listingPage/${productName}`, {
             state: { productName, price, location, productImage, description, ID }

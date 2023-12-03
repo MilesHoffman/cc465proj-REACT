@@ -38,15 +38,23 @@ function DescriptionBox({labelName, change, changeHandler}) {
 }
 function AddPicture({change, changeHandler}) {
     return (
-        <form>
-            <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {  const file = e.target.files[0];
-                                                                        changeHandler(file);            }} />
-
-            {change && <img src={URL.createObjectURL(change)} alt="Uploaded" style={{maxWidth: '150px', maxHeight: '150px'}} />}
-        </form>
+        <div>
+            <form>
+                <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={changeHandler} />
+            </form>
+            <div>
+                <strong>Selected Files:</strong>
+                <ul>
+                    {change.map((file, index) => (
+                        <li key={index}>{file.originalname}</li>
+                    ))}
+                </ul>
+            </div>
+        </div>
     );
 }
 function SubmitButton( {handler} ) {
@@ -98,18 +106,28 @@ function CreateListingContainer() {
     const [location, setLocation] = useState('');
     const [price, setPrice] = useState('');
     const [desc, setDesc] = useState('');
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState([]);
 
     const [condition, setCondition] = useState('');
     const [category, setCategory] = useState('');
 
-    console.log("CONDITION: ", condition);
-    console.log("CATEGORY: ", category);
+    const handleImageChange = (e) => {
+        const files = e.target.files;
+        const updatedImages = Array.from(files)
+        const formattedImages = updatedImages.map((pic, index) => ({
+            fileName: `image${index}`,
+            file: pic,
+            type: pic.type,
+        }));
+
+        // Use spread operator to create a new array by combining existing and new files
+        setImage((prevFiles) => [...prevFiles, ...formattedImages].slice(0,3));
+    };
 
     const apiUrl = 'http://localhost:5000/api/createListing';
 
     async function sendData() {
-        const data = { name, location: location, price: isNaN(price) ? 0 : price, desc, image, condition, category};
+
         // Default options are marked with *
         try {
             const formData = new FormData();
@@ -117,7 +135,14 @@ function CreateListingContainer() {
             formData.append('location', location);
             formData.append('price', price);
             formData.append('desc', desc);
-            formData.append('image', image);
+            formData.append('images', image);
+
+            console.log("image length: " + image.length);
+            image.forEach((pic, index) => {
+               formData.append('images', pic.file)
+               console.log(pic);
+            });
+
             formData.append('condition', condition);
             formData.append('category', category);
 
@@ -183,7 +208,7 @@ function CreateListingContainer() {
 
             <AddPicture
                 change={image}
-                changeHandler={setImage} />
+                changeHandler={handleImageChange} />
 
             <br />
 

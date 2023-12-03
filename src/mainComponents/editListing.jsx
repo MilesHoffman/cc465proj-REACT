@@ -39,15 +39,23 @@ function DescriptionBox({labelName, change, changeHandler}) {
 }
 function AddPicture({change, changeHandler}) {
     return (
-        <form>
-            <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {  const file = e.target.files[0];
-                    changeHandler(file);            }} />
-            <br />
-            {change && <img src={URL.createObjectURL(change)} alt="Uploaded" style={{maxWidth: '300px', maxHeight: '200px'}} />}
-        </form>
+        <div>
+            <form>
+                <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={changeHandler} />
+            </form>
+            <div>
+                <strong>Selected Files:</strong>
+                <ul>
+                    {change.map((file, index) => (
+                        <li key={index}>{file.fileName}</li>
+                    ))}
+                </ul>
+            </div>
+        </div>
     );
 }
 function SubmitButton( {handler} ) {
@@ -57,6 +65,43 @@ function SubmitButton( {handler} ) {
         </form>
     );
 }
+
+function ConditionDropdown({change, changeHandler}) {
+    return (
+        <div className="dropdown">
+            <label>
+                Condition
+            </label>
+            <select value={change} onChange={(e) => changeHandler(e.target.value)}>
+                <option value="">Select an Option</option>
+                <option value="New/Good">Good Condition</option>
+                <option value="Used/Pre-Owned">Used/Pre-Owned</option>
+                <option value="Refurbished">Refurbished</option>
+                <option value="Damaged">Damaged</option>
+            </select>
+        </div>
+    );
+
+}
+
+function CategoryDropdown({change, changeHandler}) {
+    return (
+        <div className="dropdown">
+            <label>
+                Category
+            </label>
+            <select value={change} onChange={(e) => changeHandler(e.target.value)}>
+                <option value="">Select an Option</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Technology">Technology</option>
+                <option value="Automobiles">Automobiles</option>
+                <option value="Games">Games</option>
+                <option value="Home">Home</option>
+            </select>
+        </div>
+    );
+}
+
 function EditListingContainer() {
     const routerLocation = useLocation();
     const initialState = routerLocation.state || {}; // Access the state passed from the previous page
@@ -65,8 +110,29 @@ function EditListingContainer() {
     const [locationState, setLocationState] = useState(initialState.location || '');
     const [price, setPrice] = useState(initialState.price || '');
     const [desc, setDesc] = useState(initialState.description || '');
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState(initialState.productImage || []);
     const [id, setID] = useState(initialState.ID || '');
+
+    const [condition, setCondition] = useState(initialState.condition || '');
+    const [category, setCategory] = useState(initialState.category || '');
+
+    console.log("IN EDIT LISTING, CATEGORY: " + category);
+
+    const handleImageChange = (e) => {
+        const files = e.target.files;
+        const updatedImages = Array.from(files)
+        const formattedImages = updatedImages.map((pic, index) => ({
+            fileName: `image${index}`,
+            file: pic,
+            type: pic.type,
+        }));
+
+        // Use spread operator to create a new array by combining existing and new files
+        setImage((prevFiles) => [...prevFiles, ...formattedImages].slice(0,3));
+    };
+    image.forEach(pic => {
+        console.log(pic);
+    })
 
 
     const apiUrl = 'http://localhost:5000/api/editListing'
@@ -76,27 +142,37 @@ function EditListingContainer() {
 
 
         try {
+            const formData = new FormData();
+
+            formData.append('id', id);
+            formData.append('name', name);
+            formData.append('location', location);
+            formData.append('price', price);
+            formData.append('desc', desc);
+            formData.append('images', image);
+
+            console.log("image length: " + image.length);
+            image.forEach((pic, index) => {
+                pic.file = pic;
+                formData.append('images', pic.file)
+                console.log(pic);
+            });
+
+            formData.append('condition', condition);
+            formData.append('category', category);
+
             const response = await fetch(apiUrl, {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
                 mode: "cors", // no-cors, *cors, same-origin
                 cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                headers: {
-                    "Content-Type": "application/json",
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: JSON.stringify({
-                    ID: id,
-                    Name: name,
-                    Location: locationState,
-                    Price:price,
-                    Description: desc,
-                }),
-
+                redirect: "follow", // manual, *follow, error
+                referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: formData
             })
             if (response.ok) {
-
+                console.log("Successful edit listing");
             } else {
-
+                console.log("Edit listing failed");
             }
 
         } catch (error) {
@@ -129,9 +205,19 @@ function EditListingContainer() {
 
             <br />
 
+            <div className="dropdown-container">
+                <ConditionDropdown change={condition}
+                                   changeHandler={setCondition} />
+                <br />
+                <CategoryDropdown change={category}
+                                  changeHandler={setCategory} />
+            </div>
+
+            <br />
+
             <AddPicture
                 change={image}
-                changeHandler={setImage} />
+                changeHandler={handleImageChange} />
 
             <br />
 

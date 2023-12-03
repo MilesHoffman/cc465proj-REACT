@@ -15,11 +15,10 @@ function ListPicture({productImage}) {
 function PictureContainer({productImage}) {
 
     // Currently Hardcoded
-    productImage = "https://o.aolcdn.com/images/dims3/GLOB/legacy_thumbnail/1062x597/format/jpg/quality/100/https://s.yimg.com/os/creatr-uploaded-images/2021-07/b6e88cd0-de91-11eb-bfd5-e4f634f59166"
 
     return (
       <div className="bodyLeftPicture">
-          <ListPicture productImage={productImage}/>
+          <ListPicture productImage={`data:image/png;base64, ${productImage[0].file}`} />
       </div>
     );
 }

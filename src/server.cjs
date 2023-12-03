@@ -5,6 +5,8 @@ const cors = require('cors');
 const {getListings} = require("./mongoLogic.cjs");
 const app = express();
 const MongoLogic = require('./mongoLogic.cjs');
+const { createWriteStream } = require('fs');
+const path = require('path');
 
 const multer = require('multer');
 const { MongoClient } = require('mongodb');
@@ -163,23 +165,25 @@ app.post('/api/login',  async (req, res) => {
 //method to send the filtered data to mongodb so that we can filter for th
 
 // This will get the request to create a new listing.
-app.post('/api/createListing', upload.single('image'), async (req, res) => {
-
+app.post('/api/createListing', upload.array('images'), (req, res) => {
     console.log("POST CreateListing");
+    console.log('Request Headers:', req.headers);
+    console.log('Request Body:', req.body);
+    console.log('Request Files:', req.files);
 
     const { name, location, price, desc, condition, category } = req.body;
-    let imageBase64 = '';
-    try{
-        imageBase64 = req.file.buffer;
-    }
-    catch{
-        console.log("No image input");
-    }
+    const images = req.files.map(file => ({
+        fileName: file.originalname,
+        file: file.buffer,
+        type: file.mimetype,
+    }));
+
+    console.log("Images array in createListing endpoint:", images);
 
     const {createListing} = mongoLogic;
 
     const listingData = {
-        name, location, price, desc, image: imageBase64, username: globalUsername, condition, category
+        name, location, price, desc, image: images, username: globalUsername, condition, category
     }
 
     createListing( listingData );
@@ -197,18 +201,28 @@ app.post('/api/createUser', (req, res) => {
 });
 
 // To edit a listing
-app.post('/api/editListing', async (req, res) => {
+app.post('/api/editListing', upload.array('images'), (req, res) => {
     try {
         const { editListing } = mongoLogic;
-        const updData = req.body;
+        const { id, name, location, price, desc, condition, category } = req.body;
+        const images = req.files.map(file => ({
+            fileName: file.originalname,
+            file: file.buffer,
+            type: file.mimetype,
+        }));
+
+        const updData = {
+            Name: name, Location: location, Price: price, Description: desc, Pictures: images, Username: globalUsername, Condition: condition, Category: category
+        }
+
         console.log(updData) //testing updated data
         // Assuming there's a unique identifier for each listing, like ID
-        const listingID = updData.ID;
+        const listingID = id;
 
         console.log(listingID)
         // Call the editListing function with the updated data and listingId
 
-        const result = await editListing(listingID, updData);
+        const result = editListing(listingID, updData);
 
         res.json(result);
     } catch (error) {

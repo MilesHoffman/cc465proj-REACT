@@ -14,7 +14,7 @@ function CardPicture({productImage}) {
     return (
         <img
             onClick={handleListing}
-            src={`data:image/png;base64, ${productImage}`}
+            src={`data:image/png;base64, ${productImage[0].file}`}
             alt="Uploaded"
             className="card-img" />
     );
@@ -83,17 +83,17 @@ function CardProfileDelete({ handleDelete }) {
 
 
 
-function CardProfileContainer({productName, price, location, productImage, description, ID}) {
+function CardProfileContainer({productName, price, location, productImage, description, ID, condition, category}) {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/listingPage/${productName}`, {
-            state: {productName, price, location, productImage, description}
+            state: {productName, price, location, productImage, description, condition, category}
         });
     };
 
     const handleEditClick = () => {
         navigate(`/editListingPage`, {
-            state: {productName, price, location, productImage, description, ID}
+            state: {productName, price, location, productImage, description, ID, condition, category}
 
         });
 

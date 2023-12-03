@@ -33,6 +33,10 @@ function ProfilePage() {
         fetchListings();
     }, []); // Empty dependency array ensures this effect runs once when the component mounts
 
+    listings.forEach(e => {
+        console.log("category" + e.Category);
+        console.log("condition" + e.Condition);
+    })
 
     return(
         <div>
@@ -96,12 +100,15 @@ function ProfilePage() {
                 <div className="search-results">
                     {listings.map((card) => (
                         //prop creation for card data
-                        <CardProfile productName={card.Name}
-                              price={card.Price}
-                              location={card.Location}
-                              productImage={card.Pictures}
-                              description={card.Description}
-                              ID={card.ID}/>
+                        <CardProfile
+                            productName={card.Name}
+                            price={card.Price}
+                            location={card.Location}
+                            productImage={card.Pictures}
+                            description={card.Description}
+                            ID={card.ID}
+                            category={card.Category}
+                            condition={card.Condition} />
                     ))}
                 </div>
                 <Footer/>
