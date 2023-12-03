@@ -141,7 +141,7 @@ function ListingPage() {
     const [loadingMessages, setLoadingMessages] = useState(true)
     const [replies, setReplies] = useState([]);
 
-    useEffect( async () => {
+    useEffect( () => {
         // Fetch messages when the component mounts
         const fetchMessages = async () => {
             try {
@@ -158,8 +158,7 @@ function ListingPage() {
                     body: JSON.stringify(data),
                 });
                 if (response.ok) {
-                    const data = await response.json();
-                    setMessages(data);
+                    return await response.json();
                 } else {
                     console.error('Failed to fetch comments:', response.status);
                 }
@@ -185,8 +184,7 @@ function ListingPage() {
                     body: JSON.stringify(data),
                 });
                 if (response.ok) {
-                    const comments = await response.json();
-                    setReplies(comments);
+                    return await response.json();
                 } else {
                     console.error('Failed to fetch replies:', response.status);
                 }
@@ -196,8 +194,23 @@ function ListingPage() {
         };
 
 
-        await fetchMessages();
-        await fetchReplies();
+        const fetchData = async () => {
+            try {
+                const messagesPromise = fetchMessages();
+
+                // Wait for fetchMessages to complete before calling fetchReplies
+                const messages = await messagesPromise;
+                setMessages(messages);
+
+                const repliesPromise = fetchReplies();
+                const replies = await repliesPromise;
+                setReplies(replies);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
 
@@ -217,8 +230,7 @@ function ListingPage() {
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify({
-                    Username: 'bob',
-                    TextBoxMessage:textboxmessage,
+                    TextBoxMessage: textboxmessage,
                     ListingID: ID,
                 }),
 

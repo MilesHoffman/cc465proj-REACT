@@ -219,7 +219,14 @@ app.post('/api/editListing', upload.array('images'), (req, res) => {
         }));
 
         const updData = {
-            Name: name, Location: location, Price: price, Description: desc, Pictures: images, Username: globalUsername, Condition: condition, Category: category
+            Name: name,
+            Location: location,
+            Price: price,
+            Description: desc,
+            Pictures: images,
+            Username: globalUsername,
+            Condition: condition,
+            Category: category
         }
 
         console.log(updData) //testing updated data
@@ -232,7 +239,8 @@ app.post('/api/editListing', upload.array('images'), (req, res) => {
         const result = editListing(listingID, updData);
 
         res.json(result);
-    } catch (error) {
+    }
+    catch (error) {
         console.error('Error editing listing:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -272,7 +280,6 @@ app.post('/api/sendComment', async (req, res) => {
         username: globalUsername,
         message: lID.TextBoxMessage,
         listingID: lID.ListingID
-
     }
 
     console.log('data', commentData)

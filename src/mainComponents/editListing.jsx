@@ -136,20 +136,19 @@ function EditListingContainer() {
 
 
     const apiUrl = 'http://localhost:5000/api/editListing'
-
-
     const handleEditFetch = async () => {
 
-
         try {
-            const formData = new FormData();
 
-            formData.append('id', id);
-            formData.append('name', name);
-            formData.append('location', location);
-            formData.append('price', price);
-            formData.append('desc', desc);
-            formData.append('images', image);
+            let formData = {
+                "name" : name,
+                "location" : location,
+                "price" : price,
+                "desc" : desc,
+                "images" : image,
+                "condition" : condition,
+                "category" : category,
+            }
 
             console.log("image length: " + image.length);
             image.forEach((pic, index) => {
