@@ -107,6 +107,24 @@ async function deleteAllUsers() {
     await client.close();
 }
 
+// DELETES ALL REPLIES!!
+async function deleteAllReplies() {
+
+    try {
+
+        await connectReplies();
+
+        // deletes all users
+        await col.deleteMany();
+    }
+    catch (err){
+        console.log(err);
+    }
+
+    console.log( "___________manageMongo... Deleted all replies....")
+    await client.close();
+}
+
 // DELETES ALL COMMENTS!!
 async function deleteAllComments() {
 
@@ -174,12 +192,13 @@ function main(){
                 username: "TestReplyUser",
                 message: "The second reply",
                 repliedTo: "TestUser",
-                commentID: "1701575312560-1609"
+                commentID: "1701575312560-1609",
+                listingID: ""
             }
 
             //await mongoLogic.createListing(listingData)
-            //await mongoLogic.createUser( "testEmail@gmail.com", "TestUser", "1234")
-            // mongoLogic.createComment(commentData);
+            //await mongoLogic.createUser( "testEmail@gmail.com", "ReplyTest", "1234")
+            //mongoLogic.createComment(commentData);
             //await mongoLogic.createReply(replyData);
 
             //let listings = await mongoLogic.getListings(filterData);
@@ -188,6 +207,7 @@ function main(){
             //await deleteAllUsers()
             //await deleteAllListings()
             //await deleteAllComments()
+            //await deleteAllReplies();
         }
         catch (error) {
             console.error(error);

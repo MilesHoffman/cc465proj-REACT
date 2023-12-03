@@ -61,6 +61,12 @@ async function connectReplies() {
     }
 }
 
+async function closeMongo(){
+    if( client.isConnected() ){
+        await client.close();
+    }
+}
+
 // Creates a unique ID
 function generateUniqueID(){
     const timestamp = new Date().getTime(); // Current timestamp
@@ -349,16 +355,17 @@ async function doGetListings( filterData ){
     return listings;
 }
 
-// Calls implementation for getReplies. Input the comment's ID to get its replies.
-async function getReplies(commentID) {
+// Calls implementation for getReplies. Input the listing's ID to get its replies.
+async function getReplies(listingID) {
 
     const call = async () => {
 
         let replies;
 
         try {
-            replies = await doGetReplies(commentID);
-        } catch (error) {
+            replies = await doGetReplies(listingID);
+        }
+        catch (error) {
             console.error(error);
         }
 
@@ -369,28 +376,28 @@ async function getReplies(commentID) {
 }
 
 // Implementation for getting the replies for a comment. Returns all replies sorted by time.
-async function doGetReplies( commentID ){
+async function doGetReplies( listingID ){
 
     let replies;
     try {
         await connectReplies(); // Connects to reply collection
 
-        console.log("2 mongologic.....commentID: ", commentID)
+        console.log("2 mongologic getreply.....listingID: ",)
 
         let query = {
-            "CommentID" : commentID
+            "ListingID" : listingID
         };
 
         replies = await col.find( query ).sort({ "TimeStamp" : 1 }).toArray();
 
-        console.log("3 ....Mongologic replies: ", replies)
+        console.log("3 ....Mongologic replies: ",)
 
     }
     catch (err){
         console.log("ERROR LOG getListings: " + err);
     }
 
-    await client.close()
+    await client.close();
 
     return replies;
 }
@@ -593,7 +600,7 @@ function createReply( replyData ){
 // Implementation to create a Reply.
 async function doCreateReply( replyData ){
 
-    const { username, message, repliedTo, commentID  } = replyData;
+    const { username, message, repliedTo, commentID, listingID  } = replyData;
 
     try {
         await connectReplies(); // Connects to user collection
@@ -604,7 +611,8 @@ async function doCreateReply( replyData ){
             "Message" : message,
             "RepliedTo": repliedTo,
             "Timestamp" : new Date(Date.now()).toLocaleString(),
-            "CommentID" : commentID
+            "CommentID" : commentID,
+            "ListingID" : listingID
         }
 
         const product = await col.insertOne(comment); // Inserts the user
@@ -636,5 +644,6 @@ module.exports = {
     getComments,
     getReplies,
     createComment,
-    createReply
+    createReply,
+    closeMongo
 }
