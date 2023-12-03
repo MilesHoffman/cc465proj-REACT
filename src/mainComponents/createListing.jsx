@@ -138,7 +138,6 @@ function CreateListingContainer() {
             formData.append('location', location);
             formData.append('price', price);
             formData.append('desc', desc);
-            formData.append('images', image);
 
             console.log("image length: " + image.length);
             image.forEach((pic, index) => {

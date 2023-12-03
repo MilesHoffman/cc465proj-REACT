@@ -87,7 +87,7 @@ function CardProfileContainer({productName, price, location, productImage, descr
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(`/listingPage/${productName}`, {
-            state: {productName, price, location, productImage, description, condition, category}
+            state: {productName, price, location, productImage, description, condition, category, ID}
         });
     };
 

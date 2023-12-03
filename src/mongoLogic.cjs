@@ -382,7 +382,7 @@ async function doGetReplies( listingID ){
     try {
         await connectReplies(); // Connects to reply collection
 
-        console.log("2 mongologic getreply.....listingID: ",)
+        console.log("2 mongologic getreply.....listingID: ", listingID)
 
         let query = {
             "ListingID" : listingID

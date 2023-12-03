@@ -140,15 +140,13 @@ function EditListingContainer() {
 
         try {
 
-            let formData = {
-                "name" : name,
-                "location" : location,
-                "price" : price,
-                "desc" : desc,
-                "images" : image,
-                "condition" : condition,
-                "category" : category,
-            }
+            const formData = new FormData();
+
+            formData.append('id', id);
+            formData.append('name', name);
+            formData.append('location', location);
+            formData.append('price', price);
+            formData.append('desc', desc);
 
             console.log("image length: " + image.length);
             image.forEach((pic, index) => {
