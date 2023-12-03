@@ -3,9 +3,12 @@ import Sidefilter from '../components/sidefilter.jsx'
 import Card from '../components/card'
 import { PRODUCTS } from '../products'
 import './../styles/marketplace.css'
+import {useLocation} from "react-router-dom";
 
 
 function Marketplace(  ){
+
+    const location = useLocation();
 
     //array to hold all listings
     const [listings, setListings] = useState([]);
@@ -25,23 +28,33 @@ function Marketplace(  ){
 
     const [selectedCategory, setSelectedCategory] = useState('')
 
-    useEffect(() => {
+    useEffect( () => {
         // Fetch listings when the component mounts
         const fetchListings = async () => {
             try {
-                /*
-                let filterData = location.state.filterData;
 
-                if( !filterData ){
+                let filterData = {query: false};
+
+                console.log("THIS IS THE CATEGORY STATE: ", location.state)
+
+                if (location.state !== null) {
                     filterData = {
-                        query: false
+                        query: true,
+                        name: "",
+                        location: "",
+                        minPrice: "",
+                        maxPrice: "",
+                        username: "",
+                        condition: {
+                            new: true,
+                            used: true,
+                            refurbished: true,
+                            damaged: true
+                        },
+                        category: location.state.category,
+                        ID: ""
                     }
                 }
-
-                 */
-
-
-                const filterData = { query: false };
 
                 const apiUrl = "http://localhost:5000/api/getListings"
                 const response = await fetch(apiUrl, {
@@ -64,7 +77,7 @@ function Marketplace(  ){
         };
 
         fetchListings();
-    }, []); // Empty dependency array ensures this effect runs once when the component mounts
+    }, [location.state]); // Empty dependency array ensures this effect runs once when the component mounts
 
     //handles the category
     const [categoryFilteredProducts, setCategoryFilteredProducts] = useState(PRODUCTS);
@@ -116,9 +129,6 @@ function Marketplace(  ){
         );
 
     });
-
-
-
 
     return(
         <div className='marketplace'>

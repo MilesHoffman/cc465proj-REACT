@@ -14,7 +14,7 @@ function ProfilePage() {
 
     const [listings, setListings] = useState([]);
 
-    useEffect(() => {
+    useEffect( () => {
         // Fetch listings when the component mounts
         const fetchListings = async () => {
             try {

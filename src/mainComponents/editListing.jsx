@@ -93,7 +93,7 @@ function CategoryDropdown({change, changeHandler}) {
             <select value={change} onChange={(e) => changeHandler(e.target.value)}>
                 <option value="">Select an Option</option>
                 <option value="Apparel">Apparel</option>
-                <option value="Technology">Technology</option>
+                <option value="Tech">Technology</option>
                 <option value="Automobiles">Automobiles</option>
                 <option value="Games">Games</option>
                 <option value="Home">Home</option>

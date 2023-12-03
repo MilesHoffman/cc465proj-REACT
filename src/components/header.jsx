@@ -44,6 +44,7 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
 
     const handleCategeryClick = (category) => {
         console.log("...handleCategoryClick....category: ", category)
+        navigate(('/'), {state: {category}});
     }
 
     //use state value to open the login popup
@@ -103,11 +104,11 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
                 <div className={"bottomSectionHeader"}>
 
                     <div className={"bottomSectionHeaderCategories sneakyButton"}>
-                        <button type="button" onClick={handleCategeryClick("Tech")}>Technology</button>
-                        <button type="button" onClick={handleCategeryClick("Home")}>Home</button>
-                        <button type="button" onClick={handleCategeryClick("Apparel")}>Apparel</button>
-                        <button type="button" onClick={handleCategeryClick("Automobiles")}>Automobiles</button>
-                        <button type="button" onClick={handleCategeryClick("Games")}>Games</button>
+                        <button type="button" onClick={() => handleCategeryClick("Tech")}>Technology</button>
+                        <button type="button" onClick={() => handleCategeryClick("Home")}>Home</button>
+                        <button type="button" onClick={() => handleCategeryClick("Apparel")}>Apparel</button>
+                        <button type="button" onClick={() => handleCategeryClick("Automobiles")}>Automobiles</button>
+                        <button type="button" onClick={() => handleCategeryClick("Games")}>Games</button>
                     </div>
 
                     <div className={"bottomSectionHeaderRightSide"}>

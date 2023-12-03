@@ -138,7 +138,6 @@ function ListingPage() {
             setCurrentPicture(currentPicture + 1);
         }
     }
-    const [textboxmessage, setTextboxmessage] = useState('')
     const [loadingMessages, setLoadingMessages] = useState(true)
     const [replies, setReplies] = useState([]);
 
@@ -309,8 +308,6 @@ function ListingPage() {
 
             </div>
         </div>
-
-
     );
 }
 
