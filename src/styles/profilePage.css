@@ -21,7 +21,7 @@
     gap: 11px;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column width as needed */
     grid-auto-rows: 285px;
-    width: 85%;
+    width: 88%;
     max-width: 1200px; /* Limit the maximum width of the grid */
     margin: 50px auto auto auto;
     height: fit-content;

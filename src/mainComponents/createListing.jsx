@@ -10,7 +10,6 @@ function InputField({labelName, change, changeHandler}) {
             </label>
             <br></br>
             <input
-                style={{width: '50ch'}}
                 className="inputField"
                 type="text"
                 value={change}
@@ -29,7 +28,6 @@ function DescriptionBox({labelName, change, changeHandler}) {
             <p>
                 <textarea
                     rows="4"
-                    style={{width: '50ch'}}
                     value={change}
                     onChange={(e) => changeHandler(e.target.value)}
                 ></textarea>
@@ -39,7 +37,7 @@ function DescriptionBox({labelName, change, changeHandler}) {
 }
 function AddPicture({change, changeHandler}) {
     return (
-        <div>
+        <div className={"addPic"}>
             <label>
                 Add Picture (up to 5)
             </label>
@@ -50,7 +48,7 @@ function AddPicture({change, changeHandler}) {
                     accept="image/*"
                     onChange={changeHandler} />
             </form>
-            <div>
+            <div className={"selectedFile"}>
                 <strong>Selected Files:</strong>
                 <ul>
                     {change.map((file, index) => (
@@ -63,8 +61,8 @@ function AddPicture({change, changeHandler}) {
 }
 function SubmitButton( {handler} ) {
     return (
-        <form>
-            <button type="button" className="btn btn-primary" onClick={handler}>Submit</button>
+        <form className={"standardButton submitButton"}>
+            <button type="button" onClick={handler}>Submit</button>
         </form>
     );
 }
@@ -177,50 +175,54 @@ function CreateListingContainer() {
     }
 
     return (
-        <div className="container" style={{marginTop: '8vh'}}>
-            <h1>
-                Create a Listing
-            </h1>
-            <InputField
-                labelName="Name"
-                change={name}
-                changeHandler={setName} />
 
-            <InputField
-                labelName="Location"
-                change={location}
-                changeHandler={setLocation} />
+        <div className={"page"}>
+            <div className={"inputContainer"}>
+                <h1>
+                    Create a Listing
+                </h1>
+                <InputField
+                    labelName="Name"
+                    change={name}
+                    changeHandler={setName} />
 
-            <InputField
-                labelName="Price"
-                change={price}
-                changeHandler={setPrice} />
+                <InputField
+                    labelName="Location"
+                    change={location}
+                    changeHandler={setLocation} />
 
-            <DescriptionBox
-                labelName="Description"
-                change={desc}
-                changeHandler={setDesc} />
+                <InputField
+                    labelName="Price"
+                    change={price}
+                    changeHandler={setPrice} />
 
-            <br />
+                <DescriptionBox
+                    labelName="Description"
+                    change={desc}
+                    changeHandler={setDesc} />
 
-            <div className="dropdown-container">
-                <ConditionDropdown change={condition}
-                                   changeHandler={setCondition} />
                 <br />
-                <CategoryDropdown change={category}
-                                  changeHandler={setCategory} />
+
+                <div className="dropdown-container">
+                    <ConditionDropdown change={condition}
+                                       changeHandler={setCondition} />
+                    <br />
+                    <CategoryDropdown change={category}
+                                      changeHandler={setCategory} />
+                </div>
+
+                <br />
+
+                <AddPicture
+                    change={image}
+                    changeHandler={handleImageChange} />
+
+                <SubmitButton
+                    handler={sendData}
+                />
             </div>
-
-            <br />
-
-            <AddPicture
-                change={image}
-                changeHandler={handleImageChange} />
-
-            <SubmitButton
-                handler={sendData}
-            />
         </div>
+
     );
 }
 

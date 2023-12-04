@@ -1,12 +1,51 @@
 @import "mainStyle.css";
 
-.container {
+.page {
+    display: flex;
+    position: relative;
+    top: 50px;
+}
+
+.inputContainer {
+    margin: auto;
+    display: flex;
+    position: relative;
     width: fit-content;
-    height: fit-content;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    flex-flow: column;
+    font-family: var(--RegularFont);
+    padding-bottom: 40px;
+    color: black;
+}
+
+.inputContainer h1 {
+    text-align: center;
+}
+
+.inputContainer input[type="text"] {
+    margin-bottom: 5px;
+    border-radius: 10px;
+    border: solid 1px black;
+    padding: 5px 10px;
+    font-size: 13px;
+    width: 30vw;
+}
+
+.inputContainer input[type="text"]:focus {
+    background-color: var(--ThirdColor);
+    outline: solid 1px var(--FourthColor);
+}
+
+.inputContainer textarea {
+    border-radius: 15px;
+    border: solid 1px black;
+    padding: 10px;
+    width: 30vw;
+    font-size: 13px;
+}
+
+.inputContainer textarea:focus {
+    background-color: var(--ThirdColor);
+    outline: solid 1px var(--FourthColor);
 }
 
 .popup {
@@ -49,12 +88,15 @@
 .dropdown-container {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .dropdown {
     display: flex;
     flex-direction: column;
 }
+
+
 
 .dropdown label {
     text-align: center;
@@ -63,5 +105,25 @@
 .dropdown select {
     width: fit-content;
     background-color: transparent;
-    border-radius: 5px;
+    border-radius: 10px;
+    padding: 5px 10px;
+    border: solid 1px black;
+}
+
+.dropdown select:hover {
+    background-color: var(--ThirdColor);
+    cursor: pointer;
+}
+
+.submitButton button {
+    padding: 5px 10px;
+}
+
+.selectedFile {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.addPic button{
+    background-color: red;
 }
