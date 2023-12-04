@@ -42,10 +42,9 @@ function PasswordCheckbox({change, changeHandler}) {
 // Creates a submit type button using the arguments.
 function SubmitButton({buttonName, buttonType, change, changeHandler}) {
   return (
-      <form className="submitButtons">
+      <form className="loginSubmits standardButton">
         <button
             type={buttonType}
-            className="btn btn-primary"
             value={change}
             onClick={changeHandler}
         >
@@ -122,7 +121,7 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
   }
 
   return (
-    <div className="container popup login-container" ref={popupRef}>
+    <div className="popup login-container" ref={popupRef}>
         <h1 style={{textAlign: 'center'}}>
             Login
         </h1>

@@ -39,15 +39,15 @@ function DescriptionBox({labelName, change, changeHandler}) {
 
 function SubmitButton( {handler} ) {
     return (
-        <form>
-            <button type="button" className="btn btn-primary" onClick={handler}>Submit</button>
+        <form className={"submitButton"}>
+            <button type="button" onClick={handler}>Submit</button>
         </form>
     );
 }
 
 function ConditionDropdown({change, changeHandler}) {
     return (
-        <div className="dropdown">
+        <div className="dropdownSection">
             <label>
                 Condition
             </label>
@@ -65,7 +65,7 @@ function ConditionDropdown({change, changeHandler}) {
 
 function CategoryDropdown({change, changeHandler}) {
     return (
-        <div className="dropdown">
+        <div className="dropdownSection">
             <label>
                 Category
             </label>
@@ -136,7 +136,6 @@ function EditListingContainer() {
     return (
         <div className="page" >
             <div className={"inputContainer"}>
-            <span>id:{id}</span>
             <InputField
                 labelName="Name"
                 change={name}

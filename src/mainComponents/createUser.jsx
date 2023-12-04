@@ -33,7 +33,7 @@ function PasswordCheckbox({change, changeHandler}) {
 }
 function SubmitButton({buttonName, buttonType, change, changeHandler}) {
     return (
-        <form className="submitButtons">
+        <form className="loginSubmits">
             <button
                 type={buttonType}
                 className="btn btn-primary"

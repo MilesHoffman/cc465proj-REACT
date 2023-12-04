@@ -68,7 +68,6 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
 
     function returnToMarketplace() {
         navigate('/');
-        window.location.reload();
     }
 
     //use state value to open the login popup

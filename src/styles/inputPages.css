@@ -7,12 +7,17 @@
 }
 
 .login-container {
+    background-color: white;
     width: fit-content;
     height: fit-content;
-    position: absolute;
+    padding: 50px;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border: solid 1px black;
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,.6);
 }
 
 .create-user-container {
@@ -94,8 +99,13 @@
     border: 2px solid var(--SecondaryColor);
 }
 
-.submitButtons {
+.loginSubmits {
     margin: 10px;
+}
+
+.loginSubmits button {
+    padding: 5px 10px;
+
 }
 
 .form-check-input[type=checkbox] {
@@ -109,32 +119,41 @@
     margin-bottom: 20px;
 }
 
-.dropdown {
+.dropdownSection {
     display: flex;
     flex-direction: column;
 }
 
 
 
-.dropdown label {
+.dropdownSection label {
     text-align: center;
 }
 
-.dropdown select {
+.dropdownSection select {
     width: fit-content;
-    background-color: transparent;
+    background-color: white;
     border-radius: 10px;
     padding: 5px 10px;
     border: solid 1px black;
 }
 
-.dropdown select:hover {
+.dropdownSection select:hover {
     background-color: var(--ThirdColor);
     cursor: pointer;
+    transition: .2s ease;
 }
 
 .submitButton button {
     padding: 5px 10px;
+    border: solid 1px black;
+    background-color: white;
+    border-radius: 10px;
+    transition: .2s ease;
+}
+.submitButton button:hover {
+    cursor: pointer;
+    background-color: var(--ThirdColor);
 }
 
 .selectedFile {
@@ -142,6 +161,15 @@
     margin-bottom: 30px;
 }
 
-.addPic button{
-    background-color: red;
+.addPic input[type="file"]::file-selector-button {
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+.addPic input[type="file"]::file-selector-button:hover {
+    cursor: pointer;
+    background-color: var(--ThirdColor);
+    transition: .2s ease;
 }

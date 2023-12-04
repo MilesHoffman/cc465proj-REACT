@@ -198,12 +198,8 @@
             height: 200px;
             list-style-type: none;
             display: inline-block;
-            height: 316px;
             width: 319px;
-            margin-top: 0px;
-            margin-right: 0px;
-            margin-bottom: 28px;
-            margin-left: 0px;
+            margin: 0px 0px 28px;
             position: relative;
             border-radius: 5px;
             border: 1px solid #ccc;

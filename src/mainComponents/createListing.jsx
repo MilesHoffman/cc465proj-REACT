@@ -69,7 +69,7 @@ function AddPicture({change, changeHandler}) {
 }
 function SubmitButton( {handler} ) {
     return (
-        <form className={"standardButton submitButton"}>
+        <form className={"submitButton"}>
             <button type="button" onClick={handler}>Submit</button>
         </form>
     );
@@ -77,7 +77,7 @@ function SubmitButton( {handler} ) {
 
 function ConditionDropdown({change, changeHandler}) {
     return (
-        <div className="dropdown">
+        <div className="dropdownSection">
             <label>
                 Condition
             </label>
@@ -95,7 +95,7 @@ function ConditionDropdown({change, changeHandler}) {
 
 function CategoryDropdown({change, changeHandler}) {
     return (
-        <div className="dropdown">
+        <div className="dropdownSection">
             <label>
                 Category
             </label>
