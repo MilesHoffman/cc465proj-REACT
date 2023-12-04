@@ -82,14 +82,11 @@ function TextBox({change,changeHandler}){
     return(
 
         <form className="reply-textbox">
-            <p>
-                <textarea
-                    rows="4"
-                    style={{width: '50ch'}}
-                    value={change}
-                    onChange={(e) => changeHandler(e.target.value)}
-                ></textarea>
-            </p>
+            <textarea
+                rows="4"
+                value={change}
+                onChange={(e) => changeHandler(e.target.value)}
+            ></textarea>
         </form>
 
     );
@@ -311,9 +308,9 @@ function ListingPage() {
                     }
 
 
-                <TextBox change={textboxmessage} changeHandler={setTextboxmessage}/>
+                    <TextBox change={textboxmessage} changeHandler={setTextboxmessage}/>
 
-                 <Forumfooter handler={handleTextboxFetch}/>
+                    <Forumfooter handler={handleTextboxFetch}/>
 
                 </div>
 

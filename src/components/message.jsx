@@ -70,7 +70,7 @@ function MessageContainer( { username, message, time, ID, replies, listingID } )
             <div className="forumReplyAll">
                 {showReplyTextbox && (
                     <>
-                        <form className="reply-textbox">
+                        <form className="messageTextbox">
                             <p>
                                 <textarea
                                     rows="4"
