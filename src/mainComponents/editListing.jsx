@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import '../styles/inputPages.css';
+import '../styles/editListing.css';
 import {useLocation, useNavigate} from "react-router-dom";
 
 function InputField({labelName, change, changeHandler}) {
@@ -10,7 +10,6 @@ function InputField({labelName, change, changeHandler}) {
             </label>
             <br></br>
             <input
-                style={{width: '50ch'}}
                 className="inputField"
                 type="text"
                 value={change}
@@ -29,7 +28,7 @@ function DescriptionBox({labelName, change, changeHandler}) {
             <p>
                 <textarea
                     rows="4"
-                    style={{width: '50ch'}}
+
                     value={change}
                     onChange={(e) => changeHandler(e.target.value)}
                 ></textarea>
@@ -135,7 +134,8 @@ function EditListingContainer() {
     }
 
     return (
-        <div className="container" style={ {top: "370px"} }>
+        <div className="page" >
+            <div className={"inputContainer"}>
             <span>id:{id}</span>
             <InputField
                 labelName="Name"
@@ -172,6 +172,7 @@ function EditListingContainer() {
             <SubmitButton
                 handler={handleEditFetch}
             />
+            </div>
         </div>
     );
 

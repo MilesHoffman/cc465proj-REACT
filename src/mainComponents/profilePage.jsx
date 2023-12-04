@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {useLocation} from "react-router-dom";
 import '../components/cardProfile'
 import '../styles/profilePage.css'
 import SearchToolbar from '../components/searchtoolbar'
@@ -11,6 +12,8 @@ import product2 from '../assets/Classic-BMW-Motorcycles.jpg'
 
 
 function ProfilePage() {
+    const location = useLocation();
+    console.log('Location State:', location.state);
 
     const [listings, setListings] = useState([]);
 
@@ -32,6 +35,8 @@ function ProfilePage() {
 
         fetchListings();
     }, []); // Empty dependency array ensures this effect runs once when the component mounts
+
+
 
     listings.forEach(e => {
         console.log("category" + e.Category);
