@@ -116,7 +116,6 @@ function ListingPage() {
     const location = useLocation();
     const {productName, price, location: productLocation, productImage, description, ID} = location.state;
 
-    const [messages, setMessages] = useState([]);
     const [textboxmessage, setTextboxmessage] = useState('');
     const [currentPicture, setCurrentPicture] = useState(0);
 
@@ -127,7 +126,7 @@ function ListingPage() {
             setCurrentPicture(productImage.length - 1);
         }
         else {
-            setCurrentPicture(currentPicture + 1);
+            setCurrentPicture(currentPicture - 1);
         }
     }
     function handleNextButton() {
@@ -138,7 +137,8 @@ function ListingPage() {
             setCurrentPicture(currentPicture + 1);
         }
     }
-    const [loadingMessages, setLoadingMessages] = useState(true)
+    const [loadingMessages, setLoadingMessages] = useState(true);
+    const [messages, setMessages] = useState([]);
     const [replies, setReplies] = useState([]);
 
     useEffect( () => {
@@ -159,6 +159,7 @@ function ListingPage() {
                 });
                 if (response.ok) {
                     return await response.json();
+
                 } else {
                     console.error('Failed to fetch comments:', response.status);
                 }
@@ -238,7 +239,7 @@ function ListingPage() {
             if (response.ok) {
 
             } else {
-
+                console.error('Error produced');
             }
 
         } catch (error) {
@@ -298,7 +299,7 @@ function ListingPage() {
 
                 <div className="forumAllMessages">
 
-                    { messages.length > 0 ? messages.map( (message) => (
+                    { messages && messages.length > 0 ? messages.map( (message) => (
                         <Message
                             username={message.Username}
                             message={message.Message}

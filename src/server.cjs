@@ -13,6 +13,7 @@ const { MongoClient } = require('mongodb');
 const {Promise} = require("mongoose");
 
 app.use(express.json({ limit: '20mb' }));
+app.use(express.urlencoded({ extended: true }));
 
 //picture storage
 const storage = multer.memoryStorage();
@@ -208,32 +209,27 @@ app.post('/api/createUser', (req, res) => {
 });
 
 // To edit a listing
-app.post('/api/editListing', upload.array('images'), (req, res) => {
+app.put('/api/editListing', (req, res) => {
     try {
         const { editListing } = mongoLogic;
-        const { id, name, location, price, desc, condition, category } = req.body;
-        const images = req.files.map(file => ({
-            fileName: file.originalname,
-            file: file.buffer,
-            type: file.mimetype,
-        }));
+        console.log(req.body);
+        const { id, name, locationState, price, desc, condition, category } = req.body;
 
         const updData = {
             Name: name,
-            Location: location,
+            Location: locationState,
             Price: price,
             Description: desc,
-            Pictures: images,
             Username: globalUsername,
             Condition: condition,
             Category: category
         }
 
-        console.log(updData) //testing updated data
+        console.log("Updated data: ", updData) //testing updated data
         // Assuming there's a unique identifier for each listing, like ID
         const listingID = id;
 
-        console.log(listingID)
+        console.log("listingID", listingID)
         // Call the editListing function with the updated data and listingId
 
         const result = editListing(listingID, updData);
@@ -248,7 +244,7 @@ app.post('/api/editListing', upload.array('images'), (req, res) => {
 
 
 //to delete a listing
-app.post('/api/deleteListing', async (req, res) => {
+app.delete('/api/deleteListing', async (req, res) => {
 
 
     const {deleteListing} = mongoLogic;

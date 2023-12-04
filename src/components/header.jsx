@@ -66,6 +66,11 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
         navigate(('/'), {state: filterData});
     }
 
+    function returnToMarketplace() {
+        navigate('/');
+        window.location.reload();
+    }
+
     //use state value to open the login popup
     const [showPopup, setShowPopup] = useState(false);
 
@@ -88,7 +93,7 @@ function Header({loggedInStatus, loggedInStatusHandler}) {
                 <div className={"topSectionHeader"}>
 
                     <div className={"topSectionHeaderLogo"}>
-                        <button onClick={() => navigate('/')}
+                        <button onClick={returnToMarketplace}
                                 type="button">
                             Community Comrades
                         </button>

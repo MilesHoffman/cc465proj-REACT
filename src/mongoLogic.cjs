@@ -285,7 +285,7 @@ async function doGetListings( filterData ){
         await connectListings(); // Connects to listing collection
 
         let query = {};
-        if( filterData.query ){
+        if( filterData.query === true){
 
             let newQuery, usedQuery, refurbQuery, damagedQuery, conditionQuery = true;
             let newStr, usedStr, refurbStr, dmgStr;

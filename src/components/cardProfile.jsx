@@ -47,8 +47,8 @@ function CardProfileEdit({ handleEdit }) {
 
 
     return (
-        <div className="editdelete-container">
-            <button ref={editButtonRef} onClick={handleEdit} type="button" className="btn btn-success btn-sm">
+        <div className="edit-container">
+            <button ref={editButtonRef} onClick={handleEdit} type="button" className="btn btn-success btn-sm edit-button">
                 Edit
             </button>
 
@@ -72,8 +72,8 @@ function CardProfileDelete({ handleDelete }) {
      */
 
     return(
-        <div className='editdelete-container'>
-            <button ref={deleteButtonRef} onClick={() => { handleDelete(); handleDel(); }}  type="button" className="btn btn-danger btn-sm">
+        <div className='delete-container'>
+            <button ref={deleteButtonRef} onClick={() => { handleDelete(); handleDel(); }}  type="button" className="btn btn-danger btn-sm delete-button">
                 Delete
             </button>
         </div>
@@ -108,7 +108,7 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
         try{
             const response = await fetch(apiUrl, {
-                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                method: "DELETE", // *GET, POST, PUT, DELETE, etc.
                 mode: "cors", // no-cors, *cors, same-origin
                 cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
                 headers: {

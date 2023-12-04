@@ -15,12 +15,6 @@
     text-align: left;
 }
 
-.editdelete-container{
-    display: flex;
-    text-align: center;
-    align-items: center;
-}
-
 .card-img {
     width: 100%;
     height: 160px;
@@ -29,5 +23,22 @@
 
 .button-profile-container {
     display: flex;
+    justify-content: center;
+}
+
+.editdelete-container{
+    display: flex;
     flex-direction: row;
+    text-align: center;
+    align-items: center;
+}
+
+.edit-button {
+    width: 90px;
+    margin-right: 5px;
+}
+
+.delete-button {
+    width: 90px;
+    margin-left: 5px;
 }

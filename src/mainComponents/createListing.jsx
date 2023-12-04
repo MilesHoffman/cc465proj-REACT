@@ -159,8 +159,8 @@ function CreateListingContainer() {
             })
             if (response.ok) {
                 console.log("Successful create listing");
-                await new Promise(resolve => setTimeout(resolve, 1000));
                 navigate("/profile");
+                window.location.reload();
             }
             else {
                 console.log("Create listing failed");

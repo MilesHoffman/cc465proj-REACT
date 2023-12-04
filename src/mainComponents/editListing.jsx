@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import '../styles/inputPages.css';
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 function InputField({labelName, change, changeHandler}) {
     return(
@@ -37,27 +37,7 @@ function DescriptionBox({labelName, change, changeHandler}) {
         </form>
     );
 }
-function AddPicture({change, changeHandler}) {
-    return (
-        <div>
-            <form>
-                <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={changeHandler} />
-            </form>
-            <div>
-                <strong>Selected Files:</strong>
-                <ul>
-                    {change.map((file, index) => (
-                        <li key={index}>{file.fileName}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
-}
+
 function SubmitButton( {handler} ) {
     return (
         <form>
@@ -104,70 +84,47 @@ function CategoryDropdown({change, changeHandler}) {
 
 function EditListingContainer() {
     const routerLocation = useLocation();
+    const navigate = useNavigate();
     const initialState = routerLocation.state || {}; // Access the state passed from the previous page
 
     const [name, setName] = useState(initialState.productName || '');
     const [locationState, setLocationState] = useState(initialState.location || '');
     const [price, setPrice] = useState(initialState.price || '');
     const [desc, setDesc] = useState(initialState.description || '');
-    const [image, setImage] = useState(initialState.productImage || []);
     const [id, setID] = useState(initialState.ID || '');
 
     const [condition, setCondition] = useState(initialState.condition || '');
     const [category, setCategory] = useState(initialState.category || '');
 
-    console.log("IN EDIT LISTING, CATEGORY: " + category);
-
-    const handleImageChange = (e) => {
-        const files = e.target.files;
-        const updatedImages = Array.from(files)
-        const formattedImages = updatedImages.map((pic, index) => ({
-            fileName: `image${index}`,
-            file: pic,
-            type: pic.type,
-        }));
-
-        // Use spread operator to create a new array by combining existing and new files
-        setImage((prevFiles) => [...prevFiles, ...formattedImages].slice(0,3));
-    };
-    image.forEach(pic => {
-        console.log(pic);
-    })
-
 
     const apiUrl = 'http://localhost:5000/api/editListing'
     const handleEditFetch = async () => {
-
+        const data = { name, locationState, price, desc, id, condition, category }
         try {
+            //const formData = new FormData();
 
-            const formData = new FormData();
-
-            formData.append('id', id);
+            console.log("EDIT LISTING ID: " + id);
+            /*formData.append('id', id);
             formData.append('name', name);
-            formData.append('location', location);
+            formData.append('location', locationState)
             formData.append('price', price);
             formData.append('desc', desc);
-
-            console.log("image length: " + image.length);
-            image.forEach((pic, index) => {
-                pic.file = pic;
-                formData.append('images', pic.file)
-                console.log(pic);
-            });
-
             formData.append('condition', condition);
-            formData.append('category', category);
+            formData.append('category', category);*/
 
             const response = await fetch(apiUrl, {
-                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                method: "PUT", // *GET, POST, PUT, DELETE, etc.
                 mode: "cors", // no-cors, *cors, same-origin
                 cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                headers: { "Content-Type": "application/json" },
                 redirect: "follow", // manual, *follow, error
                 referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: formData
+                body: JSON.stringify(data)
             })
             if (response.ok) {
                 console.log("Successful edit listing");
+                navigate("/profile");
+                window.location.reload();
             } else {
                 console.log("Edit listing failed");
             }
@@ -209,12 +166,6 @@ function EditListingContainer() {
                 <CategoryDropdown change={category}
                                   changeHandler={setCategory} />
             </div>
-
-            <br />
-
-            <AddPicture
-                change={image}
-                changeHandler={handleImageChange} />
 
             <br />
 
