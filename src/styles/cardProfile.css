@@ -13,6 +13,7 @@
 
 .card-container-profile:hover {
     background-color: lightgrey;
+    transition: .2s;
 }
 
 .card-info {
