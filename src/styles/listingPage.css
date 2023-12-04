@@ -165,6 +165,7 @@
     padding: 0 10px;
 }
 .forumHeader {
+    margin-top: 10px;
     max-height: 130px;
     width: 100%;
     overflow-y: hidden;
@@ -172,7 +173,7 @@
 }
 .forumAllMessages {
     position: relative;
-    margin-top: 20px;
+    margin-top: 5px;
     padding-bottom: 40px;
     width: 85%;
 }
