@@ -36,6 +36,9 @@ function DescriptionBox({labelName, change, changeHandler}) {
     );
 }
 function AddPicture({change, changeHandler}) {
+
+
+
     return (
         <div className={"addPic"}>
             <label>
@@ -51,9 +54,14 @@ function AddPicture({change, changeHandler}) {
             <div className={"selectedFile"}>
                 <strong>Selected Files:</strong>
                 <ul>
-                    {change.map((file, index) => (
-                        <li key={index}>{file.fileName + " " + (index + 1)}</li>
-                    ))}
+                    {
+                        change.length > 0 ? change.map((file, index) => (
+                        <li key={index}>{file.fileName +  " " + (index + 1)}</li>
+                    )) :
+                        <>
+                            <li>No files selected...</li>
+                        </>
+                    }
                 </ul>
             </div>
         </div>
@@ -119,7 +127,7 @@ function CreateListingContainer() {
         const files = e.target.files;
         const updatedImages = Array.from(files)
         const formattedImages = updatedImages.map((pic, index) => ({
-            fileName: "Image",
+            fileName: pic.name,
             file: pic,
             type: pic.type,
         }));
