@@ -87,7 +87,7 @@ function CreateUserContainer({showPopup, togglePopup}) {
     }
 
     return (
-        <div className="container">
+        <div className="container create-user-container">
             <h1 style={{textAlign: 'center'}}>
                 Create User
             </h1>

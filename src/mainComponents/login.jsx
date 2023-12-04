@@ -122,7 +122,7 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
   }
 
   return (
-    <div className="container popup" ref={popupRef}>
+    <div className="container popup login-container" ref={popupRef}>
         <h1 style={{textAlign: 'center'}}>
             Login
         </h1>
