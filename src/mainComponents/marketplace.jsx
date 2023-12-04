@@ -67,13 +67,7 @@ function Marketplace(  ){
     //handles the category
     const [categoryFilteredProducts, setCategoryFilteredProducts] = useState(PRODUCTS);
 
-    useEffect(() => {
-        // Apply category filter when the category changes
-        const filteredByCategory = PRODUCTS.filter(
-            (product) => !selectedFilters.category || product.category.toLowerCase() === selectedFilters.category.toLowerCase()
-        );
-        setCategoryFilteredProducts(filteredByCategory);
-    }, [selectedFilters.category]);
+
 
     const handleApplyFilter = (filterData) => {
         // Update the selectedFilters state with the filter data
