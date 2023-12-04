@@ -232,7 +232,7 @@ function ListingPage() {
 
             })
             if (response.ok) {
-
+                window.location.reload();
             } else {
                 console.error('Error produced');
             }

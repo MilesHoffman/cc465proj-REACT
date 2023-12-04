@@ -40,6 +40,9 @@ function DescriptionBox({labelName, change, changeHandler}) {
 function AddPicture({change, changeHandler}) {
     return (
         <div>
+            <label>
+                Add Picture (up to 3)
+            </label>
             <form>
                 <input
                     type="file"
@@ -51,7 +54,7 @@ function AddPicture({change, changeHandler}) {
                 <strong>Selected Files:</strong>
                 <ul>
                     {change.map((file, index) => (
-                        <li key={index}>{file.fileName}</li>
+                        <li key={index}>{file.fileName + " " + (index + 1)}</li>
                     ))}
                 </ul>
             </div>
@@ -118,7 +121,7 @@ function CreateListingContainer() {
         const files = e.target.files;
         const updatedImages = Array.from(files)
         const formattedImages = updatedImages.map((pic, index) => ({
-            fileName: pic.originalname,
+            fileName: "Image",
             file: pic,
             type: pic.type,
         }));
@@ -213,8 +216,6 @@ function CreateListingContainer() {
             <AddPicture
                 change={image}
                 changeHandler={handleImageChange} />
-
-            <br />
 
             <SubmitButton
                 handler={sendData}
