@@ -8,8 +8,8 @@ import reply from "../components/reply.jsx";
 function ListPicture({productImage}) {
     return (
         <img src={productImage}
-             alt="Uploaded"
-             className="list-img" />
+             alt="Image unavailable"
+        />
     );
 }
 

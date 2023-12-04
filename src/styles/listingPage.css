@@ -29,8 +29,8 @@
     height: 65vh;
     border-radius: 10px;
     padding-bottom: 10px;
-    border: solid black;
-    background-color: var(--ThirdColor);
+    border: solid black 1px;
+    background-color: var(--HeaderColor);
 }
 .bodyLeftPicture {
     display: flex;
@@ -40,17 +40,19 @@
     margin: 5px auto;
     width: 60vw;
     height: 56vh;
-
+    max-width: 60vw;
+    max-height: 56vh;
     background-color: transparent;
     border-radius: 20px;
 }
 .bodyLeftPicture img {
     margin: auto;
-    border-radius: 20px;
-    max-width: 95%;
-    max-height: 95%;
-    border: solid black 5px;
+    width: 95%;
+    height: 95%;
+    border-radius: 10px;
+    object-fit: contain;
 }
+
 .bodyLeftControl {
     display: flex;
     justify-content: space-between;
@@ -63,7 +65,7 @@
 .bodyLeftControl button{
     padding: 5px 15px;
     border-radius: 10px;
-    border-width: 2px;
+    border-width: 1px;
     text-align: center;
 }
 .reply-textbox{
@@ -91,8 +93,8 @@
     overflow-y: scroll;
 
     border-radius: 10px;
-    border: solid black;
-    background-color: lightgrey;
+    border: solid black 1px;
+    background-color: var(--HeaderColor);
     font-family: var(--RegularFont);
 }
 .bodyRightHeader {
