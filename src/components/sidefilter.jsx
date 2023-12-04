@@ -1,7 +1,5 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import './../styles/sidefilter.css'
-import app from "../App.jsx";
-
 
 
 function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
@@ -98,22 +96,6 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
     //when we click apply it will capture all the current state and put into filterData
     const handleApplyFilter = async () => {
 
-        /*
-        const filterData = {
-            City,
-            Zipcode,
-            minPrice,
-            maxPrice,
-            conditions: {
-                'New/Good': Condition1,
-                'Used/Pre-owned':Condition2,
-                'Refurbished':Condition3,
-                'Damaged':Condition4
-            },
-            selectedSide,
-        };
-         */
-
         const filterData = {
             query: true,
             name: "",
@@ -167,7 +149,6 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
 
     // Reset all state variables to their initial values
     const CityRef = useRef()
-    const ZipcodeRef = useRef()
     const minPriceRef = useRef()
     const maxPriceRef = useRef()
     const condition1Ref = useRef(null);
@@ -176,10 +157,9 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
     const condition4Ref = useRef(null);
 
 
-    const handleResetFilter = () => {
+    const handleResetFilter = async () => {
         CityRef.current.value = '';
         setCity('');
-        ZipcodeRef.current.value = '';
         minPriceRef.current.value = '';
         setMaxPrice('');
         maxPriceRef.current.value = '';
@@ -195,6 +175,33 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
         setCondition3(false);
         setCondition4(false);
         setCategory('');
+
+        const apiUrl = 'http://localhost:5000/api/getListings';
+
+        const filterData = { query: false }
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(filterData),
+            });
+
+            if (response.ok) {
+
+                const result = await response.json();
+                callSetListings(result);
+            }
+            else {
+                console.error('Failed to send data to the API');
+            }
+        } catch (error) {
+            console.error('Error sending data to the API:', error);
+        }
     };
 
 
@@ -209,7 +216,6 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
                     <h1>Location</h1>
                     <div className="search-input">
                         <input  ref={CityRef} onChange={handleCityChange} type="tel" placeholder="City"/>
-                        <input  ref={ZipcodeRef} onChange={handleZipcodeChange} type="tel" placeholder="Zipcode"/>
                     </div>
                 </div>
                 <div className="search-price">
@@ -243,14 +249,6 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
                     <option value="1"> within 30 days</option>
                     <option value="2"> beyond 30 days</option>
                 </select>
-                <div className="standardButton filterCommandButtons">
-                    <button type="button" onClick={handleResetFilter} tabindex="0">
-                        <span className="label">reset</span>
-                    </button>
-                    <button type="button" onClick={handleApplyFilter}  tabindex="0">
-                        <span className="label">apply</span>
-                    </button>
-                </div>
 
                 <div className={"category-title"}>
                     <h1>Categories</h1>
@@ -274,6 +272,16 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
                     </button>
 
                 </div>
+
+                <div className="standardButton filterCommandButtons">
+                    <button type="button" onClick={handleResetFilter} tabIndex="0">
+                        <span className="label">reset</span>
+                    </button>
+                    <button type="button" onClick={handleApplyFilter} tabIndex="0">
+                        <span className="label">apply</span>
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>

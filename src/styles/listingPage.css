@@ -38,8 +38,8 @@
     align-content: center;
 
     margin: 5px auto;
-    max-width: 60vw;
-    max-height: 56vh;
+    width: 60vw;
+    height: 56vh;
 
     background-color: transparent;
     border-radius: 20px;
@@ -47,9 +47,8 @@
 .bodyLeftPicture img {
     margin: auto;
     border-radius: 20px;
-    max-height: 95%;
     max-width: 95%;
-    object-fit: contain;
+    max-height: 95%;
     border: solid black 5px;
 }
 .bodyLeftControl {

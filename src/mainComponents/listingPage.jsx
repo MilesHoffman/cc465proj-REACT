@@ -15,8 +15,6 @@ function ListPicture({productImage}) {
 
 function PictureContainer({currentPicture, productImage}) {
 
-    // Currently Hardcoded
-
     return (
       <div className="bodyLeftPicture">
           <ListPicture productImage={`data:image/png;base64, ${productImage[currentPicture].file}`} />

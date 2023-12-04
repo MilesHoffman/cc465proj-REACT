@@ -137,7 +137,7 @@ function CardProfileContainer({productName, price, location, productImage, descr
 
     return (
 
-        <div className="card-container">
+        <div className="card-container-profile">
             <div onClick={handleClick}>
                 <CardPicture productImage={productImage}/>
 

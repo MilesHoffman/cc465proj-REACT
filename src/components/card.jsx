@@ -13,30 +13,24 @@ function CardPicture({productImage}) {
 function CardInformation({productName, location, price}) {
     return (
         <div className="card-info">
-            <span>{productName}</span>
-            <br />
-            <span>${price}</span>
-            <br />
-            <span>{location}</span>
+
+            <div className={"cardName"}>
+                <span>{productName}</span>
+            </div>
+
+            <div className={"cardPrice"}>
+                <span>${price}</span>
+            </div>
+
+            <div className={"cardLocation"}>
+                <span>{location}</span>
+            </div>
+
         </div>
     );
 }
 
-function CardSave() {
 
-    const handleSave = () => {
-
-    }
-
-    return(
-     <div>
-         <button  type="button" className="btn btn-success btn-sm save-btn">
-             Save
-         </button>
-     </div>
-    )
-
-}
 function CardContainer({productName, price, location, productImage, description, ID}) {
     const navigate = useNavigate();
     console.log("IN CARD: ", productImage);
@@ -54,12 +48,17 @@ function CardContainer({productName, price, location, productImage, description,
 
     return (
             <div className="card-container" onClick={handleClick}>
-              <CardPicture productImage={productImage} />
 
-              <CardInformation productName={truncatedName}
-                               price={price}
-                               location={location} />
-                <CardSave/>
+              <CardPicture
+                  productImage={productImage}
+              />
+
+              <CardInformation
+                  productName={truncatedName}
+                  price={price}
+                  location={location}
+              />
+
             </div>
     );
 }
