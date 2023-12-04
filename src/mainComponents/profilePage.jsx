@@ -40,64 +40,14 @@ function ProfilePage() {
 
     return(
         <div>
-            <div id="account-homepage" class="streamlined">
 
-            <form class="new_posting_thing" action="/login/pstrdr" method="post">
-                new listing in:    <select name="areaabb">
-                <option value="">choose</option>
-                <option value="abz">
-                    aberdeen,
-                    GB       </option>
-                <option value="abi">
-                    abilene,
-                    TX,
-                    US       </option>
-                <option value="aca">
-                    acapulco,
-                    MX       </option>
-                <option value="adl">
-                    adelaide,
-                    SA,
-                    AU       </option>
-                <option value="amd">
-                    ahmedabad,
-                    IN       </option>
-                <option value="cak">
-                    akron-canton,
-                    OH,
-                    US       </option>
-                <option value="aby">
-                    albany, GA,
-                    GA,
-                    US       </option>
-                <option value="alb">
-                    albany, NY,
-                    NY,
-                    US       </option>
-                <option value="abq">
-                    albuquerque,
-                    NM,
-                    US       </option>
-                <option value="alc">
-                    alicante,
-                    ES       </option>
-                <option value="alt">
-                    allentown,
-                    PA,
-                    US       </option>
-                <option value="aoo">
-                    altoona,
-                    PA,
-                    US       </option>
-            </select>
-                <button type="submit" value="go">go</button>
-            </form>
+            <div id="account-homepage" className="streamlined">
+                You have {listings.length} listing{listings.length !== 1 && 's'}
+            </div>
 
-
-            You have {listings.length} listing{listings.length !== 1 && 's'}</div>
-            <div class="container-fluid">
+            <div className="container-fluid">
                 
-                <div className="search-results">
+                <div className="profileGrid">
                     {listings.map((card) => (
                         //prop creation for card data
                         <CardProfile

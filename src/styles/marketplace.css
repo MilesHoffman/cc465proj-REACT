@@ -4,15 +4,23 @@
     padding-right: 30px;
     margin-left: 20px;
   }
-  
+
   .search-results {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column width as needed */
-    grid-auto-rows: 270px;
-    margin-top: 50px;
-    width: 85%;
-    max-width: 1200px; /* Limit the maximum width of the grid */
+      position: relative;
+      display: grid;
+      gap: 11px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the column width as needed */
+      grid-auto-rows: 240px;
+      margin-top: 50px;
+      width: 85%;
+      max-width: 1200px; /* Limit the maximum width of the grid */
+      margin-left: 220px;
+      height: fit-content;
   }
+
+.search-results{
+
+}
   
 
 

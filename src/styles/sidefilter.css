@@ -137,13 +137,6 @@
             font-size: 12px;
         }
 
-        .search-results{
-            position: relative;
-            margin-left: 220px;
-            width: 80%;
-            height: fit-content;
-            margin-top: 140px;
-        }
         .search-toolbar{
 
             position: relative;

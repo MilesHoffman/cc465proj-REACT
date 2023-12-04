@@ -7,10 +7,10 @@ function Footer() {
     return(
         <div>
             <footer>
-            <ul class="profile-page-footer">
-                <li>© 2023 <span class="desktop">Community Comrades</span><span class="mobile"> CC</span></li>
-                <li><a href="https://www.CommunityComrades.com/about/help/">help</a></li>
-                <li class="desktop"><a href="https://www.CommunityComrades.com/about/privacy">privacy</a></li>
+            <ul className="profile-page-footer">
+                <li>© 2023 <span className="desktop">Community Comrades</span><span className="mobile"> CC</span></li>
+                <li><a>help</a></li>
+                <li className="desktop"><a>privacy</a></li>
 
 
 

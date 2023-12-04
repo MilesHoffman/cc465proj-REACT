@@ -22,11 +22,18 @@ function CardPicture({productImage}) {
 function CardInformation({productName, location, price}) {
     return (
         <div className="card-info">
-            <span>{productName}</span>
-            <br />
-            <span>${price}</span>
-            <br />
-            <span>{location}</span>
+            <div className={"cardName"}>
+                <span>{productName}</span>
+            </div>
+
+            <div className={"cardPrice"}>
+                <span>${price}</span>
+            </div>
+
+            <div className={"cardLocation"}>
+                <span>{location}</span>
+            </div>
+
         </div>
     );
 }
@@ -47,8 +54,8 @@ function CardProfileEdit({ handleEdit }) {
 
 
     return (
-        <div className="edit-container">
-            <button ref={editButtonRef} onClick={handleEdit} type="button" className="btn btn-success btn-sm edit-button">
+        <div className="cardButton standardButton">
+            <button ref={editButtonRef} onClick={handleEdit} type="button">
                 Edit
             </button>
 
@@ -64,16 +71,13 @@ function CardProfileDelete({ handleDelete }) {
     const handleDel = () => {
         setDel(!del);
     };
-
-
-
     /*
     delete update
      */
 
     return(
-        <div className='delete-container'>
-            <button ref={deleteButtonRef} onClick={() => { handleDelete(); handleDel(); }}  type="button" className="btn btn-danger btn-sm delete-button">
+        <div className='standardButton cardButton'>
+            <button ref={deleteButtonRef} onClick={() => { handleDelete(); handleDel(); }}  type="button">
                 Delete
             </button>
         </div>
