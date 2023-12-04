@@ -41,7 +41,7 @@ function AddPicture({change, changeHandler}) {
     return (
         <div>
             <label>
-                Add Picture (up to 3)
+                Add Picture (up to 5)
             </label>
             <form>
                 <input
@@ -127,7 +127,7 @@ function CreateListingContainer() {
         }));
 
         // Use spread operator to create a new array by combining existing and new files
-        setImage((prevFiles) => [...prevFiles, ...formattedImages].slice(0,3));
+        setImage((prevFiles) => [...prevFiles, ...formattedImages].slice(0,5));
     };
 
     const apiUrl = 'http://localhost:5000/api/createListing';
