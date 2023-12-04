@@ -17,9 +17,11 @@ import ListingPage from './mainComponents/listingPage.jsx'
 import EditListingContainer from "./mainComponents/editListing.jsx";
 
 
+
 function App() {
     let [loggedInStatus, setLoggedInStatus] = useState(false);
     const [currentUser, setCurrentUser] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('')
 
     const toggleLoggedInStatus = (state, username) => {
         setLoggedInStatus(state);
@@ -29,6 +31,7 @@ function App() {
     }
     console.log("LOGGED IN STATUS: ", loggedInStatus);
     console.log("CURRENT USER: ", currentUser);
+    console.log("CATEGORY: ", selectedCategory);
 
 
     useEffect(() => {
@@ -43,17 +46,25 @@ function App() {
         }
     }, []);
 
+
+    const updateCategoryFilter = (category) => {
+        // Your logic to update the category filter in Marketplace
+        setSelectedCategory(category);
+    };
+
+
+
   return (
     <body>
       <nav>
           <div className={Header}>
-              <Header loggedInStatus={loggedInStatus} loggedInStatusHandler={toggleLoggedInStatus}/>
+              <Header loggedInStatus={loggedInStatus} loggedInStatusHandler={toggleLoggedInStatus} category={selectedCategory} categoryChangeHandler={setSelectedCategory}/>
           </div>
       </nav>
       <main>
 
           <Routes>
-          <Route path="/" element={<Marketplace />} />
+          <Route path="/" element={<Marketplace category={selectedCategory}/>} />
           <Route path="/createUser" element={<CreateUser />} />
           <Route path="/createListing" element={<CreateListing />} />
           <Route path="/profile" element={<ProfilePage />} />

@@ -111,8 +111,10 @@ function ListingPage() {
     const location = useLocation();
     const {productName, price, location: productLocation, productImage, description, ID} = location.state;
 
-    const [textboxmessage, setTextboxmessage] = useState('');
+
     const [currentPicture, setCurrentPicture] = useState(0);
+
+    const[textboxmessage, setTextboxmessage] = useState('')
 
     console.log(currentPicture);
 
