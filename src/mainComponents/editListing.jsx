@@ -88,7 +88,7 @@ function EditListingContainer() {
 
     const [name, setName] = useState(initialState.productName || '');
     const [locationState, setLocationState] = useState(initialState.location || '');
-    const [price, setPrice] = useState(initialState.price || '');
+    const [textPrice, setTextPrice] = useState(initialState.price || '');
     const [desc, setDesc] = useState(initialState.description || '');
     const [id, setID] = useState(initialState.ID || '');
 
@@ -98,18 +98,14 @@ function EditListingContainer() {
 
     const apiUrl = 'http://localhost:5000/api/editListing'
     const handleEditFetch = async () => {
+
+        let price = parseInt(textPrice)
+
         const data = { name, locationState, price, desc, id, condition, category }
         try {
             //const formData = new FormData();
 
             console.log("EDIT LISTING ID: " + id);
-            /*formData.append('id', id);
-            formData.append('name', name);
-            formData.append('location', locationState)
-            formData.append('price', price);
-            formData.append('desc', desc);
-            formData.append('condition', condition);
-            formData.append('category', category);*/
 
             const response = await fetch(apiUrl, {
                 method: "PUT", // *GET, POST, PUT, DELETE, etc.
@@ -148,8 +144,8 @@ function EditListingContainer() {
 
             <InputField
                 labelName="Price"
-                change={price}
-                changeHandler={setPrice} />
+                change={textPrice}
+                changeHandler={setTextPrice} />
 
             <DescriptionBox
                 labelName="Description"
