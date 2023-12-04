@@ -148,9 +148,9 @@
     padding-bottom: 10px;
 
     border-radius: 10px;
-    border: solid black;
+    border: solid 1px black;
 
-    background-color: wheat;
+    background-color: var(--ThirdColor);
 }
 .forumFooter {
     display: flex;
@@ -179,8 +179,7 @@
 .forumMessage {
     width: 100%;
     margin-top: 15px;
-    border: solid;
-    border-color: dimgrey;
+    border: solid 2px black;
     border-radius: 10px;
 }
 .forumMessage header {
@@ -245,7 +244,7 @@
 }
 
 .forumReplyMsg{
-    border-left: solid var(--SecondaryColor);
+    border-left: solid 2px var(--SecondaryColor);
 }
 
 .replyButton button {
