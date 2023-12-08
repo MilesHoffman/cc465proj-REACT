@@ -3,6 +3,7 @@ import '../styles/listingPage.css';
 import {useLocation} from "react-router-dom";
 import Message from '../components/message.jsx'
 import reply from "../components/reply.jsx";
+import PopupContainer from "../components/Popup.jsx";
 
 
 function ListPicture({productImage}) {
@@ -110,7 +111,7 @@ function Forumfooter({handler}){
 function ListingPage() {
     const location = useLocation();
     const {productName, price, location: productLocation, productImage, description, ID} = location.state;
-
+    const listingData = {productName, price, location: productLocation, productImage, description, ID};
 
     const [currentPicture, setCurrentPicture] = useState(0);
 
@@ -218,6 +219,13 @@ function ListingPage() {
 
     const handleTextboxFetch = async () => {
 
+
+        if( textboxmessage.length < 10 || textboxmessage.length > 500 ){
+            setPopupMsg("Message must be between 10 and 500 characters.")
+            setIsPopup(true);
+            return;
+        }
+
         try {
             const response = await fetch(apiUrl, {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -258,6 +266,22 @@ function ListingPage() {
 
         return commentReplies;
     };
+
+
+    const [isPopup, setIsPopup] = useState(false);
+    const [popupMsg, setPopupMsg] = useState("");
+
+    // Time limit for the popup
+    useEffect(() => {
+        if (isPopup) {
+            const timerId = setTimeout(() => {
+                setIsPopup(false); // After 5 seconds, set isPopup to false
+            }, 5000);
+
+            // Cleanup the timer if the component unmounts or isPopup changes
+            return () => clearTimeout(timerId);
+        }
+    }, [isPopup]);
 
 
     return (
@@ -304,6 +328,7 @@ function ListingPage() {
                             ID={message.CommentID}
                             replies={getMessagesReplies( message.CommentID)}
                             listingID={ID}
+                            listingData={listingData}
                         />
                     ))
                         : <h5>Be the first to comment!</h5>
@@ -317,6 +342,12 @@ function ListingPage() {
                 </div>
 
             </div>
+
+            <PopupContainer
+                isPopupOpen={isPopup}
+                message={popupMsg}
+            />
+
         </div>
     );
 }

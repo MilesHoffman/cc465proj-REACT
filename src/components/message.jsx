@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import '../styles/listingPage.css';
 import Reply from '../components/reply.jsx';
+import PopupContainer from "./Popup.jsx";
+import {useNavigate} from "react-router-dom";
 
 function ForumFooter({ handler }) {
     return (
@@ -10,8 +12,9 @@ function ForumFooter({ handler }) {
     );
 }
 
-function MessageContainer( { username, message, time, ID, replies, listingID } ) {
+function MessageContainer( { username, message, time, ID, replies, listingID, listingData } ) {
 
+    const navigate = useNavigate();
     const [showReplyTextbox, setShowReplyTextbox] = useState(false);
     const [textboxmessage,setTextboxmessage] = useState('')
     const [commID, setCommID] = useState('')
@@ -20,6 +23,11 @@ function MessageContainer( { username, message, time, ID, replies, listingID } )
     const handleReplyButtonClick = async () => {
         setShowReplyTextbox(!showReplyTextbox);
 
+        if( textboxmessage.length < 10 || textboxmessage.length > 500 ){
+            setPopupMsg("Reply message must be within 10 and 500 characters.");
+            setIsPopup(true);
+            return;
+        }
 
         try {
             const response = await fetch(apiUrl, {
@@ -51,6 +59,21 @@ function MessageContainer( { username, message, time, ID, replies, listingID } )
         setShowReplyTextbox(!showReplyTextbox);
     }
 
+
+    const [isPopup, setIsPopup] = useState(false);
+    const [popupMsg, setPopupMsg] = useState("");
+
+    // Time limit for the popup
+    useEffect(() => {
+        if (isPopup) {
+            const timerId = setTimeout(() => {
+                setIsPopup(false); // After 5 seconds, set isPopup to false
+            }, 5000);
+
+            // Cleanup the timer if the component unmounts or isPopup changes
+            return () => clearTimeout(timerId);
+        }
+    }, [isPopup]);
 
 
     return (
@@ -96,6 +119,12 @@ function MessageContainer( { username, message, time, ID, replies, listingID } )
                     : <></>
                 }
             </div>
+
+            <PopupContainer
+                isPopupOpen={isPopup}
+                message={popupMsg}
+            />
+
         </div>
     );
 }

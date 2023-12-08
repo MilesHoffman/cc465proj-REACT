@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import '../styles/inputPages.css';
+import PopupContainer from "../components/Popup.jsx";
 
 function InputField({labelName, textType, change, changeHandler}) {
     return (
@@ -54,9 +55,16 @@ function CreateUserContainer({showPopup, togglePopup}) {
 
     async function sendData() {
 
+
         console.log("Sending Data...")
 
         const data = { email, username, password };
+
+        if( username.length < 4 || password.length < 4 ){
+            setIsPopup(true);
+            setPopupMsg("All fields must be at least 4 characters.")
+            return;
+        }
 
         try {
             // Default options are marked with *
@@ -85,52 +93,76 @@ function CreateUserContainer({showPopup, togglePopup}) {
         }
     }
 
+    const [isPopup, setIsPopup] = useState(false);
+    const [popupMsg, setPopupMsg] = useState("");
+
+    // Time limit for the popup
+    useEffect(() => {
+        if (isPopup) {
+            const timerId = setTimeout(() => {
+                setIsPopup(false); // After 5 seconds, set isPopup to false
+            }, 5000);
+
+            // Cleanup the timer if the component unmounts or isPopup changes
+            return () => clearTimeout(timerId);
+        }
+    }, [isPopup]);
+
     return (
-        <div className="container create-user-container">
-            <h1 style={{textAlign: 'center'}}>
-                Create User
-            </h1>
+        <div>
+            <div className="container create-user-container">
+                <h1 style={{textAlign: 'center'}}>
+                    Create User
+                </h1>
 
-            <InputField
-                labelName="Email"
-                textType={passCheckbox}
-                change={email}
-                changeHandler={setEmail} />
+                <InputField
+                    labelName="Email"
+                    textType={passCheckbox}
+                    change={email}
+                    changeHandler={setEmail} />
 
-            <InputField
-                labelName="Username"
-                textType={passCheckbox}
-                change={username}
-                changeHandler={setUsername} />
+                <InputField
+                    labelName="Username"
+                    textType={passCheckbox}
+                    change={username}
+                    changeHandler={setUsername} />
 
-            <InputField
-                labelName="Password"
-                textType={passCheckbox}
-                change={password}
-                changeHandler={setPassword} />
+                <InputField
+                    labelName="Password"
+                    textType={passCheckbox}
+                    change={password}
+                    changeHandler={setPassword} />
 
-            <br />
+                <br />
 
-            <PasswordCheckbox
-                change={passCheckbox}
-                changeHandler={setPassCheckbox} />
+                <PasswordCheckbox
+                    change={passCheckbox}
+                    changeHandler={setPassCheckbox} />
 
-            <br />
+                <br />
 
-            <div className="button-row">
-                <SubmitButton
-                    buttonName="RETURN TO LOGIN"
-                    buttonType="button"
-                    change={showPopup}
-                    changeHandler={togglePopup}
-                     />
+                <div className="button-row">
+                    <SubmitButton
+                        buttonName="RETURN TO LOGIN"
+                        buttonType="button"
+                        change={showPopup}
+                        changeHandler={togglePopup}
+                    />
 
-                <SubmitButton
-                    buttonName="CREATE USER"
-                    buttonType="button"
-                    changeHandler={sendData} />
+                    <SubmitButton
+                        buttonName="CREATE USER"
+                        buttonType="button"
+                        changeHandler={sendData} />
+                </div>
+
+
             </div>
+            <PopupContainer
+                isPopupOpen={isPopup}
+                message={popupMsg}
+            />
         </div>
+
     );
 }
 

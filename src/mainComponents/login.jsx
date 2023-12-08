@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../styles/inputPages.css';
 
 import CreateUserContainer from "./createUser.jsx";
+import PopupContainer from "../components/Popup.jsx";
 
 //text fields
 function InputField({labelName, textType, change, changeHandler}) {
@@ -83,6 +84,7 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
 
   async function sendData() {
       const data = {username, password}
+
       // Default options are marked with *
       try {
           const response = await fetch(apiUrl, {
@@ -106,6 +108,9 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
           else {
               loggedInStatusHandler(false);
               console.error('Login failed');
+
+              setPopupMsg("Login failed")
+              setIsPopup(true)
           }
 
       } catch (error) {
@@ -119,6 +124,21 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
           setShowPopup(state);
       }, 0);
   }
+
+    const [isPopup, setIsPopup] = useState(false);
+    const [popupMsg, setPopupMsg] = useState("");
+
+    // Time limit for the popup
+    useEffect(() => {
+        if (isPopup) {
+            const timerId = setTimeout(() => {
+                setIsPopup(false); // After 5 seconds, set isPopup to false
+            }, 5000);
+
+            // Cleanup the timer if the component unmounts or isPopup changes
+            return () => clearTimeout(timerId);
+        }
+    }, [isPopup]);
 
   return (
     <div className="popup login-container" ref={popupRef}>
@@ -165,6 +185,11 @@ function LoginContainer({loggedInStatusHandler, loginPopup, loginPopupHandler, b
                                                 togglePopup={() => togglePopup(!showPopup)}
                                                 /> }
         </div>
+
+        <PopupContainer
+            isPopupOpen={isPopup}
+            message={popupMsg}
+        />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react'
 import './../styles/sidefilter.css'
+import PopupContainer from "./Popup.jsx";
 
 
 function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
@@ -13,7 +14,6 @@ function Sidefilter({ onApplyFilter , onCategoriesFilter, callSetListings})  {
     const [Condition3, setCondition3] = useState(false);
     const [Condition4, setCondition4] = useState(false);
     const [category, setCategory] = useState('');
-
 
     // Update filterData whenever the state values change
     useEffect(() => {

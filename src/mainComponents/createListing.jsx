@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../styles/inputPages.css';
 import {useNavigate} from "react-router-dom";
+import PopupContainer from "../components/Popup.jsx";
 
 function InputField({labelName, change, changeHandler}) {
     return(
@@ -136,9 +137,42 @@ function CreateListingContainer() {
         setImage((prevFiles) => [...prevFiles, ...formattedImages].slice(0,5));
     };
 
+    const validateNumber = (input) => {
+        // Use regex to check if the input is a valid number
+        const regex = /^[0-9]*\.?[0-9]*$/;
+        return regex.test(input) || input === ''; // Allow empty input as well
+    };
+
     const apiUrl = 'http://localhost:5000/api/createListing';
 
     async function sendData() {
+
+        if( name.length > 20 || name.length < 2 ){
+            setPopupMsg("Invalid name");
+            setIsPopup(true);
+            return;
+        }
+        else if( location.length > 20 || location.length < 2  ){
+            setPopupMsg("Location is too big or small");
+            setIsPopup(true);
+            return;
+        }
+        else if( parseInt(price) > 9999999 || parseInt(price) < 0 || !validateNumber(price) ){
+            setPopupMsg("Invalid price");
+            setIsPopup(true);
+            return;
+        }
+        else if( desc.length > 1000 ){
+            setPopupMsg("Description too big");
+            setIsPopup(true);
+            return;
+        }
+        else if( image.length < 1 ){
+            setPopupMsg("Input an image");
+            setIsPopup(true);
+            return;
+        }
+
 
         // Default options are marked with *
         try {
@@ -181,6 +215,21 @@ function CreateListingContainer() {
         }
 
     }
+
+    const [isPopup, setIsPopup] = useState(false);
+    const [popupMsg, setPopupMsg] = useState("");
+
+    // Time limit for the popup
+    useEffect(() => {
+        if (isPopup) {
+            const timerId = setTimeout(() => {
+                setIsPopup(false); // After 5 seconds, set isPopup to false
+            }, 5000);
+
+            // Cleanup the timer if the component unmounts or isPopup changes
+            return () => clearTimeout(timerId);
+        }
+    }, [isPopup]);
 
     return (
 
@@ -229,6 +278,12 @@ function CreateListingContainer() {
                     handler={sendData}
                 />
             </div>
+
+            <PopupContainer
+                isPopupOpen={isPopup}
+                message={popupMsg}
+            />
+
         </div>
 
     );

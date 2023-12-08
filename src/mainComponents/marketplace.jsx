@@ -4,6 +4,7 @@ import Card from '../components/card'
 import { PRODUCTS } from '../products'
 import './../styles/marketplace.css'
 import {useLocation} from "react-router-dom";
+import PopupContainer from '../components/Popup.jsx';
 
 
 function Marketplace(  ){
@@ -12,6 +13,7 @@ function Marketplace(  ){
 
     //array to hold all listings
     const [listings, setListings] = useState([]);
+    const [isPopup, setIsPopup] = useState(false);
 
     function callSetListings( listings ){
         setListings(listings);
@@ -124,6 +126,10 @@ function Marketplace(  ){
                 ))}
             </div>
             <Sidefilter onApplyFilter={handleApplyFilter} callSetListings={callSetListings} />
+
+            <PopupContainer
+                isPopupOpen={isPopup}
+            />
         </div>
     )
 

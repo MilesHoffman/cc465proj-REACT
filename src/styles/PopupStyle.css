@@ -1,0 +1,23 @@
+@import "mainStyle.css";
+
+.PopupContainer{
+    background-color: var(--BackgroundColor);
+    border: solid 3px var(--FourthColor);
+    border-radius: 20px;
+    z-index: 1000000;
+    min-width: 300px;
+    max-width: 400px;
+    height: fit-content;
+    min-height: 50px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+
+    transform: translate(-50%, 0%);
+    padding: 10px;
+}
+
+    .PopupContainer text {
+        float: left;
+        color: black;
+    }
