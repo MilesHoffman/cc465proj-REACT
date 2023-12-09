@@ -156,7 +156,7 @@ function ListingPage() {
                     body: JSON.stringify(data),
                 });
                 if (response.ok) {
-                    return await response.json();
+                    return await response.json();e
 
                 } else {
                     console.error('Failed to fetch comments:', response.status);

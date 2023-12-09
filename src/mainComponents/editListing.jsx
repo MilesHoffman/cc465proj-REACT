@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../styles/editListing.css';
 import {useLocation, useNavigate} from "react-router-dom";
+import PopupContainer from "../components/Popup.jsx";
 
 function InputField({labelName, change, changeHandler}) {
     return(
@@ -95,15 +96,45 @@ function EditListingContainer() {
     const [condition, setCondition] = useState(initialState.condition || '');
     const [category, setCategory] = useState(initialState.category || '');
 
+    const validateNumber = (input) => {
+        // Use regex to check if the input is a valid number
+        const regex = /^[0-9]*\.?[0-9]*$/;
+        return regex.test(input) || input === ''; // Allow empty input as well
+    };
 
     const apiUrl = 'http://localhost:5000/api/editListing'
     const handleEditFetch = async () => {
 
         let price = parseInt(textPrice)
 
+        if( name.length > 21 || name.length < 2 ){
+            setPopupMsg("Invalid name");
+            setIsPopup(true);
+            return;
+        }
+        else if( locationState.length > 20 || locationState.length < 2  ){
+            setPopupMsg("Location is too big or small");
+            setIsPopup(true);
+            return;
+        }
+        else if( parseInt(price) > 9999999 || parseInt(price) < 0 || !validateNumber(price) ){
+            setPopupMsg("Invalid price");
+            setIsPopup(true);
+            console.log("Invalid Price")
+            return;
+        }
+        else if( desc.length > 1000 ){
+            setPopupMsg("Description too big");
+            setIsPopup(true);
+            return;
+        }
+
+
         const data = { name, locationState, price, desc, id, condition, category }
         try {
             //const formData = new FormData();
+
+
 
             console.log("EDIT LISTING ID: " + id);
 
@@ -128,6 +159,21 @@ function EditListingContainer() {
             console.error('Error fetching data: ', error);
         }
     }
+
+    const [isPopup, setIsPopup] = useState(false);
+    const [popupMsg, setPopupMsg] = useState("");
+
+    // Time limit for the popup
+    useEffect(() => {
+        if (isPopup) {
+            const timerId = setTimeout(() => {
+                setIsPopup(false); // After 5 seconds, set isPopup to false
+            }, 5000);
+
+            // Cleanup the timer if the component unmounts or isPopup changes
+            return () => clearTimeout(timerId);
+        }
+    }, [isPopup]);
 
     return (
         <div className="page" >
@@ -168,6 +214,12 @@ function EditListingContainer() {
                 handler={handleEditFetch}
             />
             </div>
+
+            <PopupContainer
+                isPopupOpen={isPopup}
+                message={popupMsg}
+            />
+
         </div>
     );
 
