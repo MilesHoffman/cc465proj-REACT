@@ -117,7 +117,7 @@ function EditListingContainer() {
             setIsPopup(true);
             return;
         }
-        else if( parseInt(price) > 9999999 || parseInt(price) < 0 || !validateNumber(price) ){
+        else if( parseInt(textPrice) > 9999999 || parseInt(textPrice) < 0 || !validateNumber(textPrice) ){
             setPopupMsg("Invalid price");
             setIsPopup(true);
             console.log("Invalid Price")
